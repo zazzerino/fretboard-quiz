@@ -7,6 +7,7 @@ import { UserScore } from './components/UserScore';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState, Status } from './types';
 import { newNoteToGuess } from './actions';
+import { ResetButton } from './components/ResetButton';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ export default function App() {
       <Stave />
       <Fretboard />
       <NewNoteButton />
+      <ResetButton />
     </div>
   )
 }

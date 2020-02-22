@@ -45,6 +45,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
     case ActionType.FRETBOARD_CLICK:
       return fretboardClick(state, action);
 
+    case ActionType.RESET:
+      return makeInitialState();
+
     default:
       return state
   }
