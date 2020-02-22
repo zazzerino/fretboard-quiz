@@ -1,5 +1,3 @@
-export type Note = string;
-
 export interface FretboardCoord {
   string: number,
   fret: number
@@ -10,7 +8,7 @@ export interface FretboardDot extends FretboardCoord {
 }
 
 export interface FretboardNote extends FretboardCoord {
-  note: Note
+  note: string
 }
 
 export enum Status {
@@ -19,9 +17,16 @@ export enum Status {
   INCORRECT = 'INCORRECT'
 }
 
+export interface Guess {
+  clickedFret: FretboardCoord,
+  noteToGuess: string,
+  isCorrect: boolean
+}
+
 export interface AppState {
   noteToGuess: string,
   clickedFret?: FretboardCoord,
   userScore: number,
-  status: Status
+  status: Status,
+  guesses: Guess[]
 }

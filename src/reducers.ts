@@ -1,4 +1,4 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, NEW_NOTE_TO_GUESS, FRETBOARD_CLICK } from './actions';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType } from './actions';
 import { AppState, Status } from './types';
 import { randomNoteInRange, isCorrectGuess } from './theory';
 
@@ -7,7 +7,8 @@ function makeInitialState(): AppState {
     noteToGuess: randomNoteInRange('E3', 'G#5'),
     clickedFret: null,
     userScore: 0,
-    status: Status.PLAYING
+    status: Status.PLAYING,
+    guesses: []
   }
 }
 
@@ -22,23 +23,29 @@ function newNoteToGuess(state: AppState, action: NewNoteToGuessAction): AppState
 
 function fretboardClick(state: AppState, action: FretboardClickAction): AppState {
   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
-  const newScore = isCorrect ? state.userScore + 1 : state.userScore - 1;
+  const userScore = isCorrect ? state.userScore + 1 : state.userScore - 1;
   const status = isCorrect ? Status.CORRECT : Status.INCORRECT;
+  const guesses = state.guesses.concat([{
+    noteToGuess: state.noteToGuess,
+    clickedFret: action.payload,
+    isCorrect
+  }]);
 
   return {
     ...state,
     clickedFret: action.payload,
-    userScore: newScore,
-    status
+    userScore,
+    status,
+    guesses
   }
 }
 
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
-    case NEW_NOTE_TO_GUESS:
+    case ActionType.NEW_NOTE_TO_GUESS:
       return newNoteToGuess(state, action);
 
-    case FRETBOARD_CLICK:
+    case ActionType.FRETBOARD_CLICK:
       return fretboardClick(state, action);
 
     default:

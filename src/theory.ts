@@ -1,6 +1,6 @@
-import { Note, FretboardNote, FretboardCoord } from './types';
+import { FretboardNote, FretboardCoord } from './types';
 
-export function parseNote(note: Note) {
+export function parseNote(note: string) {
   const noteRegex = /([a-zA-Z])(#{1,2}||b{1,2})\/?(\d)/g;
   const res = noteRegex.exec(note);
 
@@ -13,14 +13,14 @@ export function parseNote(note: Note) {
 }
 
 const whiteKeys = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const accidentals = ['bb', 'b', 'b', 'b', '', '', '', '', '', '', '#', '#', '#', '##'];
+const accidentals = ['bb', 'b', 'b', 'b', '', '', '', '', '', '', '', '', '', '#', '#', '#', '##'];
 const octaves = [3, 4, 5, 6];
 
 function randomElement<T>(items: Array<T>) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-export function randomNote(): Note {
+export function randomNote(): string {
   const whiteKey = randomElement(whiteKeys);
   const accidental = randomElement(accidentals);
   const octave = randomElement(octaves).toString();
@@ -52,11 +52,13 @@ export function midiNum(notename: string) {
   return whiteKeyOffsets[whiteKey] + accidentalOffsets[accidental] + (12 * (parseInt(octave) + 1));
 }
 
-export function randomNoteInRange(bottom: Note, top: Note) {
+export function randomNoteInRange(bottom: string, top: string) {
   let note = randomNote();
+
   while (!(midiNum(bottom) <= midiNum(note) && midiNum(note) <= midiNum(top))) {
     note = randomNote();
   }
+
   return note;
 }
 
@@ -81,11 +83,11 @@ export function transposeNote(notename: string, halfSteps: number) {
 const standardTuning = ['E3', 'A3', 'D4', 'G4', 'B4', 'E5'];
 
 export function fretboardNotes(tuning = standardTuning, startFret = 0, fretCount = 4): FretboardNote[] {
-  const notes: {string: number, fret: number, note: string}[] = [];
+  const notes: { string: number, fret: number, note: string }[] = [];
 
   for (let string = 0; string < tuning.length; string++) {
     for (let fret = startFret; fret <= fretCount; fret++) {
-      notes.push({ 
+      notes.push({
         string: Math.abs(string - tuning.length),
         fret: fret,
         note: transposeNote(tuning[string], fret)
@@ -97,12 +99,12 @@ export function fretboardNotes(tuning = standardTuning, startFret = 0, fretCount
 }
 
 export function findNoteAt(coord: FretboardCoord, notes = fretboardNotes()) {
-  return notes.filter(note => {
+  return notes.find(note => {
     return note.string === coord.string && note.fret === coord.fret;
-  })[0].note;
+  }).note;
 }
 
-export function isEnharmonic(...notes: Note[]): boolean {
+export function isEnharmonic(...notes: string[]): boolean {
   const firstMidi = notes[0] ? midiNum(notes[0]) : null;
 
   return notes.every(note => {
@@ -110,7 +112,7 @@ export function isEnharmonic(...notes: Note[]): boolean {
   });
 }
 
-export function isCorrectGuess(noteToGuess: Note, clickedFret: FretboardCoord | null) {
+export function isCorrectGuess(noteToGuess: string, clickedFret: FretboardCoord | null) {
   if (clickedFret == null) { return false };
 
   const guessedNote = findNoteAt(clickedFret);
@@ -118,6 +120,8 @@ export function isCorrectGuess(noteToGuess: Note, clickedFret: FretboardCoord | 
   return isEnharmonic(noteToGuess, guessedNote);
 }
 
-export function findFret(note: Note, fbNotes = fretboardNotes()): FretboardCoord {
-  return fbNotes.find(fbNote => isEnharmonic(fbNote.note, note));
+export function findFret(note: string, notes = fretboardNotes()): FretboardCoord {
+  return notes.find(fretboardNote => {
+    return isEnharmonic(note, fretboardNote.note)
+  });
 }
