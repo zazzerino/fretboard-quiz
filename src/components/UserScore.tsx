@@ -1,13 +1,22 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../types';
+import { AppState, Guess } from '../types';
 
 export function UserScore() {
-  const userScore = useSelector((state: AppState) => state.userScore);
+  const guesses = useSelector((state: AppState) => state.guesses);
+
+  const correctGuesses = guesses.filter((guess: Guess) => {
+    return guess.isCorrect;
+  }).length;
+
+  const incorrectGuesses = guesses.filter((guess: Guess) => {
+    return !guess.isCorrect;
+  }).length;
 
   return (
     <div className="UserScore">
-      <p>Score: {userScore}</p>
+      <p>Correct: {correctGuesses}</p>
+      <p>Incorrect: {incorrectGuesses}</p>
     </div>
-  )
+  );
 }

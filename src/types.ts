@@ -26,7 +26,6 @@ export interface Guess {
 export interface AppState {
   noteToGuess: string,
   clickedFret?: FretboardCoord,
-  userScore: number,
   status: Status,
   guesses: Guess[]
 }
