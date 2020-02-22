@@ -2,8 +2,8 @@ import * as React from 'react';
 import { FretboardDiagram } from 'fretboard-diagram';
 import { useDispatch, useSelector } from 'react-redux';
 import { fretboardClick } from '../actions';
-import { AppState } from '../types';
-import { isCorrectGuess } from '../theory';
+import { AppState, Status, FretboardCoord } from '../types';
+import { findFret } from '../theory';
 
 const correctColor = 'lime';
 const incorrectColor = 'deeppink';
@@ -11,29 +11,33 @@ const incorrectColor = 'deeppink';
 export function Fretboard(props: any) {
   const fretboardElem = React.useRef(null);
   const dispatch = useDispatch();
+  const noteToGuess = useSelector((state: AppState) => state.noteToGuess);
   const clickedFret = useSelector((state: AppState) => state.clickedFret);
-
-  const isCorrect = useSelector((state: AppState) => {
-    const note = state.noteToGuess;
-    const coord = state.clickedFret;
-
-    return isCorrectGuess(note, coord);
-  });
+  const status = useSelector((state: AppState) => state.status);
 
   React.useEffect(() => {
+    const correctGuess = status === Status.CORRECT;
+    const isPlaying = status === Status.PLAYING;
     const dots = [];
 
     if (clickedFret != null) {
-      const color = isCorrect ? correctColor : incorrectColor;
-      dots.push({...clickedFret, color});
+      const color = correctGuess ? correctColor : incorrectColor;
+      dots.push({ ...clickedFret, color });
+
+      if (!correctGuess) {
+        const correctCoord = findFret(noteToGuess);
+        dots.push({ ...correctCoord, color: correctColor });
+      }
     }
 
-    const fd = new FretboardDiagram({
+    new FretboardDiagram({
       id: "fretboard-ref",
       dots,
-      // drawDotOnHover: true,
-      onClick: (coord) => {
-        dispatch(fretboardClick(coord))
+      drawDotOnHover: isPlaying,
+      onClick: (coord: FretboardCoord) => {
+        if (isPlaying) {
+          dispatch(fretboardClick(coord))
+        }
       }
     });
   });

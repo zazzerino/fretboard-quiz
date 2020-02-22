@@ -4,12 +4,12 @@ import { FretboardCoord } from './types';
 export const NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS';
 export const FRETBOARD_CLICK = 'FRETBOARD_CLICK';
 
-interface NewNoteToGuessAction {
+export interface NewNoteToGuessAction {
   type: typeof NEW_NOTE_TO_GUESS,
   payload: string
 }
 
-interface FretboardClickAction {
+export interface FretboardClickAction {
   type: typeof FRETBOARD_CLICK,
   payload: FretboardCoord
 }

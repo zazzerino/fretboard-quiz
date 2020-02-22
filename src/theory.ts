@@ -110,10 +110,14 @@ export function isEnharmonic(...notes: Note[]): boolean {
   });
 }
 
-export function isCorrectGuess(noteToGuess: Note, clickedFret?: FretboardCoord) {
+export function isCorrectGuess(noteToGuess: Note, clickedFret: FretboardCoord | null) {
   if (clickedFret == null) { return false };
 
   const guessedNote = findNoteAt(clickedFret);
 
   return isEnharmonic(noteToGuess, guessedNote);
+}
+
+export function findFret(note: Note, fbNotes = fretboardNotes()): FretboardCoord {
+  return fbNotes.find(fbNote => isEnharmonic(fbNote.note, note));
 }
