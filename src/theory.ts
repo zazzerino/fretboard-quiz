@@ -1,4 +1,4 @@
-import { FretboardNote, FretboardCoord } from './types';
+import { NoteOpts, FretboardNote, FretboardCoord } from './types';
 
 export function parseNote(note: string) {
   const noteRegex = /([a-zA-Z])(#{1,2}||b{1,2})\/?(\d)/g;
@@ -12,20 +12,8 @@ export function parseNote(note: string) {
   }
 }
 
-const whiteKeys = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const accidentals = ['bb', 'b', 'b', 'b', '', '', '', '', '', '', '', '', '', '#', '#', '#', '##'];
-const octaves = [3, 4, 5, 6];
-
 function randomElement<T>(items: Array<T>) {
   return items[Math.floor(Math.random() * items.length)];
-}
-
-export function randomNote(): string {
-  const whiteKey = randomElement(whiteKeys);
-  const accidental = randomElement(accidentals);
-  const octave = randomElement(octaves).toString();
-
-  return whiteKey + accidental + octave;
 }
 
 export function midiNum(notename: string) {
@@ -52,11 +40,59 @@ export function midiNum(notename: string) {
   return whiteKeyOffsets[whiteKey] + accidentalOffsets[accidental] + (12 * (parseInt(octave) + 1));
 }
 
-export function randomNoteInRange(bottom: string, top: string) {
-  let note = randomNote();
+export const defaultNoteOpts: NoteOpts = {
+  useSharps: true,
+  useFlats: true,
+  useDoubleSharps: false,
+  useDoubleFlats: false,
+  octaves: [3, 4, 5],
+  whiteKeys: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+  lowestNote: 'E3',
+  highestNote: 'G#5'
+}
 
-  while (!(midiNum(bottom) <= midiNum(note) && midiNum(note) <= midiNum(top))) {
-    note = randomNote();
+export function randomNote(userOpts: NoteOpts = {}): string {
+  const opts = { ...defaultNoteOpts, ...userOpts };
+
+  const whiteKeys = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  const octaves = [3, 4, 5, 6];
+  const accidentals = ['', '', '', ''];
+
+  if (opts.useSharps) {
+    accidentals.push('#');
+    accidentals.push('#');
+  }
+
+  if (opts.useFlats) {
+    accidentals.push('b');
+    accidentals.push('b');
+  }
+
+  if (opts.useDoubleSharps) {
+    accidentals.push('##');
+  }
+
+  if (opts.useDoubleFlats) {
+    accidentals.push('bb');
+  }
+
+  const lowestMidi = midiNum(opts.lowestNote);
+  const highestMidi = midiNum(opts.highestNote);
+
+  function generateNote() {
+    const whiteKey = randomElement(whiteKeys);
+    const accidental = randomElement(accidentals);
+    const octave = randomElement(octaves);
+
+    return whiteKey + accidental + octave;
+  }
+
+  let note = generateNote();
+  let midi = midiNum(note);
+
+  while (midi < lowestMidi || midi > highestMidi) {
+    note = generateNote();
+    midi = midiNum(note);
   }
 
   return note;

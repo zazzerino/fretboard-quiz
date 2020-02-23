@@ -1,10 +1,16 @@
-import { randomNoteInRange } from './theory';
-import { FretboardCoord } from './types';
+import { randomNote } from './theory';
+import { FretboardCoord, NoteOpts } from './types';
 
 export enum ActionType {
-  NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS',
   FRETBOARD_CLICK = 'FRETBOARD_CLICK',
-  RESET = 'RESET'
+
+  NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS',
+  RESET = 'RESET',
+
+  TOGGLE_SHARPS = 'TOGGLE_SHARPS',
+  TOGGLE_FLATS = 'TOGGLE_FLATS',
+  TOGGLE_DOUBLE_SHARPS = 'TOGGLE_DOUBLE_SHARPS',
+  TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS'
 }
 
 export interface NewNoteToGuessAction {
@@ -21,8 +27,24 @@ export interface ResetAction {
   type: ActionType.RESET
 }
 
-export function newNoteToGuess(): NewNoteToGuessAction {
-  const note = randomNoteInRange('E3', 'G#5');
+export interface ToggleSharpsAction {
+  type: ActionType.TOGGLE_SHARPS
+}
+
+export interface ToggleFlatsAction {
+  type: ActionType.TOGGLE_FLATS
+}
+
+export interface ToggleDoubleSharpsAction {
+  type: ActionType.TOGGLE_DOUBLE_SHARPS
+}
+
+export interface ToggleDoubleFlatsAction {
+  type: ActionType.TOGGLE_DOUBLE_FLATS
+}
+
+export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
+  const note = randomNote(opts);
 
   return {
     type: ActionType.NEW_NOTE_TO_GUESS,
@@ -43,4 +65,31 @@ export function reset(): ResetAction {
   }
 }
 
-export type Action = NewNoteToGuessAction | FretboardClickAction | ResetAction;
+export function toggleSharps(): ToggleSharpsAction {
+  return {
+    type: ActionType.TOGGLE_SHARPS
+  }
+}
+
+export function toggleFlats(): ToggleFlatsAction {
+  return {
+    type: ActionType.TOGGLE_FLATS
+  }
+}
+
+export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
+  return {
+    type: ActionType.TOGGLE_DOUBLE_SHARPS
+  }
+}
+
+export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
+  return {
+    type: ActionType.TOGGLE_DOUBLE_FLATS
+  }
+}
+
+export type Action = NewNoteToGuessAction
+  | FretboardClickAction | ResetAction
+  | ToggleSharpsAction | ToggleFlatsAction
+  | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction;

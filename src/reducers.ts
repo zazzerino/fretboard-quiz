@@ -1,17 +1,20 @@
 import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType } from './actions';
 import { AppState, Status } from './types';
-import { randomNoteInRange, isCorrectGuess } from './theory';
+import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 
 function makeInitialState(): AppState {
+  const note = randomNote(defaultNoteOpts);
+
   return {
-    noteToGuess: randomNoteInRange('E3', 'G#5'),
+    noteToGuess: note,
     clickedFret: null,
     status: Status.PLAYING,
-    guesses: []
+    guesses: [],
+    noteOpts: defaultNoteOpts
   }
 }
 
-function newNoteToGuess(state: AppState, action: NewNoteToGuessAction): AppState {
+function handleNewNoteToGuess(state: AppState, action: NewNoteToGuessAction): AppState {
   return {
     ...state,
     noteToGuess: action.payload,
@@ -20,9 +23,10 @@ function newNoteToGuess(state: AppState, action: NewNoteToGuessAction): AppState
   }
 }
 
-function fretboardClick(state: AppState, action: FretboardClickAction): AppState {
+function handleFretboardClick(state: AppState, action: FretboardClickAction): AppState {
   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
   const status = isCorrect ? Status.CORRECT : Status.INCORRECT;
+
   const guesses = state.guesses.concat([{
     noteToGuess: state.noteToGuess,
     clickedFret: action.payload,
@@ -37,16 +41,42 @@ function fretboardClick(state: AppState, action: FretboardClickAction): AppState
   }
 }
 
+function updateNoteOpts(state: AppState, action: Action): AppState {
+  switch (action.type) {
+    case ActionType.TOGGLE_SHARPS:
+      const sharpOpts = { ...state.noteOpts, useSharps: !state.noteOpts.useSharps };
+      return { ...state, noteOpts: sharpOpts };
+
+    case ActionType.TOGGLE_FLATS:
+      const flatOpts = { ...state.noteOpts, useFlats: !state.noteOpts.useFlats };
+      return { ...state, noteOpts: flatOpts };
+
+    case ActionType.TOGGLE_DOUBLE_SHARPS:
+      const doubleSharpOpts = { ...state.noteOpts, useDoubleSharps: !state.noteOpts.useDoubleSharps };
+      return { ...state, noteOpts: doubleSharpOpts };
+
+    case ActionType.TOGGLE_DOUBLE_FLATS:
+      const doubleFlatOpts = { ...state.noteOpts, useDoubleFlats: !state.noteOpts.useDoubleFlats };
+      return { ...state, noteOpts: doubleFlatOpts };
+  }
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
-      return newNoteToGuess(state, action);
+      return handleNewNoteToGuess(state, action);
 
     case ActionType.FRETBOARD_CLICK:
-      return fretboardClick(state, action);
+      return handleFretboardClick(state, action);
 
     case ActionType.RESET:
       return makeInitialState();
+
+    case ActionType.TOGGLE_SHARPS:
+    case ActionType.TOGGLE_FLATS:
+    case ActionType.TOGGLE_DOUBLE_SHARPS:
+    case ActionType.TOGGLE_DOUBLE_FLATS:
+      return updateNoteOpts(state, action);
 
     default:
       return state

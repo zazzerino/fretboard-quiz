@@ -1,3 +1,12 @@
 .App {
   text-align: center;
+  font-family: monospace;
 }
+
+/* .NewNoteButton {
+  display: block;
+}
+
+.ResetButton {
+  display: block;
+} */

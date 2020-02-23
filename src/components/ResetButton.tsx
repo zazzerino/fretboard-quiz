@@ -6,7 +6,7 @@ export function ResetButton() {
   const dispatch = useDispatch();
 
   return (
-    <button className="RestartButton"
+    <button className="ResetButton"
       onClick={() => dispatch(reset())}
     >
       Restart

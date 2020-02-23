@@ -23,9 +23,21 @@ export interface Guess {
   isCorrect: boolean
 }
 
+export interface NoteOpts {
+  useSharps?: boolean,
+  useFlats?: boolean,
+  useDoubleSharps?: boolean,
+  useDoubleFlats?: boolean,
+  octaves?: number[],
+  whiteKeys?: string[],
+  lowestNote?: string,
+  highestNote?: string
+}
+
 export interface AppState {
   noteToGuess: string,
   clickedFret?: FretboardCoord,
   status: Status,
-  guesses: Guess[]
+  guesses: Guess[],
+  noteOpts: NoteOpts
 }
