@@ -9,6 +9,7 @@ import { AppState, Status } from './types';
 import { newNoteToGuess } from './actions';
 import { ResetButton } from './components/ResetButton';
 import { SharpCheckbox, FlatCheckbox, DoubleSharpCheckbox, DoubleFlatCheckbox } from './components/AccidentalCheckbox';
+import { StringSelect } from './components/StringSelect';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -21,8 +22,10 @@ export default function App() {
     switch (event.key) {
       case 'Enter':
         dispatch(newNoteToGuess(noteOpts));
+        break;
       case ' ':
         dispatch(newNoteToGuess(noteOpts));
+        break;
     }
   }
 
@@ -40,6 +43,7 @@ export default function App() {
       <Stave />
       <Fretboard />
       <NewNoteButton />
+      <StringSelect />
       <SharpCheckbox />
       <FlatCheckbox />
       <DoubleSharpCheckbox />

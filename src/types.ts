@@ -31,7 +31,8 @@ export interface NoteOpts {
   octaves?: number[],
   whiteKeys?: string[],
   lowestNote?: string,
-  highestNote?: string
+  highestNote?: string,
+  stringsToUse?: number[]
 }
 
 export interface AppState {

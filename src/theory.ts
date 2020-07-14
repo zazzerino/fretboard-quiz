@@ -48,7 +48,8 @@ export const defaultNoteOpts: NoteOpts = {
   octaves: [3, 4, 5],
   whiteKeys: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
   lowestNote: 'E3',
-  highestNote: 'G#5'
+  highestNote: 'G#5',
+  stringsToUse: [1,2,3,4,5,6],
 }
 
 export function randomNote(userOpts: NoteOpts = {}): string {
@@ -96,6 +97,24 @@ export function randomNote(userOpts: NoteOpts = {}): string {
   }
 
   return note;
+}
+
+export function randomNoteOnStrings(noteOpts = defaultNoteOpts, fretCount = 4) {
+  let midiNums = [] as number[];
+
+  for (let string of noteOpts.stringsToUse) {
+    for (let fret = 0; fret < fretCount; fret++) {
+      const note = findNoteAt({ string, fret });
+      midiNums.push(midiNum(note));
+    }
+  }
+
+  let randNote = randomNote(noteOpts);
+  while (!midiNums.includes(midiNum(randNote))) {
+    randNote = randomNote(noteOpts);
+  }
+
+  return randNote;
 }
 
 export function transposeNote(notename: string, halfSteps: number) {

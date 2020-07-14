@@ -1,4 +1,4 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType } from './actions';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction } from './actions';
 import { AppState, Status } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 
@@ -61,6 +61,23 @@ function updateNoteOpts(state: AppState, action: Action): AppState {
   }
 }
 
+function toggleElement<T>(array: T[], elem: T): T[] {
+  if (array.includes(elem)) {
+    return array.filter((e: T) => {
+      return e != elem;
+    });
+  } else {
+    return [...array, elem];
+  }
+}
+
+function handleToggleString(state: AppState, action: ToggleStringAction) {
+  const stringsToUse = toggleElement(state.noteOpts.stringsToUse, action.payload)
+  const noteOpts = {...state.noteOpts, stringsToUse };
+
+  return { ...state, noteOpts }
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
@@ -77,6 +94,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
     case ActionType.TOGGLE_DOUBLE_SHARPS:
     case ActionType.TOGGLE_DOUBLE_FLATS:
       return updateNoteOpts(state, action);
+
+    case ActionType.TOGGLE_STRING:
+      return handleToggleString(state, action)
 
     default:
       return state

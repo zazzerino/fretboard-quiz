@@ -1,4 +1,4 @@
-import { randomNote } from './theory';
+import { randomNote, randomNoteOnStrings } from './theory';
 import { FretboardCoord, NoteOpts } from './types';
 
 export enum ActionType {
@@ -10,7 +10,9 @@ export enum ActionType {
   TOGGLE_SHARPS = 'TOGGLE_SHARPS',
   TOGGLE_FLATS = 'TOGGLE_FLATS',
   TOGGLE_DOUBLE_SHARPS = 'TOGGLE_DOUBLE_SHARPS',
-  TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS'
+  TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS',
+
+  TOGGLE_STRING = 'TOGGLE_STRING',
 }
 
 export interface NewNoteToGuessAction {
@@ -43,8 +45,21 @@ export interface ToggleDoubleFlatsAction {
   type: ActionType.TOGGLE_DOUBLE_FLATS
 }
 
+export interface ToggleStringAction {
+  type: ActionType.TOGGLE_STRING
+  payload: number
+}
+
+export function toggleString(stringNum: number): ToggleStringAction {
+  return {
+    type: ActionType.TOGGLE_STRING,
+    payload: stringNum
+  }
+}
+
 export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
-  const note = randomNote(opts);
+  // const note = randomNote(opts);
+  const note = randomNoteOnStrings(opts);
 
   return {
     type: ActionType.NEW_NOTE_TO_GUESS,
@@ -92,4 +107,5 @@ export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
-  | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction;
+  | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
+  | ToggleStringAction;
