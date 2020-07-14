@@ -33,7 +33,10 @@ export function Fretboard(props: any) {
     new FretboardDiagram({
       id: "fretboard-ref",
       dots,
+      showFretNums: true,
+      showStringNames: true,
       drawDotOnHover: isPlaying,
+
       onClick: (coord: FretboardCoord) => {
         if (isPlaying) {
           dispatch(fretboardClick(coord))

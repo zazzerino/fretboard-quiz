@@ -40,11 +40,11 @@ export default function App() {
       <Stave />
       <Fretboard />
       <NewNoteButton />
-      <ResetButton />
       <SharpCheckbox />
       <FlatCheckbox />
       <DoubleSharpCheckbox />
       <DoubleFlatCheckbox />
+      <ResetButton />
     </div>
   )
 }

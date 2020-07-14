@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://zazzerino.github.io/fretboard-quiz",
   "dependencies": {
-    "fretboard-diagram": "0.0.9",
+    "fretboard-diagram": "0.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
