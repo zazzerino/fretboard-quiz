@@ -1,6 +1,7 @@
 import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction } from './actions';
 import { AppState, Status } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
+import { coinSound, bowserFallsSound } from './audio';
 
 function makeInitialState(): AppState {
   const note = randomNote(defaultNoteOpts);
@@ -26,6 +27,8 @@ function handleNewNoteToGuess(state: AppState, action: NewNoteToGuessAction): Ap
 function handleFretboardClick(state: AppState, action: FretboardClickAction): AppState {
   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
   const status = isCorrect ? Status.CORRECT : Status.INCORRECT;
+
+  isCorrect ? coinSound.play() : bowserFallsSound.play();
 
   const guesses = state.guesses.concat([{
     noteToGuess: state.noteToGuess,
