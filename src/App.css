@@ -3,10 +3,27 @@
   font-family: monospace;
 }
 
-/* .NewNoteButton {
-  display: block;
+.string-checkboxes {
+  display: flex;
+  justify-content: center;
+}
+
+.accidental-checkboxes {
+  display: flex;
+  justify-content: center;
+}
+
+.Stave {
+  margin: -2em;
+}
+
+.NewNoteButton {
+  /* color: white; */
+  background-color: lime;
 }
 
 .ResetButton {
-  display: block;
-} */
+  margin: 1em;
+  color: white;
+  background-color: deeppink;
+}

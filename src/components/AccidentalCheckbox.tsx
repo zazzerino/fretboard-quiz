@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../types';
 import { toggleSharps, toggleFlats, toggleDoubleSharps, toggleDoubleFlats } from '../actions';
 
-export function SharpCheckbox() {
+function SharpCheckbox() {
   const dispatch = useDispatch();
   const useSharps = useSelector((state: AppState) => state.noteOpts.useSharps);
 
   return (
     <div className="SharpCheckbox">
-      <label htmlFor="useSharps">Sharps</label>
+      <label htmlFor="useSharps">sharps</label>
       <input type="checkbox"
         name="useSharps"
         checked={useSharps}
@@ -19,13 +19,13 @@ export function SharpCheckbox() {
   );
 }
 
-export function FlatCheckbox() {
+function FlatCheckbox() {
   const dispatch = useDispatch();
   const useFlats = useSelector((state: AppState) => state.noteOpts.useFlats);
 
   return (
     <div className="FlatCheckbox">
-      <label htmlFor="useFlats">Flats</label>
+      <label htmlFor="useFlats">flats</label>
       <input type="checkbox"
         name="useFlats"
         checked={useFlats}
@@ -35,13 +35,13 @@ export function FlatCheckbox() {
   );
 }
 
-export function DoubleSharpCheckbox() {
+function DoubleSharpCheckbox() {
   const dispatch = useDispatch();
   const useFlats = useSelector((state: AppState) => state.noteOpts.useDoubleSharps);
 
   return (
     <div className="DoubleSharpCheckbox">
-      <label htmlFor="useDoubleSharps">Double sharps</label>
+      <label htmlFor="useDoubleSharps">double-sharps</label>
       <input type="checkbox"
         name="useDoubleSharps"
         checked={useFlats}
@@ -51,13 +51,13 @@ export function DoubleSharpCheckbox() {
   );
 }
 
-export function DoubleFlatCheckbox() {
+function DoubleFlatCheckbox() {
   const dispatch = useDispatch();
   const useDoubleFlats = useSelector((state: AppState) => state.noteOpts.useDoubleFlats);
 
   return (
     <div className="DoubleFlatCheckbox">
-      <label htmlFor="useDoubleFlats">Double flats</label>
+      <label htmlFor="useDoubleFlats">double-flats</label>
       <input type="checkbox"
         name="useDoubleFlats"
         checked={useDoubleFlats}
@@ -65,4 +65,18 @@ export function DoubleFlatCheckbox() {
       />
     </div>
   );
+}
+
+export function AccidentalSelect(props: any) {
+  return (
+    <div className="AccidentalSelect">
+      <p>Accidentals</p>
+      <div className="accidental-checkboxes">
+        <SharpCheckbox />
+        <FlatCheckbox />
+        <DoubleSharpCheckbox />
+        <DoubleFlatCheckbox />
+      </div>
+    </div>
+  )
 }

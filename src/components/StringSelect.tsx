@@ -17,7 +17,7 @@ function StringCheckbox(props: StringCheckboxProps) {
 
   return (
     <div>
-      <label htmlFor={name}>{`String ${stringNum}`}</label>
+      <label htmlFor={name}>{`${stringNum}`}</label>
       <input type="checkbox"
         name={name}
         checked={useString}
@@ -30,9 +30,15 @@ function StringCheckbox(props: StringCheckboxProps) {
 export function StringSelect() {
   return (
     <div className="StringSelect">
-      {[1,2,3,4,5,6].map((stringNum: number) => {
-        return <StringCheckbox key={String(stringNum)} stringNum={stringNum} />
-      })}
+      <p>Strings</p>
+      <div className="string-checkboxes">
+        {[1, 2, 3, 4, 5, 6].map((stringNum: number) => {
+          return <StringCheckbox
+            stringNum={stringNum}
+            key={String(stringNum)}
+          />
+        })}
+      </div>
     </div>
   )
 }

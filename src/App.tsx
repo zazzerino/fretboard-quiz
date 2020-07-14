@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState, Status } from './types';
 import { newNoteToGuess } from './actions';
 import { ResetButton } from './components/ResetButton';
-import { SharpCheckbox, FlatCheckbox, DoubleSharpCheckbox, DoubleFlatCheckbox } from './components/AccidentalCheckbox';
+import { AccidentalSelect } from './components/AccidentalCheckbox';
 import { StringSelect } from './components/StringSelect';
 
 export default function App() {
@@ -44,10 +44,7 @@ export default function App() {
       <Fretboard />
       <NewNoteButton />
       <StringSelect />
-      <SharpCheckbox />
-      <FlatCheckbox />
-      <DoubleSharpCheckbox />
-      <DoubleFlatCheckbox />
+      <AccidentalSelect />
       <ResetButton />
     </div>
   )
