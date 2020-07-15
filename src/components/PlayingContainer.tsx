@@ -4,6 +4,7 @@ import { Stave } from './Stave';
 import { Fretboard } from './Fretboard';
 import { StringSelect } from './StringSelect';
 import { AccidentalSelect } from './AccidentalCheckbox';
+import { NewNoteButton } from './NewNoteButton';
 
 export function PlayingContainer(props: any) {
   return (
@@ -11,6 +12,7 @@ export function PlayingContainer(props: any) {
         <SecondsLeft />
         <Stave />
         <Fretboard />
+        <NewNoteButton />
         <StringSelect />
         <AccidentalSelect />
     </div>
