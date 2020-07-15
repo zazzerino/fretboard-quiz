@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: monospace;
+  /* height: 100%; */
 }
 
 .string-checkboxes {
@@ -26,4 +27,16 @@
   margin: 1em;
   color: white;
   background-color: deeppink;
+}
+
+.RoundOverModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+}
+
+.total-score {
+  font-size: 250%;
 }

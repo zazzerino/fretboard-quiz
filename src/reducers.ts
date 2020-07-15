@@ -86,8 +86,20 @@ function handleToggleString(state: AppState, action: ToggleStringAction) {
 }
 
 function handleTick(state: AppState, action: TickAction) {
-  const secondsLeft = state.secondsLeft - 1;
-  return { ...state, secondsLeft };
+  let status = state.status;
+  if (status === Status.ROUND_OVER) {
+    return state; // do nothing
+  }
+
+  let secondsLeft = state.secondsLeft;
+
+  if (secondsLeft <= 0) {
+    status = Status.ROUND_OVER
+  } else {
+    secondsLeft = secondsLeft - 1;
+  }
+
+  return { ...state, secondsLeft, status };
 }
 
 export function rootReducer(state = makeInitialState(), action: Action): AppState {

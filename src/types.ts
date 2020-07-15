@@ -14,7 +14,8 @@ export interface FretboardNote extends FretboardCoord {
 export enum Status {
   PLAYING = 'PLAYING',
   CORRECT = 'CORRECT',
-  INCORRECT = 'INCORRECT'
+  INCORRECT = 'INCORRECT',
+  ROUND_OVER = 'ROUND_OVER',
 }
 
 export interface Guess {

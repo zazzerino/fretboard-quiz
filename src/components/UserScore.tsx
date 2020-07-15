@@ -13,10 +13,13 @@ export function UserScore() {
     return !guess.isCorrect;
   }).length;
 
+  const totalScore = correctGuesses - incorrectGuesses;
+
   return (
     <div className="UserScore">
       <p>Correct: {correctGuesses}</p>
       <p>Incorrect: {incorrectGuesses}</p>
+      <p className="total-score">Total score: {totalScore}</p>
     </div>
   );
 }
