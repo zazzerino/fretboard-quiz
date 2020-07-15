@@ -40,5 +40,7 @@ export interface AppState {
   clickedFret?: FretboardCoord,
   status: Status,
   guesses: Guess[],
-  noteOpts: NoteOpts
+  noteOpts: NoteOpts,
+  roundLength: number, // in seconds
+  secondsLeft: number,
 }
