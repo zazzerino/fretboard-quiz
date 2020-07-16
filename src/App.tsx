@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState, Status } from './types';
-import { newNoteToGuess, tick } from './actions';
+import { newNoteToGuess, tick, reset } from './actions';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
 
-function useInterval(callback, delay) {
+function useInterval(callback: () => void, delay: number) {
   // credit Dan Abramov
   const savedCallback = useRef(callback);
 
@@ -29,18 +29,14 @@ function useInterval(callback, delay) {
 export default function App() {
   const dispatch = useDispatch();
   const status = useSelector((state: AppState) => state.status);
+  const guessStatus = useSelector((state: AppState) => state.guessStatus);
   const noteOpts = useSelector((state: AppState) => state.noteOpts);
 
   function handleKeyPress(event: KeyboardEvent) {
-    if (status === Status.PLAYING) { return; };
-
-    switch (event.key) {
-      case 'Enter':
-      case ' ':
-        if (status !== Status.ROUND_OVER) {
-          dispatch(newNoteToGuess(noteOpts));
-        }
-        break;
+    if (guessStatus != null) {
+      dispatch(newNoteToGuess(noteOpts));
+    } else if (status === Status.ROUND_OVER) {
+      dispatch(reset());
     }
   }
 
@@ -48,39 +44,22 @@ export default function App() {
     dispatch(tick());
   }, 1000);
 
-  // useEffect(() => {
-  //   fetch('/name')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //     })
-  // });
-
   useEffect(() => {
     window.addEventListener('keypress', handleKeyPress);
 
     return () => {
       window.removeEventListener('keypress', handleKeyPress);
     }
-  });
+  }, [handleKeyPress]);
 
   return (
     <div className="App">
       {
-        status === Status.SHOW_SCORES &&
-        <Leaderboard />
-      }
-      {
-        (
-          status === Status.PLAYING ||
-          status === Status.CORRECT ||
-          status === Status.INCORRECT
-        ) &&
-        <PlayingContainer />
-      }
-      {
-        status === Status.ROUND_OVER &&
-        <RoundOverModal />
+        {
+          [Status.PLAYING]: <PlayingContainer />,
+          [Status.ROUND_OVER]: <RoundOverModal />,
+          [Status.SHOW_SCORES]: <Leaderboard />,
+        }[status]
       }
     </div>
   );

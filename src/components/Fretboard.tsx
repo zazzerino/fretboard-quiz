@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FretboardDiagram } from 'fretboard-diagram';
 import { useDispatch, useSelector } from 'react-redux';
 import { fretboardClick } from '../actions';
-import { AppState, Status, FretboardCoord } from '../types';
+import { AppState, Status, FretboardCoord, GuessStatus } from '../types';
 import { findFret } from '../theory';
 
 const correctColor = 'lime';
@@ -14,10 +14,12 @@ export function Fretboard(props: any) {
   const noteToGuess = useSelector((state: AppState) => state.noteToGuess);
   const clickedFret = useSelector((state: AppState) => state.clickedFret);
   const status = useSelector((state: AppState) => state.status);
+  const guessStatus = useSelector((state: AppState) => state.guessStatus);
 
   React.useEffect(() => {
-    const correctGuess = status === Status.CORRECT;
+    const correctGuess = guessStatus === GuessStatus.CORRECT;
     const isPlaying = status === Status.PLAYING;
+    const drawDotOnHover = isPlaying && guessStatus == null;
     const dots = [];
 
     if (clickedFret != null) {
@@ -33,12 +35,12 @@ export function Fretboard(props: any) {
     new FretboardDiagram({
       id: "fretboard-ref",
       dots,
+      drawDotOnHover,
       showFretNums: true,
       showStringNames: true,
-      drawDotOnHover: isPlaying,
 
       onClick: (coord: FretboardCoord) => {
-        if (isPlaying) {
+        if (drawDotOnHover) {
           dispatch(fretboardClick(coord))
         }
       }

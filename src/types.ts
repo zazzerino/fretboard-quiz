@@ -13,10 +13,13 @@ export interface FretboardNote extends FretboardCoord {
 
 export enum Status {
   PLAYING = 'PLAYING',
-  CORRECT = 'CORRECT',
-  INCORRECT = 'INCORRECT',
   ROUND_OVER = 'ROUND_OVER',
   SHOW_SCORES = 'SHOW_SCORES',
+}
+
+export enum GuessStatus {
+  CORRECT = 'CORRECT',
+  INCORRECT = 'INCORRECT',
 }
 
 export interface Guess {
@@ -38,9 +41,9 @@ export interface NoteOpts {
 }
 
 export interface Score {
-    id: number,
-    name: string,
-    score: number,
+  id: number,
+  name: string,
+  score: number,
 }
 
 export interface AppState {
@@ -48,6 +51,7 @@ export interface AppState {
   clickedFret?: FretboardCoord,
   status: Status,
   guesses: Guess[],
+  guessStatus: GuessStatus,
   noteOpts: NoteOpts,
   roundLength: number, // in seconds
   secondsLeft: number,

@@ -1,5 +1,5 @@
 import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction } from './actions';
-import { AppState, Status } from './types';
+import { AppState, Status, GuessStatus } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
 
@@ -11,8 +11,8 @@ function makeInitialState(): AppState {
   return {
     noteToGuess: note,
     clickedFret: null,
-    // status: Status.PLAYING,
-    status: Status.SHOW_SCORES,
+    status: Status.PLAYING,
+    guessStatus: null,
     guesses: [],
     noteOpts: defaultNoteOpts,
     roundLength: defaultRoundLength,
@@ -25,13 +25,14 @@ function handleNewNoteToGuess(state: AppState, action: NewNoteToGuessAction): Ap
     ...state,
     noteToGuess: action.payload,
     clickedFret: null,
-    status: Status.PLAYING
+    guessStatus: null,
+    status: Status.PLAYING,
   };
 }
 
 function handleFretboardClick(state: AppState, action: FretboardClickAction): AppState {
   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
-  const status = isCorrect ? Status.CORRECT : Status.INCORRECT;
+  const guessStatus = isCorrect ? GuessStatus.CORRECT : GuessStatus.INCORRECT;
 
   isCorrect ? coinSound.play() : bowserFallsSound.play();
 
@@ -44,7 +45,7 @@ function handleFretboardClick(state: AppState, action: FretboardClickAction): Ap
   return {
     ...state,
     clickedFret: action.payload,
-    status,
+    guessStatus,
     guesses
   };
 }
@@ -88,20 +89,22 @@ function handleToggleString(state: AppState, action: ToggleStringAction) {
 
 function handleTick(state: AppState, action: TickAction) {
   let status = state.status;
-  if (status === Status.ROUND_OVER ||
-    status === Status.SHOW_SCORES) {
-    return state; // do nothing
+
+  switch (status) {
+    case Status.PLAYING:
+      let secondsLeft = state.secondsLeft;
+
+      if (secondsLeft <= 0) {
+        status = Status.ROUND_OVER
+      } else {
+        secondsLeft = secondsLeft - 1;
+      }
+
+      return { ...state, secondsLeft, status };
+
+    default:
+      return state;
   }
-
-  let secondsLeft = state.secondsLeft;
-
-  if (secondsLeft <= 0) {
-    status = Status.ROUND_OVER
-  } else {
-    secondsLeft = secondsLeft - 1;
-  }
-
-  return { ...state, secondsLeft, status };
 }
 
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
