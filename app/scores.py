@@ -19,9 +19,10 @@ def dict_factory(cursor, row):
 def view_scores():
     db = get_db()
     db.row_factory = dict_factory
-    c = db.cursor()
 
+    c = db.cursor()
     c.execute('SELECT * FROM scores')
+
     scores = c.fetchall()
 
     return {'scores': scores}
