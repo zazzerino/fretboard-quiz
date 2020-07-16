@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState, Status } from './types';
-import { newNoteToGuess, tick, reset } from './actions';
+import { newNoteToGuess, tick } from './actions';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
+import { Leaderboard } from './components/Leaderboard';
 
 function useInterval(callback, delay) {
   // credit Dan Abramov
@@ -47,6 +48,14 @@ export default function App() {
     dispatch(tick());
   }, 1000);
 
+  // useEffect(() => {
+  //   fetch('/name')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //     })
+  // });
+
   useEffect(() => {
     window.addEventListener('keypress', handleKeyPress);
 
@@ -57,10 +66,22 @@ export default function App() {
 
   return (
     <div className="App">
-      {status !== Status.ROUND_OVER &&
-        <PlayingContainer />}
-      {status === Status.ROUND_OVER &&
-        <RoundOverModal />}
+      {
+        status === Status.SHOW_SCORES &&
+        <Leaderboard />
+      }
+      {
+        (
+          status === Status.PLAYING ||
+          status === Status.CORRECT ||
+          status === Status.INCORRECT
+        ) &&
+        <PlayingContainer />
+      }
+      {
+        status === Status.ROUND_OVER &&
+        <RoundOverModal />
+      }
     </div>
   );
 }

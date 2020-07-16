@@ -1,6 +1,6 @@
 export interface FretboardCoord {
   string: number,
-  fret: number
+  fret: number,
 }
 
 export interface FretboardDot extends FretboardCoord {
@@ -16,12 +16,13 @@ export enum Status {
   CORRECT = 'CORRECT',
   INCORRECT = 'INCORRECT',
   ROUND_OVER = 'ROUND_OVER',
+  SHOW_SCORES = 'SHOW_SCORES',
 }
 
 export interface Guess {
   clickedFret: FretboardCoord,
   noteToGuess: string,
-  isCorrect: boolean
+  isCorrect: boolean,
 }
 
 export interface NoteOpts {
@@ -33,7 +34,13 @@ export interface NoteOpts {
   whiteKeys?: string[],
   lowestNote?: string,
   highestNote?: string,
-  stringsToUse?: number[]
+  stringsToUse?: number[],
+}
+
+export interface Score {
+    id: number,
+    name: string,
+    score: number,
 }
 
 export interface AppState {
@@ -44,4 +51,5 @@ export interface AppState {
   noteOpts: NoteOpts,
   roundLength: number, // in seconds
   secondsLeft: number,
+  scores?: Score[],
 }

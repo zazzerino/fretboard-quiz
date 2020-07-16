@@ -40,3 +40,17 @@
 .total-score {
   font-size: 250%;
 }
+
+.Leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+}
+
+.Leaderboard td {
+  text-align: left;
+  padding-top: 0.5em;
+  padding-right: 1em;
+}

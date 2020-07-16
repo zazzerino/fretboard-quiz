@@ -11,7 +11,8 @@ function makeInitialState(): AppState {
   return {
     noteToGuess: note,
     clickedFret: null,
-    status: Status.PLAYING,
+    // status: Status.PLAYING,
+    status: Status.SHOW_SCORES,
     guesses: [],
     noteOpts: defaultNoteOpts,
     roundLength: defaultRoundLength,
@@ -80,14 +81,15 @@ function toggleElement<T>(array: T[], elem: T): T[] {
 
 function handleToggleString(state: AppState, action: ToggleStringAction) {
   const stringsToUse = toggleElement(state.noteOpts.stringsToUse, action.payload)
-  const noteOpts = {...state.noteOpts, stringsToUse };
+  const noteOpts = { ...state.noteOpts, stringsToUse };
 
   return { ...state, noteOpts };
 }
 
 function handleTick(state: AppState, action: TickAction) {
   let status = state.status;
-  if (status === Status.ROUND_OVER) {
+  if (status === Status.ROUND_OVER ||
+    status === Status.SHOW_SCORES) {
     return state; // do nothing
   }
 
