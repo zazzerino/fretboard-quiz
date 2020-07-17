@@ -1,7 +1,9 @@
 import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, ShowScoresAction } from './actions';
-import { AppState, Status, GuessStatus } from './types';
+import { AppState, Status, GuessStatus, Guess } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
+import * as http from './http';
+import { useSelector } from 'react-redux';
 
 const defaultRoundLength = 20;
 
@@ -12,6 +14,8 @@ function makeInitialState(): AppState {
     noteToGuess: note,
     clickedFret: null,
     status: Status.PLAYING,
+    // status: Status.ROUND_OVER,
+    // status: Status.SHOW_SCORES,
     guessStatus: null,
     guesses: [],
     noteOpts: defaultNoteOpts,
@@ -87,6 +91,20 @@ function handleToggleString(state: AppState, action: ToggleStringAction) {
   return { ...state, noteOpts };
 }
 
+// function submitScore(state: AppState) {
+//   const guesses = useSelector((state: AppState) => state.guesses);
+
+//   const correctGuesses = guesses.filter((guess: Guess) => {
+//     return guess.isCorrect;
+//   }).length;
+
+//   const incorrectGuesses = guesses.filter((guess: Guess) => {
+//     return !guess.isCorrect;
+//   }).length;
+
+//   const score = correctGuesses - incorrectGuesses;
+// }
+
 function handleTick(state: AppState, action: TickAction) {
   let status = state.status;
 
@@ -95,7 +113,8 @@ function handleTick(state: AppState, action: TickAction) {
       let secondsLeft = state.secondsLeft;
 
       if (secondsLeft <= 0) {
-        status = Status.ROUND_OVER
+        status = Status.ROUND_OVER;
+        // http.createScore()
       } else {
         secondsLeft = secondsLeft - 1;
       }
@@ -108,7 +127,7 @@ function handleTick(state: AppState, action: TickAction) {
 }
 
 function handleShowScores(state: AppState, action: ShowScoresAction): AppState {
-  return { ...state, status: Status.SHOW_SCORES};
+  return { ...state, status: Status.SHOW_SCORES };
 }
 
 export function rootReducer(state = makeInitialState(), action: Action): AppState {

@@ -6,8 +6,8 @@ export function getScores() {
   return scores;
 }
 
-export async function createScore({ name, score }) {
-  const response = await fetch('/scores/create', {
+export function createScore({ name, score }) {
+  const response = fetch('/scores/create', {
     method: 'POST',
     mode: 'cors',
     headers: {

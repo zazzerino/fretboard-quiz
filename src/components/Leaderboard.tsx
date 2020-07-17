@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { showScores } from '../actions';
 import * as http from '../http';
+import { ResetButton } from './ResetButton';
 
 interface ScoreRecord {
   id: number,
@@ -25,6 +26,27 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
   );
 }
 
+export function ShowLeaderboard(props: any) {
+  const dispatch = useDispatch();
+
+  return (
+    <button
+      className="ShowLeaderboard"
+      onClick={() => { dispatch(showScores()) }}
+    >
+      High Scores
+    </button>
+  )
+}
+
+// function RestartButton() {
+//   return (
+//     <button className="RestartButton">
+//       Play again
+//     </button>
+//   )
+// }
+
 export function Leaderboard(props: any) {
   const [scores, setScores] = React.useState([])
 
@@ -36,6 +58,7 @@ export function Leaderboard(props: any) {
 
   return (
     <div className="Leaderboard">
+      <ResetButton />
       <h1>High Scores</h1>
       <table className="Leaderboard-table">
         <thead>
@@ -59,17 +82,4 @@ export function Leaderboard(props: any) {
       </table>
     </div>
   );
-}
-
-export function ShowLeaderboard(props: any) {
-  const dispatch = useDispatch();
-
-  return (
-    <button
-      className="ShowLeaderboard"
-      onClick={() => { dispatch(showScores()) }}
-    >
-      High Scores
-    </button>
-  )
 }
