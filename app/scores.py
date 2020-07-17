@@ -43,5 +43,4 @@ def create_score():
         return make_response('CREATED', 201)
 
     except Exception:
-      return make_response('WHOOPS', 500)
-
+        return make_response('WHOOPS', 500)
