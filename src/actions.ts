@@ -15,6 +15,8 @@ export enum ActionType {
   TOGGLE_STRING = 'TOGGLE_STRING',
 
   TICK = 'TICK',
+
+  SHOW_SCORES = 'SHOW_SCORES',
 }
 
 export interface NewNoteToGuessAction {
@@ -54,6 +56,10 @@ export interface ToggleStringAction {
 
 export interface TickAction {
   type: ActionType.TICK,
+}
+
+export interface ShowScoresAction {
+  type: ActionType.SHOW_SCORES,
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
@@ -116,8 +122,14 @@ export function tick(): TickAction {
   }
 }
 
+export function showScores(): ShowScoresAction {
+  return {
+    type: ActionType.SHOW_SCORES
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
-  | ToggleStringAction | TickAction;
+  | ToggleStringAction | TickAction | ShowScoresAction;

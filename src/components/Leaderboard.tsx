@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { showScores } from '../actions';
+import * as http from '../http';
 
 interface ScoreRecord {
   id: number,
@@ -26,11 +29,9 @@ export function Leaderboard(props: any) {
   const [scores, setScores] = React.useState([])
 
   React.useEffect(() => {
-    fetch('/scores')
-      .then(res => res.json())
-      .then(data => {
-        setScores(data.scores);
-      });
+    const fn = async function () {
+      setScores(await http.getScores());
+    }();
   }, []);
 
   return (
@@ -58,4 +59,17 @@ export function Leaderboard(props: any) {
       </table>
     </div>
   );
+}
+
+export function ShowLeaderboard(props: any) {
+  const dispatch = useDispatch();
+
+  return (
+    <button
+      className="ShowLeaderboard"
+      onClick={() => { dispatch(showScores()) }}
+    >
+      High Scores
+    </button>
+  )
 }

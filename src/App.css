@@ -54,3 +54,16 @@
   padding-top: 0.5em;
   padding-right: 1em;
 }
+
+.ShowLeaderboard {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 1em;
+}
+
+.ShowLeaderboard:hover,
+.ShowLeaderboard:focus {
+  text-decoration: none;
+}

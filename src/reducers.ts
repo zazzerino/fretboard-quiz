@@ -1,4 +1,4 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction } from './actions';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, ShowScoresAction } from './actions';
 import { AppState, Status, GuessStatus } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
@@ -107,6 +107,10 @@ function handleTick(state: AppState, action: TickAction) {
   }
 }
 
+function handleShowScores(state: AppState, action: ShowScoresAction): AppState {
+  return { ...state, status: Status.SHOW_SCORES};
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
@@ -129,6 +133,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
 
     case ActionType.TICK:
       return handleTick(state, action);
+
+    case ActionType.SHOW_SCORES:
+      return handleShowScores(state, action);
 
     default:
       return state;
