@@ -39,22 +39,14 @@ export function ShowLeaderboard(props: any) {
   )
 }
 
-// function RestartButton() {
-//   return (
-//     <button className="RestartButton">
-//       Play again
-//     </button>
-//   )
-// }
-
 export function Leaderboard(props: any) {
   const [scores, setScores] = React.useState([])
 
-  React.useEffect(() => {
-    const fn = async function () {
-      setScores(await http.getScores());
-    }();
-  }, []);
+    React.useEffect(() => {
+        (async function () {
+            setScores(await http.getScores());
+        })();
+    }, []);
 
   return (
     <div className="Leaderboard">

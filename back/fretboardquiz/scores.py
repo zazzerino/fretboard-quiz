@@ -3,7 +3,7 @@ from flask import (
     Blueprint, request, make_response
 )
 
-from app.db import get_db
+from fretboardquiz.db import get_db
 
 bp = Blueprint('scores', __name__, url_prefix='/scores')
 

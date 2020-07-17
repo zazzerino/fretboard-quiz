@@ -6,10 +6,6 @@ import { newNoteToGuess, tick, reset } from './actions';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
-// import * as http from './http'
-
-// http.getScores();
-// http.createScore({name:'Billiam',score:-23});
 
 function useInterval(callback: () => void, delay: number) {
   // credit Dan Abramov
