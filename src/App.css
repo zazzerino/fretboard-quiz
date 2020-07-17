@@ -1,0 +1,69 @@
+.App {
+  text-align: center;
+  font-family: monospace;
+  /* height: 100%; */
+}
+
+.string-checkboxes {
+  display: flex;
+  justify-content: center;
+}
+
+.accidental-checkboxes {
+  display: flex;
+  justify-content: center;
+}
+
+.Stave {
+  margin: -2em;
+}
+
+.NewNoteButton {
+  /* color: white; */
+  background-color: lime;
+}
+
+.ResetButton {
+  margin: 1em;
+  color: white;
+  background-color: deeppink;
+}
+
+.RoundOverModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+}
+
+.total-score {
+  font-size: 250%;
+}
+
+.Leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+}
+
+.Leaderboard td {
+  text-align: left;
+  padding-top: 0.5em;
+  padding-right: 1em;
+}
+
+.ShowLeaderboard {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 1em;
+}
+
+.ShowLeaderboard:hover,
+.ShowLeaderboard:focus {
+  text-decoration: none;
+}
