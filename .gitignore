@@ -1,3 +1,7 @@
 /env
 __pycache__
 instance/app.sqlite
+app.egg-info/
+build/
+dist/
+fretboard_quiz.egg-info/

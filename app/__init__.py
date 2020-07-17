@@ -24,7 +24,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/name')
+    @app.route('/')
     def name():
         return {'name': __name__}
 
