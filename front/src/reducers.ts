@@ -2,6 +2,7 @@ import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleS
 import { AppState, Status, GuessStatus } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
+import { toggleElement } from './util';
 
 const defaultRoundLength = 20;
 
@@ -70,16 +71,6 @@ function updateNoteOpts(state: AppState, action: Action): AppState {
   }
 }
 
-function toggleElement<T>(array: T[], elem: T): T[] {
-  if (array.includes(elem)) {
-    return array.filter((e: T) => {
-      return e !== elem;
-    });
-  } else {
-    return [...array, elem];
-  }
-}
-
 function handleToggleString(state: AppState, action: ToggleStringAction) {
   const stringsToUse = toggleElement(state.noteOpts.stringsToUse, action.payload)
   const noteOpts = { ...state.noteOpts, stringsToUse };
@@ -96,7 +87,6 @@ function handleTick(state: AppState, action: TickAction) {
 
       if (secondsLeft <= 0) {
         status = Status.ROUND_OVER;
-        // http.createScore()
       } else {
         secondsLeft = secondsLeft - 1;
       }

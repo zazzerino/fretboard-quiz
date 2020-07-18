@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { UserScore } from './UserScore';
-import { ResetButton } from './ResetButton';
-import { ShowLeaderboard } from './Leaderboard';
 import * as http from '../http';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState, Guess } from '../types';
@@ -42,8 +40,6 @@ export function RoundOverModal(props: any) {
     <div className="RoundOverModal">
       <UserScore />
       <SubmitScoreBtn />
-      <ShowLeaderboard />
-      <ResetButton />
     </div>
   )
 }

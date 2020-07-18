@@ -1,30 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
 import { AppState, Status } from './types';
 import { newNoteToGuess, tick, reset } from './actions';
+import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
-
-function useInterval(callback: () => void, delay: number) {
-  // credit Dan Abramov
-  const savedCallback = useRef(callback);
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
+import { Navbar } from './components/Navbar';
+import { SettingsMenu } from './components/SettingsMenu';
+import { useInterval } from './util';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -54,13 +40,26 @@ export default function App() {
 
   return (
     <div className="App">
-      {
-        {
-          [Status.PLAYING]: <PlayingContainer />,
-          [Status.ROUND_OVER]: <RoundOverModal />,
-          [Status.SHOW_SCORES]: <Leaderboard />,
-        }[status]
-      }
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route path="/play">
+            <PlayingContainer />
+          </Route>
+          <Route path="/settings">
+            <SettingsMenu />
+          </Route>
+          <Route path="/roundover">
+            <RoundOverModal />
+          </Route>
+          <Route path="/scores">
+            <Leaderboard />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

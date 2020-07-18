@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { showScores } from '../actions';
 import * as http from '../http';
-import { ResetButton } from './ResetButton';
+// import { ResetButton } from './ResetButton';
 
 interface ScoreRecord {
   id: number,
@@ -50,7 +50,7 @@ export function Leaderboard(props: any) {
 
   return (
     <div className="Leaderboard">
-      <ResetButton />
+      {/* <ResetButton /> */}
       <h1>High Scores</h1>
       <table className="Leaderboard-table">
         <thead>

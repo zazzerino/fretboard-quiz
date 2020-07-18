@@ -12,6 +12,7 @@ export interface FretboardNote extends FretboardCoord {
 }
 
 export enum Status {
+  INIT = 'INIT',
   PLAYING = 'PLAYING',
   ROUND_OVER = 'ROUND_OVER',
   SHOW_SCORES = 'SHOW_SCORES',
