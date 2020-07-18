@@ -1,0 +1,12 @@
+[Unit]
+Description=fretboard-quiz webapp
+After=network.target
+
+[Service]
+User=kdp
+WorkingDirectory=/home/kdp/projects/fretboard-quiz/back
+ExecStart=/home/kdp/projects/fretboard-quiz/back/env/bin/gunicorn -b 0.0.0.0:5000 "fretboardquiz:create_app()"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
