@@ -5,7 +5,7 @@ from flask import (
 
 from fretboardquiz.db import get_db
 
-bp = Blueprint('scores', __name__, url_prefix='/scores')
+bp = Blueprint('scores', __name__, url_prefix='/api/scores')
 
 
 def dict_factory(cursor, row):

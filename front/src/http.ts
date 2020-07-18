@@ -1,5 +1,5 @@
 export function getScores() {
-  const scores = fetch('/scores')
+  const scores = fetch('/api/scores')
     .then(res => res.json())
     .then(data => data.scores);
 
@@ -7,7 +7,7 @@ export function getScores() {
 }
 
 export function createScore({ name, score }) {
-  const response = fetch('/scores/create', {
+  const response = fetch('/api/scores/create', {
     method: 'POST',
     mode: 'cors',
     headers: {
