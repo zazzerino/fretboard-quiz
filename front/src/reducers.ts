@@ -12,7 +12,7 @@ function makeInitialState(): AppState {
   return {
     noteToGuess: note,
     clickedFret: null,
-    status: Status.PLAYING,
+    status: Status.INIT,
     guessStatus: null,
     guesses: [],
     noteOpts: defaultNoteOpts,

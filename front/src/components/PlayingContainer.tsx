@@ -2,8 +2,6 @@ import * as React from 'react';
 import { SecondsLeft } from './SecondsLeft';
 import { Stave } from './Stave';
 import { Fretboard } from './Fretboard';
-import { StringSelect } from './StringSelect';
-import { AccidentalSelect } from './AccidentalCheckbox';
 import { NewNoteButton } from './NewNoteButton';
 
 export function PlayingContainer(props: any) {
@@ -13,8 +11,6 @@ export function PlayingContainer(props: any) {
         <Stave />
         <Fretboard />
         <NewNoteButton />
-        <StringSelect />
-        <AccidentalSelect />
     </div>
   )
 }

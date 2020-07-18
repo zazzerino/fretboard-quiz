@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Dispatch } from 'react';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { AppState, Status } from './types';
 import { newNoteToGuess, tick, reset } from './actions';
 import { Home } from './components/Home';
@@ -12,17 +12,31 @@ import { Navbar } from './components/Navbar';
 import { SettingsMenu } from './components/SettingsMenu';
 import { useInterval } from './util';
 
+function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
+  switch (pathname) {
+    case '/play':
+      dispatch(reset());
+      break;
+  }
+}
+
 export default function App() {
   const dispatch = useDispatch();
   const status = useSelector((state: AppState) => state.status);
   const guessStatus = useSelector((state: AppState) => state.guessStatus);
   const noteOpts = useSelector((state: AppState) => state.noteOpts);
 
+  const history = useHistory();
+
   useInterval(() => {
     dispatch(tick());
   }, 1000);
 
   useEffect(() => {
+    const unlisten = history.listen((location) => {
+      onRouteChange(location.pathname, dispatch)
+    });
+
     function handleKeyPress(event: KeyboardEvent) {
       if (guessStatus != null) {
         dispatch(newNoteToGuess(noteOpts));
@@ -40,26 +54,24 @@ export default function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Switch>
-          <Route path="/play">
-            <PlayingContainer />
-          </Route>
-          <Route path="/settings">
-            <SettingsMenu />
-          </Route>
-          <Route path="/roundover">
-            <RoundOverModal />
-          </Route>
-          <Route path="/scores">
-            <Leaderboard />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Navbar />
+      <Switch>
+        <Route path="/play">
+          <PlayingContainer />
+        </Route>
+        <Route path="/settings">
+          <SettingsMenu />
+        </Route>
+        <Route path="/roundover">
+          <RoundOverModal />
+        </Route>
+        <Route path="/scores">
+          <Leaderboard />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }
