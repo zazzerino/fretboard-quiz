@@ -67,3 +67,17 @@
 .ShowLeaderboard:focus {
   text-decoration: none;
 }
+
+.SettingsModal {
+  border: 1px solid #ccc;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: white;
+}
+
+.SettingsModal button {
+  margin: 2em;
+}

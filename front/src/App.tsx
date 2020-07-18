@@ -3,7 +3,7 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { AppState, Status } from './types';
-import { newNoteToGuess, tick, reset } from './actions';
+import { newNoteToGuess, tick, reset, showSettings } from './actions';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
@@ -15,7 +15,7 @@ import { useInterval } from './util';
 function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
   switch (pathname) {
     case '/play':
-      dispatch(reset());
+      dispatch(showSettings());
       break;
   }
 }
@@ -49,6 +49,7 @@ export default function App() {
 
     return () => {
       window.removeEventListener('keypress', handleKeyPress);
+      unlisten();
     }
   });
 

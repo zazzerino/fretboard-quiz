@@ -15,6 +15,7 @@ export enum Status {
   INIT = 'INIT',
   PLAYING = 'PLAYING',
   ROUND_OVER = 'ROUND_OVER',
+  SHOW_SETTINGS = 'SHOW_SETTINGS',
   SHOW_SCORES = 'SHOW_SCORES',
 }
 

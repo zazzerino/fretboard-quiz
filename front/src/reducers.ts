@@ -12,7 +12,7 @@ function makeInitialState(): AppState {
   return {
     noteToGuess: note,
     clickedFret: null,
-    status: Status.INIT,
+    status: Status.PLAYING,
     guessStatus: null,
     guesses: [],
     noteOpts: defaultNoteOpts,
@@ -102,6 +102,10 @@ function handleShowScores(state: AppState, action: ShowScoresAction): AppState {
   return { ...state, status: Status.SHOW_SCORES };
 }
 
+function handleShowSettings(state: AppState, action) {
+  return { ...state, status: Status.SHOW_SETTINGS };
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
@@ -127,6 +131,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
 
     case ActionType.SHOW_SCORES:
       return handleShowScores(state, action);
+
+    case ActionType.SHOW_SETTINGS:
+      return handleShowSettings(state, action);
 
     default:
       return state;

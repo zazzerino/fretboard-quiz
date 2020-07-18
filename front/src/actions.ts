@@ -17,6 +17,8 @@ export enum ActionType {
   TICK = 'TICK',
 
   SHOW_SCORES = 'SHOW_SCORES',
+
+  SHOW_SETTINGS = 'SHOW_SETTINGS',
 }
 
 export interface NewNoteToGuessAction {
@@ -62,6 +64,10 @@ export interface ShowScoresAction {
   type: ActionType.SHOW_SCORES,
 }
 
+export interface ShowSettingsAction {
+  type: ActionType.SHOW_SETTINGS,
+}
+
 export function toggleString(stringNum: number): ToggleStringAction {
   return {
     type: ActionType.TOGGLE_STRING,
@@ -87,49 +93,40 @@ export function fretboardClick(coord: FretboardCoord): FretboardClickAction {
 }
 
 export function reset(): ResetAction {
-  return {
-    type: ActionType.RESET
-  }
+  return { type: ActionType.RESET };
 }
 
 export function toggleSharps(): ToggleSharpsAction {
-  return {
-    type: ActionType.TOGGLE_SHARPS
-  }
+  return { type: ActionType.TOGGLE_SHARPS };
 }
 
 export function toggleFlats(): ToggleFlatsAction {
-  return {
-    type: ActionType.TOGGLE_FLATS
-  }
+  return { type: ActionType.TOGGLE_FLATS };
 }
 
 export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
-  return {
-    type: ActionType.TOGGLE_DOUBLE_SHARPS
-  }
+  return { type: ActionType.TOGGLE_DOUBLE_SHARPS };
 }
 
 export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
-  return {
-    type: ActionType.TOGGLE_DOUBLE_FLATS
-  }
+  return { type: ActionType.TOGGLE_DOUBLE_FLATS };
 }
 
 export function tick(): TickAction {
-  return {
-    type: ActionType.TICK
-  }
+  return { type: ActionType.TICK };
 }
 
 export function showScores(): ShowScoresAction {
-  return {
-    type: ActionType.SHOW_SCORES
-  }
+  return { type: ActionType.SHOW_SCORES };
+}
+
+export function showSettings(): ShowSettingsAction {
+  return { type: ActionType.SHOW_SETTINGS };
 }
 
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
-  | ToggleStringAction | TickAction | ShowScoresAction;
+  | ToggleStringAction | TickAction 
+  | ShowScoresAction | ShowSettingsAction;
