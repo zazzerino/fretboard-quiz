@@ -3,7 +3,7 @@ import { UserScore } from './UserScore';
 import * as http from '../http';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState, Guess } from '../types';
-import { showScores } from '../actions';
+import { showScores, reset } from '../actions';
 
 export function SubmitScoreBtn(props: any) {
   const dispatch = useDispatch();
@@ -20,18 +20,27 @@ export function SubmitScoreBtn(props: any) {
   const score = correctGuesses - incorrectGuesses;
 
   return (
-    <button
-      className="OpenSubmitModal"
-      onClick={() => {
-        const name = prompt('Enter your name:', 'anon')
+    <div className="SubmitScoreBtn">
+      <button
+        className="OpenSubmitModal"
+        onClick={() => {
+          const name = prompt('Enter your name:', 'anon')
 
-        http.createScore({ name, score });
+          http.createScore({ name, score });
 
-        dispatch(showScores());
-      }}
-    >
-      Submit score
+          dispatch(showScores());
+        }}
+      >
+        Submit score
     </button>
+
+      <br></br>
+      <button onClick={() => {
+        dispatch(reset());
+      }}>
+        Play again
+      </button>
+    </div>
   )
 }
 

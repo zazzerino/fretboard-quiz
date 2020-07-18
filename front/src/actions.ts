@@ -17,8 +17,9 @@ export enum ActionType {
   TICK = 'TICK',
 
   SHOW_SCORES = 'SHOW_SCORES',
-
   SHOW_SETTINGS = 'SHOW_SETTINGS',
+
+  ROUND_OVER = 'ROUND_OVER',
 }
 
 export interface NewNoteToGuessAction {
@@ -66,6 +67,10 @@ export interface ShowScoresAction {
 
 export interface ShowSettingsAction {
   type: ActionType.SHOW_SETTINGS,
+}
+
+export interface RoundOverAction {
+  type: ActionType.ROUND_OVER,
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
@@ -124,9 +129,14 @@ export function showSettings(): ShowSettingsAction {
   return { type: ActionType.SHOW_SETTINGS };
 }
 
+export function roundOver(): RoundOverAction {
+  return { type: ActionType.ROUND_OVER };
+} 
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
   | ToggleStringAction | TickAction 
-  | ShowScoresAction | ShowSettingsAction;
+  | ShowScoresAction | ShowSettingsAction
+  | RoundOverAction;

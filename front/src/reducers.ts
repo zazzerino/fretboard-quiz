@@ -106,6 +106,10 @@ function handleShowSettings(state: AppState, action) {
   return { ...state, status: Status.SHOW_SETTINGS };
 }
 
+function handleRoundOver(state: AppState) {
+  return { ...state, status: Status.ROUND_OVER };
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
@@ -134,6 +138,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
 
     case ActionType.SHOW_SETTINGS:
       return handleShowSettings(state, action);
+
+    case ActionType.ROUND_OVER:
+      return handleRoundOver(state);
 
     default:
       return state;

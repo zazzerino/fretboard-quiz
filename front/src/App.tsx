@@ -60,9 +60,6 @@ export default function App() {
         <Route path="/play">
           <PlayingContainer />
         </Route>
-        <Route path="/settings">
-          <SettingsMenu />
-        </Route>
         <Route path="/roundover">
           <RoundOverModal />
         </Route>
