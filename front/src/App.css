@@ -82,3 +82,15 @@
   margin: 2em;
   background-color: lime;
 }
+
+.RoundOverModal button {
+  margin: 1em;
+}
+
+/* .Navbar ul {
+  list-style-type: none;
+} */
+
+/* .Navbar li {
+  float: left;
+} */

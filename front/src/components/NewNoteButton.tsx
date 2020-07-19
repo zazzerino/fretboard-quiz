@@ -6,6 +6,9 @@ import { AppState } from '../types';
 export const NewNoteButton = props => {
   const dispatch = useDispatch();
   const noteOpts = useSelector((state: AppState) => state.noteOpts);
+  // const clickable = useSelector((state: AppState) => {
+    // return sta
+  // });
 
   return (
     <button className="NewNoteButton"

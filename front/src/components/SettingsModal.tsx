@@ -19,7 +19,7 @@ export function SettingsModal(props: any) {
       <button onClick={() => {
         dispatch(reset());
       }}>
-        Play
+        Start
       </button>
     </div>
   );

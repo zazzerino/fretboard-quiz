@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import { UserScore } from './UserScore';
 import * as http from '../http';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +9,7 @@ import { showScores, reset } from '../actions';
 export function SubmitScoreBtn(props: any) {
   const dispatch = useDispatch();
   const guesses = useSelector((state: AppState) => state.guesses);
+  const history = useHistory();
 
   const correctGuesses = guesses.filter((guess: Guess) => {
     return guess.isCorrect;
@@ -28,6 +30,7 @@ export function SubmitScoreBtn(props: any) {
 
           http.createScore({ name, score });
 
+          history.push('/scores');
           dispatch(showScores());
         }}
       >
