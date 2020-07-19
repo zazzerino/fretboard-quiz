@@ -13,7 +13,7 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/fretboard-quiz">
       <Route path="/" component={App} />
     </BrowserRouter>
   </Provider>,
