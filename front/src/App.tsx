@@ -1,15 +1,13 @@
 import React, { useEffect, Dispatch } from 'react';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import { AppState, Status } from './types';
-import { newNoteToGuess, tick, reset, showSettings } from './actions';
+import { tick, showSettings } from './actions';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
-import { SettingsMenu } from './components/SettingsMenu';
 import { useInterval } from './util';
 
 function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
@@ -22,9 +20,9 @@ function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
 
 export default function App() {
   const dispatch = useDispatch();
-  const status = useSelector((state: AppState) => state.status);
-  const guessStatus = useSelector((state: AppState) => state.guessStatus);
-  const noteOpts = useSelector((state: AppState) => state.noteOpts);
+  // const status = useSelector((state: AppState) => state.status);
+  // const guessStatus = useSelector((state: AppState) => state.guessStatus);
+  // const noteOpts = useSelector((state: AppState) => state.noteOpts);
 
   const history = useHistory();
 
@@ -33,24 +31,24 @@ export default function App() {
   }, 1000);
 
   useEffect(() => {
-    const unlisten = history.listen((location) => {
+    history.listen((location) => {
       onRouteChange(location.pathname, dispatch)
     });
 
-    function handleKeyPress(event: KeyboardEvent) {
-      if (guessStatus != null) {
-        dispatch(newNoteToGuess(noteOpts));
-      } else if (status === Status.ROUND_OVER) {
-        dispatch(reset());
-      }
-    }
+    // function handleKeyPress(event: KeyboardEvent) {
+    //   if (guessStatus != null) {
+    //     dispatch(newNoteToGuess(noteOpts));
+    //   } else if (status === Status.ROUND_OVER) {
+    //     dispatch(reset());
+    //   }
+    // }
 
-    window.addEventListener('keypress', handleKeyPress);
+    // window.addEventListener('keypress', handleKeyPress);
 
-    return () => {
-      window.removeEventListener('keypress', handleKeyPress);
-      unlisten();
-    }
+    // return () => {
+    //   window.removeEventListener('keypress', handleKeyPress);
+    //   unlisten();
+    // }
   });
 
   return (

@@ -4,7 +4,7 @@ import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
 import { toggleElement } from './util';
 
-const defaultRoundLength = 20;
+const defaultRoundLength = 200;
 
 function makeInitialState(): AppState {
   const note = randomNote(defaultNoteOpts);

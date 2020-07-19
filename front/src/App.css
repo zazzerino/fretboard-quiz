@@ -19,7 +19,10 @@
 }
 
 .NewNoteButton {
-  /* color: white; */
+  margin: 1em;
+}
+
+.NewNoteButton.active {
   background-color: lime;
 }
 
@@ -34,7 +37,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* height: 100%; */
 }
 
 .total-score {
@@ -46,7 +48,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* height: 100%; */
 }
 
 .Leaderboard td {
@@ -84,7 +85,7 @@
 }
 
 .RoundOverModal button {
-  margin: 1em;
+  margin: 0.5em;
 }
 
 /* .Navbar ul {
