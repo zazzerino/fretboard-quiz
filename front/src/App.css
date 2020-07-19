@@ -96,6 +96,7 @@
   display: flex;
   width: 33%;
   margin: auto;
+  padding: 0;
 }
 
 .Navbar li {
