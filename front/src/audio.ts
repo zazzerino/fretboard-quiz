@@ -1,7 +1,9 @@
 import UIfx from 'uifx';
 
-const coinAudio = require('./audio/smb_coin.wav');
-const bowserFallsAudio = require('./audio/smb_bowserfalls.wav');
+// @ts-ignore
+import coinAudio from './audio/smb_coin.wav';
+// @ts-ignore
+import bowserFallsAudio from './audio/smb_bowserfalls.wav';
 
 export const coinSound = new UIfx(coinAudio);
 

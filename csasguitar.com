@@ -15,12 +15,12 @@ server {
         index index.html;
     }
 
-    location /name {
+    location /api/name {
         include proxy_params;
         proxy_pass http://0.0.0.0:5000;
     }
 
-    location /scores {
+    location /api/scores {
         include proxy_params;
         proxy_pass http://0.0.0.0:5000;
     }
