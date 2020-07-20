@@ -7,20 +7,16 @@ server {
     root /var/www/csasguitar.com;
 
     location / {
-        index index.html;
-        # try_files $uri $uri/ =404;
+        # index index.html;
+        try_files $uri $uri/ /index.html =404;
     }
 
     location /fretboard-quiz {
-        index index.html;
+        # index index.html;
+        try_files $uri $uri/ /index.html =404;
     }
 
-    location /api/name {
-        include proxy_params;
-        proxy_pass http://0.0.0.0:5000;
-    }
-
-    location /api/scores {
+    location /api {
         include proxy_params;
         proxy_pass http://0.0.0.0:5000;
     }

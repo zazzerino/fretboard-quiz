@@ -40,7 +40,10 @@ def setup_frontend():
 
     print(f'installing npm deps and building frontend at {build_dir}')
 
-    subprocess.run(['npm', 'install'])
+    if not os.path.exists(os.path.join(frontend_dir, 'node_modules')):
+        print('installing npm deps')
+        subprocess.run(['npm', 'install'])
+
     subprocess.run(['npm', 'run', 'build'])
 
     print('frontend complete')
