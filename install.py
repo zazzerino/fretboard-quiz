@@ -58,20 +58,23 @@ def move_files():
     subprocess.run(['mkdir', url])
 
     print(f'copying index.html to {serve_dir}')
-    subprocess.run(['cp', '-r', os.path.join(root_dir, 'index.html'), site_path])
+    subprocess.run(['cp', '-r',
+                    os.path.join(root_dir, 'index.html'), site_path])
 
     print(f'copying frontend to {site_path}/fretboard-quiz')
-    subprocess.run(['cp', '-r', build_dir, os.path.join(site_path, 'fretboard-quiz')])
+    subprocess.run(['cp', '-r', build_dir,
+                    os.path.join(site_path, 'fretboard-quiz')])
 
     print('setting owner and permissions')
     subprocess.run(['chown', '-R', owner_and_group, site_path])
     subprocess.run(['chmod', '-R', '755', site_path])
-    
+
     print('files moved')
 
 
 def service_is_enabled(service_name):
-    res = subprocess.run(['systemctl', 'is-enabled', service_name], capture_output=True)
+    res = subprocess.run(['systemctl', 'is-enabled', service_name],
+                         capture_output=True)
     return res.stdout == b'linked\n'
 
 
