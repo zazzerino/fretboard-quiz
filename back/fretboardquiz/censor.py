@@ -1,8 +1,8 @@
-from flask import Blueprint, request
 import spacy
 from profanity_filter import ProfanityFilter
+from flask import Blueprint, request
 
-bp = Blueprint('filter', __name__, url_prefix='/api/filter')
+bp = Blueprint('filter', __name__, url_prefix='/api/censor')
 
 # python3 -m spacy download en_core_web_sm
 
@@ -19,7 +19,7 @@ def censor(text):
             'is_profane': is_profane}
 
 
-@bp.route('/censor', methods=['POST'])
+@bp.route('/text', methods=['POST'])
 def handle_censor():
     text = request.json['text']
     return censor(text)

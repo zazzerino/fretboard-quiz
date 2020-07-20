@@ -22,9 +22,11 @@ def setup_backend():
 
     venv_pip = os.path.join(backend_dir, 'env', 'bin', 'pip')
     venv_flask = os.path.join(backend_dir, 'env', 'bin', 'flask')
+    venv_python = os.path.join(backend_dir, 'env', 'bin', 'python3')
 
     print('installing requirements')
     subprocess.run([venv_pip, 'install', '-r', 'requirements.txt'])
+    subprocess.run([venv_python, '-m', 'spacy', 'download', 'en_core_web_sm'])
 
     db_path = os.path.join(backend_dir, 'instance', db_name)
     if not os.path.exists(db_path):
