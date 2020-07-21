@@ -29,5 +29,8 @@ def load_user(user_id):
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Integer)
-    timestamp = db.Column(db.Date)
+    timestamp = db.Column('time', db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return f'<Score: {self.value} at {self.timestamp}>'
