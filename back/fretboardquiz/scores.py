@@ -1,4 +1,3 @@
-import collections
 from flask import (
     Blueprint, request, make_response
 )

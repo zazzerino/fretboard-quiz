@@ -17,6 +17,12 @@ def setup_backend():
     os.chdir(backend_dir)
     print(f'setting up backend at {backend_dir}')
 
+    env_dir = os.path.join(root_dir, 'back', 'env')
+
+    if os.path.exists(env_dir):
+        print(f'removing current virtualenv at {env_dir}')
+        subprocess.run(['rm', '-rf', env_dir])
+
     print('creating virtualenv')
     subprocess.run(['python3', '-m', 'venv', 'env'])
 
@@ -126,10 +132,10 @@ def setup_nginx():
 
 def main():
     setup_backend()
-    setup_frontend()
-    move_files()
-    setup_systemd_service()
-    setup_nginx()
+    # setup_frontend()
+    # move_files()
+    # setup_systemd_service()
+    # setup_nginx()
 
 
 if __name__ == '__main__':

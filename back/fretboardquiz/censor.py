@@ -2,9 +2,9 @@ import spacy
 from profanity_filter import ProfanityFilter
 from flask import Blueprint, request
 
-bp = Blueprint('filter', __name__, url_prefix='/api/censor')
+# don't forget to run 'python3 -m spacy download en_core_web_sm'
 
-# python3 -m spacy download en_core_web_sm
+bp = Blueprint('filter', __name__, url_prefix='/api/censor')
 
 nlp = spacy.load('en_core_web_sm')
 pf = ProfanityFilter(nlps={'en': nlp})
