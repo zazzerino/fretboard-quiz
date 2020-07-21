@@ -1,2 +1,3 @@
-FLASK_APP=fretboardquiz
+FLASK_APP=fretboard_quiz.py
 FLASK_ENV=development
+SECRET_KEY=dev
