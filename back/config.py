@@ -1,8 +1,9 @@
 import os
 
-# db_uri = os.path.join(app.instance_path, 'app.sqlite')
+
 db_uri = '/home/kdp/projects/fretboard-quiz/back/instance/app.sqlite'
 sqlite_uri = f'sqlite:///{db_uri}'
+
 
 class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'

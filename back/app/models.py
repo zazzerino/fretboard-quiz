@@ -32,5 +32,10 @@ class Score(db.Model):
     timestamp = db.Column('time', db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def to_dict(self):
+        return {'user': self.user.username,
+                'score': self.value,
+                'time': self.timestamp.strftime('%b %d %Y %H:%M:%S')}
+
     def __repr__(self):
         return f'<Score: {self.value} at {self.timestamp}>'

@@ -1,6 +1,16 @@
-from flask import (
-    Blueprint, request, make_response
-)
+from flask import Blueprint
+from app.models import User, Score
+# from app import db
+
+
+bp = Blueprint('scores', __name__, url_prefix='/scores')
+
+
+
+# def all():
+#     scores = Score.query.all()
+
+
 
 # from fretboardquiz.db import get_db
 # from fretboardquiz.censor import censor
