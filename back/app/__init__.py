@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -20,11 +20,6 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
-
-    @app.route('/')
-    @app.route('/index')
-    def index():
-        return render_template('index.html')
 
     from app.user import bp as user_bp
     app.register_blueprint(user_bp)

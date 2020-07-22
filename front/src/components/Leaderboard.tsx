@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { showScores } from '../actions';
+import { Score } from '../types';
 import * as http from '../http';
 
-interface ScoreRecord {
-  id: number,
-  name: string,
-  score: number,
-  time: string
-}
+/* interface ScoreRecord {
+ *   id: number,
+ *   name: string,
+ *   score: number,
+ *   time: string
+ * } */
 
 interface ScoreDisplayOpts {
-  score: ScoreRecord,
+  score: Score,
   key: number,
   index: number
 }
@@ -20,9 +21,9 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
   return (
     <tr>
       <td>{props.index}</td>
-      <td>{props.score.name}</td>
-      <td>{props.score.score}</td>
-      <td>{props.score.time}</td>
+      <td>{props.score.username}</td>
+      <td>{props.score.value}</td>
+      <td>{props.score.timestamp}</td>
     </tr>
   );
 }
@@ -63,7 +64,7 @@ export function Leaderboard(props: any) {
         </thead>
         <tbody>
           {
-            scores.map((score: ScoreRecord, index: number) => {
+            scores.map((score: Score, index: number) => {
               return <ScoreDisplay
                        key={index}
                        index={index + 1}

@@ -43,8 +43,9 @@ export interface NoteOpts {
 }
 
 export interface Score {
-  name: string,
-  score: number,
+  username: string,
+  value: number,
+  timestamp: string
 }
 
 export interface AppState {

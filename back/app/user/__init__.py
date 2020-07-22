@@ -3,7 +3,7 @@ from app import login_manager
 from app.models import User
 
 
-bp = Blueprint('user', __name__, url_prefix='/user')
+bp = Blueprint('user', __name__, url_prefix='/api/user')
 
 
 @login_manager.user_loader

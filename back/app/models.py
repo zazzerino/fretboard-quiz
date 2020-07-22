@@ -28,9 +28,9 @@ class Score(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def to_dict(self):
-        return {'name': self.user.username,
-                'score': self.value,
-                'time': self.timestamp.strftime('%b %d %Y %H:%M')}
+        return {'username': self.user.username,
+                'value': self.value,
+                'timestamp': self.timestamp.strftime('%b %d %Y %H:%M')}
 
     def __repr__(self):
         return f'<Score: {self.value} at {self.timestamp}>'

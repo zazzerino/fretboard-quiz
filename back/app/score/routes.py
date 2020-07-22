@@ -1,4 +1,4 @@
-from flask import request, make_response, redirect, url_for
+from flask import request, make_response, redirect, url_for, jsonify
 from app import db
 from app.score import bp
 from app.models import User, Score
@@ -11,6 +11,7 @@ def all():
     scores = []
     for q in query:
         scores.append(q.to_dict())
+    # return jsonify(scores=scores)
     return {'scores': scores}
 
 
