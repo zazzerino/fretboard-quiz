@@ -8,8 +8,8 @@ from config import Config
 
 db = SQLAlchemy()
 migrate = Migrate()
-login = LoginManager()
-login.login_view = 'login'
+login_manager = LoginManager()
+login_manager.login_view = 'user.login'
 
 
 def create_app(config_class=Config):
@@ -19,7 +19,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-    login.init_app(app)
+    login_manager.init_app(app)
 
     @app.route('/')
     @app.route('/index')

@@ -9,15 +9,16 @@ from app.models import User
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash(f'Already logged in.')
+        flash('Already logged in.')
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            pass
-        flash(f'Login requested for user {form.username.data}, '
-              f'remember_me={form.remember_me.data}')
+            flash('Username or password incorrect.')
+            return redirect(url_for('user.login'))
+        login_user(user)
+        flash('Logged in successfully.')
         return redirect(url_for('index'))
     return render_template('user/login.html', title='Sign In', form=form)
 
