@@ -1,15 +1,12 @@
 from flask import Blueprint
-from app.models import User, Score
+# from app.models import User, Score
 # from app import db
 
 
-bp = Blueprint('scores', __name__, url_prefix='/scores')
+bp = Blueprint('score', __name__, url_prefix='/score')
 
 
-
-# def all():
-#     scores = Score.query.all()
-
+from app.score import routes
 
 
 # from fretboardquiz.db import get_db

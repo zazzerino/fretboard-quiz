@@ -29,6 +29,9 @@ def create_app(config_class=Config):
     from app.user import bp as user_bp
     app.register_blueprint(user_bp)
 
+    from app.score import bp as score_bp
+    app.register_blueprint(score_bp)
+
     return app
 
 
