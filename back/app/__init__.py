@@ -27,6 +27,9 @@ def create_app(config_class=Config):
     from app.score import bp as score_bp
     app.register_blueprint(score_bp)
 
+    from app.token import bp as token_bp
+    app.register_blueprint(token_bp)
+
     return app
 
 

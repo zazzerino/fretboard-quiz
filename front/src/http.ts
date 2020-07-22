@@ -11,14 +11,14 @@ export async function getScores() {
 }
 
 export function createScore({ name, score }) {
-  const response = fetch('/api/score/create', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ name, score }),
-  });
+  // const response = fetch('/api/score/create', {
+  //   method: 'POST',
+  //   mode: 'cors',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({ name, score }),
+  // });
 
-  return response;
+  // return response;
 }

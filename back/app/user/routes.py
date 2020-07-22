@@ -1,12 +1,38 @@
-from flask import redirect, url_for
+from flask import redirect, url_for, request, make_response, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.user import bp
 from app.models import User
 
 
+@bp.route('/<username>')
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return jsonify(user=user.to_dict())
+
+
+@bp.route('/create', methods=['POST'])
+def create():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    if username is None or password is None:
+        make_response('must provide username and password', 400)
+    if User.query.filter_by(username=username).first() is not None:
+        make_response('username already taken', 400)
+    u = User(username=username)
+    u.set_password(password)
+    db.session.add(u)
+    db.session.commit()
+    return make_response({'username': u.username}, 201)
+
+
 @bp.route('/login', methods=['POST'])
 def login():
+    pass
+
+
+@bp.route('/logout', methods=['POST'])
+def logout():
     pass
 
 

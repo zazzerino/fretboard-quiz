@@ -11,8 +11,7 @@ def all():
     scores = []
     for q in query:
         scores.append(q.to_dict())
-    # return jsonify(scores=scores)
-    return {'scores': scores}
+    return jsonify(scores=scores)
 
 
 @bp.route('/create', methods=['POST'])
