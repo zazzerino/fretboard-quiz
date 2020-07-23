@@ -2,14 +2,14 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
+# from flask_login import LoginManager
 from config import Config
 
 
 db = SQLAlchemy()
 migrate = Migrate()
-login_manager = LoginManager()
-login_manager.login_view = 'user.login'
+# login_manager = LoginManager()
+# login_manager.login_view = 'user.login'
 
 
 def create_app(config_class=Config):
@@ -19,7 +19,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-    login_manager.init_app(app)
+    # login_manager.init_app(app)
 
     from app.user import bp as user_bp
     app.register_blueprint(user_bp)

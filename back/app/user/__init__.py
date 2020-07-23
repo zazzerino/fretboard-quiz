@@ -1,6 +1,6 @@
 from flask import Blueprint, make_response
 from flask_httpauth import HTTPBasicAuth
-from app import login_manager
+# from app import login_manager
 from app.models import User
 
 
@@ -8,9 +8,9 @@ bp = Blueprint('user', __name__, url_prefix='/api/user')
 basic_auth = HTTPBasicAuth()
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User.query.get(int(user_id))
 
 
 @basic_auth.verify_password
