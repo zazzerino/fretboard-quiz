@@ -131,12 +131,12 @@ export function showSettings(): ShowSettingsAction {
 
 export function roundOver(): RoundOverAction {
   return { type: ActionType.ROUND_OVER };
-} 
+}
 
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
-  | ToggleStringAction | TickAction 
+  | ToggleStringAction | TickAction
   | ShowScoresAction | ShowSettingsAction
   | RoundOverAction;

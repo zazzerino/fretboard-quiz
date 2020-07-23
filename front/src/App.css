@@ -104,3 +104,12 @@
   list-style: none;
   margin: auto;
 }
+
+.LoginForm form {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginForm input {
+    margin: auto;
+}

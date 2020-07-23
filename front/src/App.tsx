@@ -2,13 +2,14 @@ import React, { useEffect, Dispatch } from 'react';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory } from 'react-router-dom';
+import { useInterval } from './util';
 import { tick, showSettings } from './actions';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
-import { useInterval } from './util';
+import { LoginForm } from './components/LoginForm';
 
 function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
   switch (pathname) {
@@ -63,6 +64,9 @@ export default function App() {
         </Route>
         <Route path="/scores">
           <Leaderboard />
+        </Route>
+        <Route path="/login">
+          <LoginForm />
         </Route>
         <Route path="/">
           <Home />
