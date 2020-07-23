@@ -22,7 +22,7 @@ def validate_token():
     return make_response({'valid_token': False}, 403)
 
 
-@bp.route('/delete', methods=['DELETE'])
+@bp.route('/revoke', methods=['DELETE'])
 @token_auth.login_required
 def revoke_token():
     token_auth.current_user().revoke_token()

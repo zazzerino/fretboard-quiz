@@ -48,6 +48,16 @@ export function Leaderboard(props: any) {
     (async function () {
       setScores(await http.getScores());
     })();
+
+    /* (async function () {
+     *   const res = http.getToken({ username: 'bob', password: 'pwd' });
+     *   console.log(await res);
+     * })();
+
+     * (async function () {
+     *   const res = http.validateToken({token: 'SsFtw5yjpKd6ZOki7GG1oXIQ9HtBw+d4'});
+     *   console.log(await res);
+     * })(); */
   }, []);
 
   return (
