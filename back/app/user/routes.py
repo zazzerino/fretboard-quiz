@@ -1,11 +1,13 @@
 from flask import redirect, url_for, request, make_response, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
-from app.user import bp
 from app.models import User
+from app.user import bp, basic_auth
+from app.token import token_auth
 
 
 @bp.route('/<username>')
+@token_auth.login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     return jsonify(user=user.to_dict())
