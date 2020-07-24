@@ -8,10 +8,6 @@ export enum ActionType {
   NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS',
   RESET_QUIZ = 'RESET_QUIZ',
 
-  // TOGGLE_SHARPS = 'TOGGLE_SHARPS',
-  // TOGGLE_FLATS = 'TOGGLE_FLATS',
-  // TOGGLE_DOUBLE_SHARPS = 'TOGGLE_DOUBLE_SHARPS',
-  // TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS',
   TOGGLE_ACCIDENTAL = 'TOGGLE_ACCIDENTAL',
   TOGGLE_STRING = 'TOGGLE_STRING',
 
@@ -81,38 +77,6 @@ export function toggleAccidental(accidental: string) {
   }
 }
 
-// export interface ToggleSharpsAction {
-//   type: ActionType.TOGGLE_SHARPS
-// }
-
-// export function toggleSharps(): ToggleSharpsAction {
-//   return { type: ActionType.TOGGLE_SHARPS };
-// }
-
-// export interface ToggleFlatsAction {
-//   type: ActionType.TOGGLE_FLATS
-// }
-
-// export function toggleFlats(): ToggleFlatsAction {
-//   return { type: ActionType.TOGGLE_FLATS };
-// }
-
-// export interface ToggleDoubleSharpsAction {
-//   type: ActionType.TOGGLE_DOUBLE_SHARPS
-// }
-
-// export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
-//   return { type: ActionType.TOGGLE_DOUBLE_SHARPS };
-// }
-
-// export interface ToggleDoubleFlatsAction {
-//   type: ActionType.TOGGLE_DOUBLE_FLATS
-// }
-
-// export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
-//   return { type: ActionType.TOGGLE_DOUBLE_FLATS };
-// }
-
 export interface TickAction {
   type: ActionType.TICK,
 }
@@ -165,8 +129,6 @@ export function logout(): LogoutAction {
 
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetQuizAction
-// | ToggleSharpsAction | ToggleFlatsAction
-// | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
   | ToggleAccidentalAction | ToggleStringAction
-  | TickAction
-  | RoundOverAction | LoginAction | LogoutAction;
+  | TickAction | RoundOverAction
+  | LoginAction | LogoutAction;

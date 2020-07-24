@@ -3,7 +3,6 @@ import { SecondsLeft } from './SecondsLeft';
 import { Stave } from './Stave';
 import { Fretboard } from './Fretboard';
 import { NewNoteButton } from './NewNoteButton';
-import { SettingsModal } from './SettingsModal';
 import { RoundOverModal } from './RoundOverModal';
 import { useSelector } from 'react-redux';
 import { AppState } from '../types';

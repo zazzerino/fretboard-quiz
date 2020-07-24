@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+/* import { useHistory } from 'react-redux'; */
 import { SettingsMenu } from './SettingsMenu';
 import { AppState } from '../types';
 import { reset } from '../actions';
@@ -8,11 +9,11 @@ export function SettingsModal(props: any) {
   const dispatch = useDispatch();
   /* const status = useSelector((app: AppState) => {
    *   return app.status;
-   * }); */
+   * });
 
-  /* const show = status === Status.SHOW_SETTINGS; */
+   * const show = status === Status.SHOW_SETTINGS;
 
-  /* return show && (
+   * return show && (
    *   <div className="SettingsModal">
    *     <h2>Settings</h2>
    *     <SettingsMenu />

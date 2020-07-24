@@ -37,7 +37,9 @@ export function midiNum(notename: string) {
 
   const { whiteKey, accidental, octave } = parseNote(notename);
 
-  return whiteKeyOffsets[whiteKey] + accidentalOffsets[accidental] + (12 * (parseInt(octave) + 1));
+  return (whiteKeyOffsets[whiteKey]
+    + accidentalOffsets[accidental]
+    + (12 * (parseInt(octave) + 1)));
 }
 
 export const defaultNoteOpts: NoteOpts = {

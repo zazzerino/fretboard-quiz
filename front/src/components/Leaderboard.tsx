@@ -20,18 +20,18 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
   );
 }
 
-export function ShowLeaderboardButton(props: any) {
-  const dispatch = useDispatch();
-
-  return (
-    <button
-      className="ShowLeaderboard"
-      onClick={() => {  }}
-    >
-      High Scores
-    </button>
-  )
-}
+/* export function ShowLeaderboardButton(props: any) {
+ *   const dispatch = useDispatch();
+ *
+ *   return (
+ *     <button
+ *       className="ShowLeaderboard"
+ *       onClick={() => {  }}
+ *     >
+ *       High Scores
+ *     </button>
+ *   )
+ * } */
 
 export function Leaderboard(props: any) {
   const [scores, setScores] = React.useState([])

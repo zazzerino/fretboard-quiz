@@ -28,7 +28,7 @@ export function Navbar(props: any) {
               </li>
               } */}
           <li>
-            <Link to="/play">Play</Link>
+            <Link to="/settings">Play</Link>
           </li>
           <li>
             <Link to="/scores">Scores</Link>

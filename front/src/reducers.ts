@@ -1,6 +1,9 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, LoginAction, LogoutAction } from './actions';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType,
+         ToggleStringAction, TickAction, LoginAction,
+         LogoutAction } from './actions';
 import { AppState, User, Quiz, Score, GuessStatus, NoteOpts } from './types';
-import { randomNote, isCorrectGuess, defaultNoteOpts, randomNoteOnStrings } from './theory';
+import { randomNote, isCorrectGuess, defaultNoteOpts,
+         randomNoteOnStrings } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';
