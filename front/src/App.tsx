@@ -8,7 +8,7 @@ import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { SettingsMenu } from './components/SettingsMenu';
 /* import { RoundOverModal } from './components/RoundOverModal'; */
-/* import { Leaderboard } from './components/Leaderboard'; */
+import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
 /* import { LoginForm } from './components/LoginForm'; */
 /* import { Logout } from './components/Logout'; */
@@ -58,26 +58,14 @@ export default function App() {
     <div className="App">
       <Navbar />
       <Switch>
-        {/* <Route path="/play">
-            <PlayingContainer />
-            </Route>
-            <Route path="/roundover">
-            <RoundOverModal />
-            </Route>
-            <Route path="/scores">
-            <Leaderboard />
-            </Route>
-            <Route path="/login">
-            <LoginForm />
-            </Route>
-            <Route path="/logout">
-            <Logout />
-            </Route> */}
         <Route path="/play">
           <PlayingContainer />
         </Route>
         <Route path="/settings">
           <SettingsMenu />
+        </Route>
+        <Route path="/scores">
+          <Leaderboard />
         </Route>
         <Route path="/">
           <Home />

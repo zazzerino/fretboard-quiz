@@ -6,7 +6,8 @@ export async function getScores() {
     .then(data => data.scores)
     .then(scores => scores.sort((a, b) => {
       return parseInt(a.value) < parseInt(b.value) ? 1: -1;
-    })).catch(error => console.log(error));
+    }))
+    .catch(error => console.log(error));
 }
 
 export async function createScore({ score, token }) {
