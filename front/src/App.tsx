@@ -1,22 +1,25 @@
 import React, { useEffect, Dispatch } from 'react';
 import './App.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useInterval } from './util';
-import { tick } from './actions';
+import { tick, newNoteToGuess } from './actions';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { SettingsMenu } from './components/SettingsMenu';
 /* import { RoundOverModal } from './components/RoundOverModal'; */
 import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
+import { AppState } from './types';
 /* import { LoginForm } from './components/LoginForm'; */
 /* import { Logout } from './components/Logout'; */
 
-/* function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
+/* function onRouteChange(pathname: string, dispatch: Dispatch<any>, params: any) {
  *   switch (pathname) {
  *     case '/play':
- *       dispatch(showSettings());
+ *       if (params.noteToGuess == null) {
+ *         dispatch(newNoteToGuess(params.noteOpts));
+ *       }
  *       break;
  *   }
  * } */
@@ -25,7 +28,8 @@ export default function App() {
   const dispatch = useDispatch();
   // const status = useSelector((state: AppState) => state.status);
   // const guessStatus = useSelector((state: AppState) => state.guessStatus);
-  // const noteOpts = useSelector((state: AppState) => state.noteOpts);
+  const noteOpts = useSelector((state: AppState) => state.noteOpts);
+  const noteToGuess = useSelector((state: AppState) => state.quiz.noteToGuess);
 
   /* const history = useHistory(); */
 
@@ -35,9 +39,9 @@ export default function App() {
 
   useEffect(() => {
     /* history.listen((location) => {
-     *   onRouteChange(location.pathname, dispatch)
-     * });
-     */
+     *   onRouteChange(location.pathname, dispatch, { noteOpts, noteToGuess })
+     * }); */
+
     // function handleKeyPress(event: KeyboardEvent) {
     //   if (guessStatus != null) {
     //     dispatch(newNoteToGuess(noteOpts));

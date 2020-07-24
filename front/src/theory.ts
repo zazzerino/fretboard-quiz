@@ -1,4 +1,5 @@
 import { NoteOpts, FretboardNote, FretboardCoord } from './types';
+import { randomElement } from './util';
 
 export function parseNote(note: string) {
   const noteRegex = /([a-zA-Z])(#{1,2}||b{1,2})\/?(\d)/g;
@@ -10,10 +11,6 @@ export function parseNote(note: string) {
   } else {
     throw new Error(`${note} could not be parsed.`);
   }
-}
-
-function randomElement<T>(items: Array<T>) {
-  return items[Math.floor(Math.random() * items.length)];
 }
 
 export function midiNum(notename: string) {
@@ -47,7 +44,7 @@ export const defaultNoteOpts: NoteOpts = {
   whiteKeys: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
   lowestNote: 'E3',
   highestNote: 'G#5',
-  accidentals: ['bb', 'b', '', '#', '##'],
+  accidentals: ['b', '', '#'],
   strings: [1,2,3,4,5,6],
   fretCount: 4,
   startFret: 0,
@@ -102,15 +99,18 @@ export function randomNoteOnStrings(userOpts: NoteOpts = {}): string {
 }
 
 export function transposeNote(notename: string, halfSteps: number) {
-  const chromaticSharps = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-  const chromaticFlats = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+  const chromaticSharps =
+    ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const chromaticFlats =
+    ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
   const { whiteKey, accidental, octave } = parseNote(notename);
   const pitch = whiteKey + accidental;
   const indexSharps = chromaticSharps.indexOf(pitch);
   const indexFlats = chromaticFlats.indexOf(pitch);
 
-  const [arr, idx] = indexSharps === -1 ? [chromaticFlats, indexFlats] : [chromaticSharps, indexSharps];
+  const [arr, idx] = indexSharps === -1 ?
+    [chromaticFlats, indexFlats] : [chromaticSharps, indexSharps];
 
   const offset = idx + halfSteps;
   const transposedPitch = arr[((offset % 12) + 12) % 12];
@@ -153,7 +153,8 @@ export function isEnharmonic(...notes: string[]): boolean {
   });
 }
 
-export function isCorrectGuess(noteToGuess: string, clickedFret: FretboardCoord | null) {
+export function isCorrectGuess(noteToGuess: string,
+                               clickedFret: FretboardCoord | null) {
   if (clickedFret == null) { return false };
 
   const guessedNote = findNoteAt(clickedFret);
@@ -161,7 +162,8 @@ export function isCorrectGuess(noteToGuess: string, clickedFret: FretboardCoord 
   return isEnharmonic(noteToGuess, guessedNote);
 }
 
-export function findFret(note: string, notes = fretboardNotes()): FretboardCoord {
+export function findFret(note: string,
+                         notes = fretboardNotes()): FretboardCoord {
   return notes.find(fretboardNote => {
     return isEnharmonic(note, fretboardNote.note)
   });

@@ -1,5 +1,9 @@
 import { useRef, useEffect } from 'react';
 
+export function randomElement<T>(items: Array<T>) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
 export function toggleElement<T>(array: T[], elem: T): T[] {
   if (array.includes(elem)) {
     return array.filter((e: T) => {
@@ -28,4 +32,3 @@ export function useInterval(callback: () => void, delay: number) {
     }
   }, [delay]);
 }
-
