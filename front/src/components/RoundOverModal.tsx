@@ -25,10 +25,8 @@ export function SubmitScoreBtn(props: any) {
     <div className="SubmitScoreBtn">
       <button
         className="OpenSubmitModal"
-        onClick={async () => {
-          const name = prompt('Enter your name:', 'anon')
-
-          await http.createScore({ name, score });
+        onClick={() => {
+          // http.createScore({ name, score });
 
           history.push('/scores');
           dispatch(showScores());

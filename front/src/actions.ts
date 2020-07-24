@@ -26,64 +26,9 @@ export enum ActionType {
   LOGOUT = 'LOGOUT',
 }
 
-export interface NewNoteToGuessAction {
-  type: ActionType.NEW_NOTE_TO_GUESS,
-  payload: string
-}
-
-export interface FretboardClickAction {
-  type: ActionType.FRETBOARD_CLICK,
-  payload: FretboardCoord
-}
-
-export interface ResetAction {
-  type: ActionType.RESET
-}
-
-export interface ToggleSharpsAction {
-  type: ActionType.TOGGLE_SHARPS
-}
-
-export interface ToggleFlatsAction {
-  type: ActionType.TOGGLE_FLATS
-}
-
-export interface ToggleDoubleSharpsAction {
-  type: ActionType.TOGGLE_DOUBLE_SHARPS
-}
-
-export interface ToggleDoubleFlatsAction {
-  type: ActionType.TOGGLE_DOUBLE_FLATS
-}
-
 export interface ToggleStringAction {
   type: ActionType.TOGGLE_STRING,
   payload: number
-}
-
-export interface TickAction {
-  type: ActionType.TICK,
-}
-
-export interface ShowScoresAction {
-  type: ActionType.SHOW_SCORES,
-}
-
-export interface ShowSettingsAction {
-  type: ActionType.SHOW_SETTINGS,
-}
-
-export interface RoundOverAction {
-  type: ActionType.ROUND_OVER,
-}
-
-export interface LoginAction {
-  type: ActionType.LOGIN,
-  token: string | null,
-}
-
-export interface LogoutAction {
-  type: ActionType.LOGOUT,
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
@@ -91,6 +36,11 @@ export function toggleString(stringNum: number): ToggleStringAction {
     type: ActionType.TOGGLE_STRING,
     payload: stringNum
   }
+}
+
+export interface NewNoteToGuessAction {
+  type: ActionType.NEW_NOTE_TO_GUESS,
+  payload: string
 }
 
 export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
@@ -103,6 +53,11 @@ export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
   }
 }
 
+export interface FretboardClickAction {
+  type: ActionType.FRETBOARD_CLICK,
+  payload: FretboardCoord
+}
+
 export function fretboardClick(coord: FretboardCoord): FretboardClickAction {
   return {
     type: ActionType.FRETBOARD_CLICK,
@@ -110,57 +65,104 @@ export function fretboardClick(coord: FretboardCoord): FretboardClickAction {
   }
 }
 
+export interface ResetAction {
+  type: ActionType.RESET
+}
+
 export function reset(): ResetAction {
   return { type: ActionType.RESET };
+}
+
+export interface ToggleSharpsAction {
+  type: ActionType.TOGGLE_SHARPS
 }
 
 export function toggleSharps(): ToggleSharpsAction {
   return { type: ActionType.TOGGLE_SHARPS };
 }
 
+export interface ToggleFlatsAction {
+  type: ActionType.TOGGLE_FLATS
+}
+
 export function toggleFlats(): ToggleFlatsAction {
   return { type: ActionType.TOGGLE_FLATS };
+}
+
+export interface ToggleDoubleSharpsAction {
+  type: ActionType.TOGGLE_DOUBLE_SHARPS
 }
 
 export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
   return { type: ActionType.TOGGLE_DOUBLE_SHARPS };
 }
 
+export interface ToggleDoubleFlatsAction {
+  type: ActionType.TOGGLE_DOUBLE_FLATS
+}
+
 export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
   return { type: ActionType.TOGGLE_DOUBLE_FLATS };
+}
+
+export interface TickAction {
+  type: ActionType.TICK,
 }
 
 export function tick(): TickAction {
   return { type: ActionType.TICK };
 }
 
+export interface ShowScoresAction {
+  type: ActionType.SHOW_SCORES,
+}
+
 export function showScores(): ShowScoresAction {
   return { type: ActionType.SHOW_SCORES };
+}
+
+export interface ShowSettingsAction {
+  type: ActionType.SHOW_SETTINGS,
 }
 
 export function showSettings(): ShowSettingsAction {
   return { type: ActionType.SHOW_SETTINGS };
 }
 
+export interface RoundOverAction {
+  type: ActionType.ROUND_OVER,
+}
+
 export function roundOver(): RoundOverAction {
   return { type: ActionType.ROUND_OVER };
 }
 
-export function login(token: string): LoginAction {
+export interface LoginAction {
+  type: ActionType.LOGIN,
+  token: string | null,
+  username: string | null,
+}
+
+export function login({ token, username }): LoginAction {
   return {
     type: ActionType.LOGIN,
     token,
+    username,
   };
 }
 
 export function loginAsync({ username, password }) {
-  return function (dispatch) {
+  return function(dispatch) {
     return http.getToken({ username, password })
       .then(data => {
-        const { token } = data;
-        dispatch(login(token));
+        const { token, username } = data;
+        dispatch(login({ token, username }));
       });
   }
+}
+
+export interface LogoutAction {
+  type: ActionType.LOGOUT,
 }
 
 export function logout(): LogoutAction {

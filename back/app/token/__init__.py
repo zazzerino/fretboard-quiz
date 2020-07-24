@@ -14,7 +14,7 @@ def verify_token(token):
 
 @token_auth.error_handler
 def token_auth_error(status):
-    return make_response({'error': 'token auth error'}, 401)
+    return make_response({'error': 'token auth error\n'}, 401)
 
 
 from app.token import routes

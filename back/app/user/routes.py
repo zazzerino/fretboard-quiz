@@ -1,4 +1,4 @@
-from flask import redirect, url_for, request, make_response, jsonify
+from flask import request, make_response, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.models import User
@@ -26,16 +26,6 @@ def create():
     db.session.add(u)
     db.session.commit()
     return make_response({'username': u.username}, 201)
-
-
-@bp.route('/login', methods=['POST'])
-def login():
-    pass
-
-
-@bp.route('/logout', methods=['POST'])
-def logout():
-    pass
 
 
 # @bp.route('/login', methods=['GET', 'POST'])

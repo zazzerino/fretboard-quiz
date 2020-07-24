@@ -8,9 +8,11 @@ from app.user import basic_auth
 @bp.route('/get', methods=['POST'])
 @basic_auth.login_required
 def get_token():
-    token = basic_auth.current_user().get_token()
+    user = basic_auth.current_user()
+    token = user.get_token()
     db.session.commit()
-    return jsonify({'token': token})
+    return jsonify({'token': token,
+                    'username': user.username})
 
 
 @bp.route('/validate', methods=['POST'])
@@ -18,12 +20,15 @@ def validate_token():
     token = request.json['token']
     user = User.check_token(token)
     valid = "true" if user else "false"
-    status = 200 if valid else 403
-
-    return jsonify({
+    status = 200 if user else 403
+    username = user.username if user else None
+    response = {
         'valid': valid,
-        'token': token
-    }), status
+        'token': token,
+        'username': username
+    }
+
+    return jsonify(response), status
 
 
 @bp.route('/revoke', methods=['DELETE'])

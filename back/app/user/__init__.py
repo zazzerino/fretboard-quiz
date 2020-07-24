@@ -22,7 +22,7 @@ def verify_password(username, password):
 
 @basic_auth.error_handler
 def error_handler(status):
-    return make_response('basic auth error', 401)
+    return make_response('basic auth error\n', 401)
 
 
 from app.user import routes

@@ -9,18 +9,21 @@ export async function getScores() {
     })).catch(error => console.log(error));
 }
 
-export async function createScore({ name, score }) {
-  const response = fetch('/api/score/create', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, score }),
-  });
-
-  return response;
+export async function createScore({ score, token }) {
 }
+
+// export async function createScore({ name, score }) {
+//   const response = fetch('/api/score/create', {
+//     method: 'POST',
+//     mode: 'cors',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ name, score }),
+//   });
+
+//   return response;
+// }
 
 export async function getToken({ username, password }) {
   return fetch('/api/token/get', {
@@ -34,7 +37,7 @@ export async function getToken({ username, password }) {
     if (response.status === 200) {
       return response.json();
     } else {
-      return {token: null}
+      return { token: null, username: null }
     }
   }).catch(error => console.log(error));
 }

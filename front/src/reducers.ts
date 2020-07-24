@@ -19,10 +19,12 @@ function makeInitialState(): AppState {
     roundLength: defaultRoundLength,
     secondsLeft: defaultRoundLength,
     token: null,
+    username: null,
   }
 }
 
-function handleNewNoteToGuess(state: AppState, action: NewNoteToGuessAction): AppState {
+function handleNewNoteToGuess(state: AppState,
+                              action: NewNoteToGuessAction): AppState {
   return {
     ...state,
     noteToGuess: action.payload,
@@ -32,7 +34,8 @@ function handleNewNoteToGuess(state: AppState, action: NewNoteToGuessAction): Ap
   };
 }
 
-function handleFretboardClick(state: AppState, action: FretboardClickAction): AppState {
+function handleFretboardClick(state: AppState,
+                              action: FretboardClickAction): AppState {
   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
   const guessStatus = isCorrect ? GuessStatus.CORRECT : GuessStatus.INCORRECT;
 
@@ -55,7 +58,8 @@ function handleFretboardClick(state: AppState, action: FretboardClickAction): Ap
 function updateNoteOpts(state: AppState, action: Action): AppState {
   switch (action.type) {
     case ActionType.TOGGLE_SHARPS:
-      const sharpOpts = { ...state.noteOpts, useSharps: !state.noteOpts.useSharps };
+      const sharpOpts = { ...state.noteOpts,
+                          useSharps: !state.noteOpts.useSharps };
       return { ...state, noteOpts: sharpOpts };
 
     case ActionType.TOGGLE_FLATS:
@@ -63,11 +67,14 @@ function updateNoteOpts(state: AppState, action: Action): AppState {
       return { ...state, noteOpts: flatOpts };
 
     case ActionType.TOGGLE_DOUBLE_SHARPS:
-      const doubleSharpOpts = { ...state.noteOpts, useDoubleSharps: !state.noteOpts.useDoubleSharps };
+      const doubleSharpOpts = { ...state.noteOpts,
+                                useDoubleSharps:
+                                !state.noteOpts.useDoubleSharps };
       return { ...state, noteOpts: doubleSharpOpts };
 
     case ActionType.TOGGLE_DOUBLE_FLATS:
-      const doubleFlatOpts = { ...state.noteOpts, useDoubleFlats: !state.noteOpts.useDoubleFlats };
+      const doubleFlatOpts = { ...state.noteOpts,
+                               useDoubleFlats: !state.noteOpts.useDoubleFlats };
       return { ...state, noteOpts: doubleFlatOpts };
   }
 }
@@ -112,14 +119,15 @@ function handleRoundOver(state: AppState) {
 }
 
 function handleLogin(state: AppState, action: LoginAction) {
-  return {...state, token: action.token};
+  return {...state, token: action.token, username: action.username };
 }
 
 function handleLogout(state: AppState, action: LogoutAction) {
-  return {...state, token: null}
+  return {...state, token: null, username: null }
 }
 
-export function rootReducer(state = makeInitialState(), action: Action): AppState {
+export function rootReducer(state = makeInitialState(),
+                            action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
       return handleNewNoteToGuess(state, action);

@@ -59,4 +59,5 @@ export interface AppState {
   secondsLeft: number,
   scores?: Score[],
   token: string | null,
+  username: string | null,
 }
