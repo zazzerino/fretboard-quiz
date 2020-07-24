@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../types';
+import { logout } from '../actions';
 
 export function Navbar(props: any) {
+  const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.token);
 
   return (
@@ -13,9 +15,16 @@ export function Navbar(props: any) {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {token == null &&
+          {(token == null
+            &&
             <li>
               <Link to="/login">Login</Link>
+            </li>)
+            ||
+            <li>
+              <Link to="/logout" onClick={() => dispatch(logout())}>
+                Logout
+              </Link>
             </li>
           }
           <li>

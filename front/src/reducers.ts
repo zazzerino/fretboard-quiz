@@ -1,4 +1,4 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, ShowScoresAction, LoginAction } from './actions';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, ShowScoresAction, LoginAction, LogoutAction } from './actions';
 import { AppState, Status, GuessStatus } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
@@ -115,6 +115,10 @@ function handleLogin(state: AppState, action: LoginAction) {
   return {...state, token: action.token};
 }
 
+function handleLogout(state: AppState, action: LogoutAction) {
+  return {...state, token: null}
+}
+
 export function rootReducer(state = makeInitialState(), action: Action): AppState {
   switch (action.type) {
     case ActionType.NEW_NOTE_TO_GUESS:
@@ -149,6 +153,9 @@ export function rootReducer(state = makeInitialState(), action: Action): AppStat
 
     case ActionType.LOGIN:
       return handleLogin(state, action);
+
+    case ActionType.LOGOUT:
+      return handleLogout(state, action);
 
     default:
       return state;

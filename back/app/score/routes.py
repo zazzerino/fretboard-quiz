@@ -2,6 +2,7 @@ from flask import request, make_response, redirect, url_for, jsonify
 from app import db
 from app.score import bp
 from app.models import User, Score
+from app.token import token_auth
 
 
 @bp.route('/')
@@ -15,6 +16,7 @@ def all():
 
 
 @bp.route('/create', methods=['POST'])
+@token_auth.login_required
 def create_score():
     content = request.json
     username = content['name']

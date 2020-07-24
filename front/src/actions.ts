@@ -23,6 +23,7 @@ export enum ActionType {
   ROUND_OVER = 'ROUND_OVER',
 
   LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
 }
 
 export interface NewNoteToGuessAction {
@@ -79,6 +80,10 @@ export interface RoundOverAction {
 export interface LoginAction {
   type: ActionType.LOGIN,
   token: string | null,
+}
+
+export interface LogoutAction {
+  type: ActionType.LOGOUT,
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
@@ -158,10 +163,16 @@ export function loginAsync({ username, password }) {
   }
 }
 
+export function logout(): LogoutAction {
+  return {
+    type: ActionType.LOGOUT,
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
   | ToggleStringAction | TickAction
   | ShowScoresAction | ShowSettingsAction
-  | RoundOverAction | LoginAction;
+  | RoundOverAction | LoginAction | LogoutAction;

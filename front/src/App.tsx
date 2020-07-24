@@ -10,6 +10,7 @@ import { RoundOverModal } from './components/RoundOverModal';
 import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
 import { LoginForm } from './components/LoginForm';
+import { Logout } from './components/Logout';
 
 function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
   switch (pathname) {
@@ -28,7 +29,7 @@ export default function App() {
   const history = useHistory();
 
   useInterval(() => {
-      /* dispatch(tick()); */
+    // dispatch(tick());
   }, 1000);
 
   useEffect(() => {
@@ -67,6 +68,9 @@ export default function App() {
         </Route>
         <Route path="/login">
           <LoginForm />
+        </Route>
+        <Route path="/logout">
+          <Logout />
         </Route>
         <Route path="/">
           <Home />

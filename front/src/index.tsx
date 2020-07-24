@@ -8,14 +8,10 @@ import { rootReducer } from './reducers';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
-import { login, loginAsync } from './actions';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 store.subscribe(() => console.log(store.getState()));
 console.log(store.getState());
-// @ts-ignore
-/* store.dispatch(loginAsync({ username: 'bob', password: 'pwd' }))
- *      .then(() => console.log(store.getState())); */
 
 ReactDOM.render(
   <Provider store={store}>
