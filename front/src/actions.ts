@@ -1,6 +1,7 @@
 import { randomNoteOnStrings, isCorrectGuess } from './theory';
 import { FretboardCoord, NoteOpts, GuessStatus } from './types';
 import * as http from './http';
+import { correctSound, incorrectSound } from './audio';
 
 export enum ActionType {
   FRETBOARD_CLICK = 'FRETBOARD_CLICK',
@@ -50,6 +51,12 @@ export interface FretboardClickAction {
 export function fretboardClick({ noteToGuess, coord }): FretboardClickAction {
   const guessStatus = isCorrectGuess(noteToGuess, coord) ?
     'correct' : 'incorrect';
+
+  if (guessStatus === 'correct') {
+    correctSound.play();
+  } else {
+    incorrectSound.play();
+  }
 
   return {
     type: ActionType.FRETBOARD_CLICK,
@@ -110,7 +117,7 @@ export function login({ token, username }): LoginAction {
 }
 
 export function loginAsync({ username, password }) {
-  return async function(dispatch) {
+  return async function(dispatch: (action: LoginAction) => void) {
     return http.getToken({ username, password })
       .then(data => {
         const { token, username } = data;
