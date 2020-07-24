@@ -4,17 +4,12 @@ import * as http from './http';
 
 export enum ActionType {
   FRETBOARD_CLICK = 'FRETBOARD_CLICK',
-
   NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS',
   RESET_QUIZ = 'RESET_QUIZ',
-
   TOGGLE_ACCIDENTAL = 'TOGGLE_ACCIDENTAL',
   TOGGLE_STRING = 'TOGGLE_STRING',
-
   TICK = 'TICK',
-
   ROUND_OVER = 'ROUND_OVER',
-
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
 }
@@ -108,7 +103,7 @@ export function login({ token, username }): LoginAction {
 }
 
 export function loginAsync({ username, password }) {
-  return function(dispatch) {
+  return async function(dispatch) {
     return http.getToken({ username, password })
       .then(data => {
         const { token, username } = data;

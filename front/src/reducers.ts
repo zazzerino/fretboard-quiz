@@ -4,7 +4,7 @@ import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType,
 import { AppState, User, Quiz, Score, GuessStatus, NoteOpts } from './types';
 import { randomNote, isCorrectGuess, defaultNoteOpts,
          randomNoteOnStrings } from './theory';
-import { coinSound, bowserFallsSound } from './audio';
+import { correctSound, incorrectSound } from './audio';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';
 
@@ -18,7 +18,7 @@ function makeInitialState(): AppState {
     quiz: {
       roundLength: defaultRoundLength,
       secondsLeft: defaultRoundLength,
-      noteToGuess: note,
+      noteToGuess: null,
       clickedFret: null,
       guessStatus: null,
       history: [],
@@ -94,8 +94,6 @@ export function quiz(state = initialState.quiz, action: Action): Quiz {
 
 export function noteOpts(state = initialState.noteOpts,
                          action: Action): NoteOpts {
-  let accidentals: string[];
-
   switch (action.type) {
     case ActionType.TOGGLE_ACCIDENTAL:
       const accidentals = toggleElement(state.accidentals, action.accidental);

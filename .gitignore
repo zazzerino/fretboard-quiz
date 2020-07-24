@@ -29,3 +29,5 @@ back/app.egg-info/
 back/build/
 back/dist/
 back/fretboard_quiz.egg-info/
+
+.log
