@@ -45,11 +45,11 @@ export interface NewNoteToGuessAction {
 
 export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
   // const note = randomNote(opts);
-  const note = randomNoteOnStrings(opts);
+  // const note = randomNoteOnStrings(opts);
 
   return {
     type: ActionType.NEW_NOTE_TO_GUESS,
-    payload: note
+    payload: 'C4'
   }
 }
 

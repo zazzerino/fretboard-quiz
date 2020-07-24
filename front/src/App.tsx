@@ -5,12 +5,12 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import { useInterval } from './util';
 import { tick, showSettings } from './actions';
 import { Home } from './components/Home';
-import { PlayingContainer } from './components/PlayingContainer';
-import { RoundOverModal } from './components/RoundOverModal';
-import { Leaderboard } from './components/Leaderboard';
+/* import { PlayingContainer } from './components/PlayingContainer'; */
+/* import { RoundOverModal } from './components/RoundOverModal'; */
+/* import { Leaderboard } from './components/Leaderboard'; */
 import { Navbar } from './components/Navbar';
-import { LoginForm } from './components/LoginForm';
-import { Logout } from './components/Logout';
+/* import { LoginForm } from './components/LoginForm'; */
+/* import { Logout } from './components/Logout'; */
 
 function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
   switch (pathname) {
@@ -57,21 +57,21 @@ export default function App() {
     <div className="App">
       <Navbar />
       <Switch>
-        <Route path="/play">
-          <PlayingContainer />
-        </Route>
-        <Route path="/roundover">
-          <RoundOverModal />
-        </Route>
-        <Route path="/scores">
-          <Leaderboard />
-        </Route>
-        <Route path="/login">
-          <LoginForm />
-        </Route>
-        <Route path="/logout">
-          <Logout />
-        </Route>
+        {/* <Route path="/play">
+            <PlayingContainer />
+            </Route>
+            <Route path="/roundover">
+            <RoundOverModal />
+            </Route>
+            <Route path="/scores">
+            <Leaderboard />
+            </Route>
+            <Route path="/login">
+            <LoginForm />
+            </Route>
+            <Route path="/logout">
+            <Logout />
+            </Route> */}
         <Route path="/">
           <Home />
         </Route>

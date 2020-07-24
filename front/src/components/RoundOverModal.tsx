@@ -8,18 +8,18 @@ import { showScores, reset } from '../actions';
 
 export function SubmitScoreBtn(props: any) {
   const dispatch = useDispatch();
-  const guesses = useSelector((state: AppState) => state.guesses);
+  /* const guesses = useSelector((state: AppState) => state.guesses); */
   const history = useHistory();
 
-  const correctGuesses = guesses.filter((guess: Guess) => {
-    return guess.isCorrect;
-  }).length;
+  /* const correctGuesses = guesses.filter((guess: Guess) => {
+   *   return guess.isCorrect;
+   * }).length;
 
-  const incorrectGuesses = guesses.filter((guess: Guess) => {
-    return !guess.isCorrect;
-  }).length;
+   * const incorrectGuesses = guesses.filter((guess: Guess) => {
+   *   return !guess.isCorrect;
+   * }).length;
 
-  const score = correctGuesses - incorrectGuesses;
+   * const score = correctGuesses - incorrectGuesses; */
 
   return (
     <div className="SubmitScoreBtn">

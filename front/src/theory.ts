@@ -40,42 +40,23 @@ export function midiNum(notename: string) {
   return whiteKeyOffsets[whiteKey] + accidentalOffsets[accidental] + (12 * (parseInt(octave) + 1));
 }
 
-export const defaultNoteOpts: NoteOpts = {
-  useSharps: true,
-  useFlats: true,
-  useDoubleSharps: false,
-  useDoubleFlats: false,
-  octaves: [3, 4, 5],
+export const defaultNoteOpts = {
+  octaves: [3, 4, 5, 6],
   whiteKeys: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
   lowestNote: 'E3',
   highestNote: 'G#5',
-  stringsToUse: [1,2,3,4,5,6],
+  accidentals: ['bb', 'b', '', '#', '##'],
+  strings: [1,2,3,4,5,6],
+  fretCount: 4,
+  startFret: 0,
 }
 
-export function randomNote(userOpts: NoteOpts = {}): string {
+export function randomNote(userOpts = {}): string {
   const opts = { ...defaultNoteOpts, ...userOpts };
 
-  const whiteKeys = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-  const octaves = [3, 4, 5, 6];
-  const accidentals = ['', '', '', ''];
-
-  if (opts.useSharps) {
-    accidentals.push('#');
-    accidentals.push('#');
-  }
-
-  if (opts.useFlats) {
-    accidentals.push('b');
-    accidentals.push('b');
-  }
-
-  if (opts.useDoubleSharps) {
-    accidentals.push('##');
-  }
-
-  if (opts.useDoubleFlats) {
-    accidentals.push('bb');
-  }
+  const whiteKeys = opts.whiteKeys;
+  const accidentals = opts.accidentals;
+  const octaves = opts.octaves;
 
   const lowestMidi = midiNum(opts.lowestNote);
   const highestMidi = midiNum(opts.highestNote);
@@ -99,23 +80,42 @@ export function randomNote(userOpts: NoteOpts = {}): string {
   return note;
 }
 
-export function randomNoteOnStrings(noteOpts = defaultNoteOpts, fretCount = 4) {
-  let midiNums = [] as number[];
+export function randomNoteOnStrings(userOpts = {}) {
+  const opts = { ...defaultNoteOpts, ...userOpts };
+  let midiNums: number[] = [];
 
-  for (let string of noteOpts.stringsToUse) {
-    for (let fret = 0; fret < fretCount; fret++) {
+  for (let string of opts.strings) {
+    for (let fret = opts.startFret; fret < opts.fretCount; fret++) {
       const note = findNoteAt({ string, fret });
       midiNums.push(midiNum(note));
     }
   }
 
-  let randNote = randomNote(noteOpts);
+  let randNote = randomNote(opts);
   while (!midiNums.includes(midiNum(randNote))) {
-    randNote = randomNote(noteOpts);
+    randNote = randomNote(opts);
   }
 
   return randNote;
 }
+
+// export function randomNoteOnStrings(noteOpts = defaultNoteOpts, fretCount = 4) {
+  // let midiNums = [] as number[];
+
+  // for (let string of noteOpts.stringsToUse) {
+  //   for (let fret = 0; fret < fretCount; fret++) {
+  //     const note = findNoteAt({ string, fret });
+  //     midiNums.push(midiNum(note));
+  //   }
+  // }
+
+  // let randNote = randomNote(noteOpts);
+  // while (!midiNums.includes(midiNum(randNote))) {
+  //   randNote = randomNote(noteOpts);
+  // }
+
+  // return randNote;
+// }
 
 export function transposeNote(notename: string, halfSteps: number) {
   const chromaticSharps = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -137,7 +137,9 @@ export function transposeNote(notename: string, halfSteps: number) {
 
 const standardTuning = ['E3', 'A3', 'D4', 'G4', 'B4', 'E5'];
 
-export function fretboardNotes(tuning = standardTuning, startFret = 0, fretCount = 4): FretboardNote[] {
+export function fretboardNotes(tuning = standardTuning,
+                               startFret = 0,
+                               fretCount = 4): FretboardNote[] {
   const notes: { string: number, fret: number, note: string }[] = [];
 
   for (let string = 0; string < tuning.length; string++) {

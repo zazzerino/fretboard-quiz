@@ -31,33 +31,47 @@ export interface Guess {
 }
 
 export interface NoteOpts {
-  useSharps?: boolean,
-  useFlats?: boolean,
-  useDoubleSharps?: boolean,
-  useDoubleFlats?: boolean,
-  octaves?: number[],
-  whiteKeys?: string[],
-  lowestNote?: string,
-  highestNote?: string,
-  stringsToUse?: number[],
+  accidentalsToUse: string[],
+  stringsToUse: number[],
 }
 
 export interface Score {
   username: string,
   value: number,
-  timestamp: string
+  timestamp: string,
+}
+
+export interface User {
+  username: string,
+  token: string,
+}
+
+export interface QuizState {
+  noteToGuess: string,
+  clickedFret: FretboardCoord | null,
+  guessStatus: GuessStatus,
+}
+
+export interface History {
+  guesses: Guess[]
 }
 
 export interface AppState {
-  noteToGuess: string,
-  clickedFret?: FretboardCoord,
-  status: Status,
-  guesses: Guess[],
-  guessStatus: GuessStatus,
   noteOpts: NoteOpts,
-  roundLength: number, // in seconds
-  secondsLeft: number,
-  scores?: Score[],
-  token: string | null,
-  username: string | null,
+  quiz: QuizState,
+  user: User,
 }
+
+// export interface AppState {
+//   noteToGuess: string,
+//   clickedFret?: FretboardCoord,
+//   status: Status,
+//   guesses: Guess[],
+//   guessStatus: GuessStatus,
+//   noteOpts: NoteOpts,
+//   roundLength: number, // in seconds
+//   secondsLeft: number,
+//   scores?: Score[],
+//   token: string | null,
+//   username: string | null,
+// }

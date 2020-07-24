@@ -5,22 +5,22 @@ import { AppState } from '../types';
 
 export const NewNoteButton = props => {
   const dispatch = useDispatch();
-  const noteOpts = useSelector((state: AppState) => state.noteOpts);
-  const clickable = useSelector((state: AppState) => {
-    return state.guessStatus != null;
-  });
+  /* const noteOpts = useSelector((state: AppState) => state.noteOpts);
+   * const clickable = useSelector((state: AppState) => {
+   *   return state.guessStatus != null;
+   * }); */
 
   let className = "NewNoteButton";
-  if (clickable) {
-    className += ' active';
-  }
+  /* if (clickable) {
+   *   className += ' active';
+   * } */
 
   return (
     <button className={className}
       onClick={() => {
-        if (clickable) {
-          dispatch(newNoteToGuess(noteOpts));
-        }
+        {/* if (clickable) {
+            {dispatch(newNoteToGuess(noteOpts));}
+            } */}
       }}
     >
       New Note

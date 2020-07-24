@@ -9,15 +9,15 @@ import { useSelector } from 'react-redux';
 import { AppState, Status } from '../types';
 
 export function PlayingContainer(props: any) {
-  const status = useSelector((app: AppState) => {
-    return app.status;
-  });
+  /* const status = useSelector((app: AppState) => {
+   *   return app.status;
+   * }); */
 
-  if (status === Status.ROUND_OVER) {
-    return (
-      <RoundOverModal />
-    );
-  } else {
+  /* if (status === Status.ROUND_OVER) {
+   *   return (
+   *     <RoundOverModal />
+   *   );
+   * } else { */
     return (
       <div className="PlayingContainer">
         <SettingsModal />
@@ -27,5 +27,5 @@ export function PlayingContainer(props: any) {
         <NewNoteButton />
       </div>
     );
-  }
+  /* } */
 }

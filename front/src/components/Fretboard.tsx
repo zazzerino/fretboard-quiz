@@ -11,41 +11,41 @@ const incorrectColor = 'deeppink';
 export function Fretboard(props: any) {
   const fretboardElem = React.useRef(null);
   const dispatch = useDispatch();
-  const noteToGuess = useSelector((state: AppState) => state.noteToGuess);
-  const clickedFret = useSelector((state: AppState) => state.clickedFret);
-  const status = useSelector((state: AppState) => state.status);
-  const guessStatus = useSelector((state: AppState) => state.guessStatus);
+  /* const noteToGuess = useSelector((state: AppState) => state.noteToGuess);
+   * const clickedFret = useSelector((state: AppState) => state.clickedFret);
+   * const status = useSelector((state: AppState) => state.status);
+   * const guessStatus = useSelector((state: AppState) => state.guessStatus); */
 
-  React.useEffect(() => {
-    const correctGuess = guessStatus === GuessStatus.CORRECT;
-    const isPlaying = status === Status.PLAYING;
-    const drawDotOnHover = isPlaying && guessStatus == null;
-    const dots = [];
+  /* React.useEffect(() => {
+   *   const correctGuess = guessStatus === GuessStatus.CORRECT;
+   *   const isPlaying = status === Status.PLAYING;
+   *   const drawDotOnHover = isPlaying && guessStatus == null;
+   *   const dots = [];
 
-    if (clickedFret != null) {
-      const color = correctGuess ? correctColor : incorrectColor;
-      dots.push({ ...clickedFret, color });
+   *   if (clickedFret != null) {
+   *     const color = correctGuess ? correctColor : incorrectColor;
+   *     dots.push({ ...clickedFret, color });
 
-      if (!correctGuess) {
-        const correctCoord = findFret(noteToGuess);
-        dots.push({ ...correctCoord, color: correctColor });
-      }
-    }
+   *     if (!correctGuess) {
+   *       const correctCoord = findFret(noteToGuess);
+   *       dots.push({ ...correctCoord, color: correctColor });
+   *     }
+   *   }
 
-    new FretboardDiagram({
-      id: "fretboard-ref",
-      dots,
-      drawDotOnHover,
-      showFretNums: true,
-      showStringNames: true,
+   *   new FretboardDiagram({
+   *     id: "fretboard-ref",
+   *     dots,
+   *     drawDotOnHover,
+   *     showFretNums: true,
+   *     showStringNames: true,
 
-      onClick: (coord: FretboardCoord) => {
-        if (drawDotOnHover) {
-          dispatch(fretboardClick(coord))
-        }
-      }
-    });
-  });
+   *     onClick: (coord: FretboardCoord) => {
+   *       if (drawDotOnHover) {
+   *         dispatch(fretboardClick(coord))
+   *       }
+   *     }
+   *   });
+   * }); */
 
   return (
     <div className="Fretboard">

@@ -6,13 +6,25 @@ import { reset } from '../actions';
 
 export function SettingsModal(props: any) {
   const dispatch = useDispatch();
-  const status = useSelector((app: AppState) => {
-    return app.status;
-  });
+  /* const status = useSelector((app: AppState) => {
+   *   return app.status;
+   * }); */
 
-  const show = status === Status.SHOW_SETTINGS;
+  /* const show = status === Status.SHOW_SETTINGS; */
 
-  return show && (
+  /* return show && (
+   *   <div className="SettingsModal">
+   *     <h2>Settings</h2>
+   *     <SettingsMenu />
+   *     <button onClick={() => {
+   *       dispatch(reset());
+   *     }}>
+   *       Start
+   *     </button>
+   *   </div>
+   * ); */
+
+  return (
     <div className="SettingsModal">
       <h2>Settings</h2>
       <SettingsMenu />
