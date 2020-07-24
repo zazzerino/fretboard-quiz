@@ -1,15 +1,12 @@
 import { encode } from 'base-64';
 
 export async function getScores() {
-  const scores = fetch('/api/score/all')
+  return fetch('/api/score/all')
     .then(res => res.json())
-    .then(data => data.scores);
-
-  const sortedScores = [...(await scores)].sort((a, b) => {
-    return parseInt(a.value) < parseInt(b.value) ? 1 : -1;
-  });
-
-  return sortedScores;
+    .then(data => data.scores)
+    .then(scores => scores.sort((a, b) => {
+      return parseInt(a.value) < parseInt(b.value) ? 1: -1;
+    })).catch(error => console.log(error));
 }
 
 export async function createScore({ name, score }) {
@@ -26,41 +23,29 @@ export async function createScore({ name, score }) {
 }
 
 export async function getToken({ username, password }) {
-  const response = fetch('/api/token/get', {
+  return fetch('/api/token/get', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + encode(username + ':' + password),
     },
-  });
-
-  const status = (await response).status;
-  let token: any = {"token": null};
-
-  if (status === 200) {
-    token = (await response).json();
-  }
-
-  return token;
+  }).then(response => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      return {token: null}
+    }
+  }).catch(error => console.log(error));
 }
 
 export async function validateToken({ token }) {
-  const response = fetch('/api/token/validate', {
+  return fetch('/api/token/validate', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token })
-  });
-
-  const status = (await response).status;
-
-  if (status === 200) {
-    const json = (await response as any).json();
-    return json;
-  } else {
-    return false;
-  }
+  }).then(response => response.json());
 }

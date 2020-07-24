@@ -28,7 +28,7 @@ export default function App() {
   const history = useHistory();
 
   useInterval(() => {
-    dispatch(tick());
+      /* dispatch(tick()); */
   }, 1000);
 
   useEffect(() => {

@@ -58,4 +58,5 @@ export interface AppState {
   roundLength: number, // in seconds
   secondsLeft: number,
   scores?: Score[],
+  token: string | null,
 }

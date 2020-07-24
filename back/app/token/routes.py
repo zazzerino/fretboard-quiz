@@ -17,9 +17,13 @@ def get_token():
 def validate_token():
     token = request.json['token']
     user = User.check_token(token)
-    if user:
-        return make_response({'valid_token': True, 'username': user.username})
-    return make_response({'valid_token': False}, 403)
+    valid = "true" if user else "false"
+    status = 200 if valid else 403
+
+    return jsonify({
+        'valid': valid,
+        'token': token
+    }), status
 
 
 @bp.route('/revoke', methods=['DELETE'])

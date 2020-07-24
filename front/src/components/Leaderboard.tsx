@@ -45,19 +45,13 @@ export function Leaderboard(props: any) {
   const [scores, setScores] = React.useState([])
 
   React.useEffect(() => {
-    (async function () {
-      setScores(await http.getScores());
-    })();
+    http.getScores().then(data => {
+      setScores(data);
+    });
 
-    /* (async function () {
-     *   const res = http.getToken({ username: 'bob', password: 'pwd' });
-     *   console.log(await res);
-     * })();
+    /* http.validateToken({ token: 'SsFtw5yjpKd6ZOki7GG1oXIQ9HtBw+d4' })
+     *     .then(data => console.log(data)); */
 
-     * (async function () {
-     *   const res = http.validateToken({token: 'SsFtw5yjpKd6ZOki7GG1oXIQ9HtBw+d4'});
-     *   console.log(await res);
-     * })(); */
   }, []);
 
   return (

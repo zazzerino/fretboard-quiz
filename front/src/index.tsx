@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './reducers';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
+import thunkMiddleware from 'redux-thunk';
+import { login, loginAsync } from './actions';
 
-const store = createStore(rootReducer);
-// store.subscribe(() => console.log(store.getState()));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+store.subscribe(() => console.log(store.getState()));
+// @ts-ignore
+store.dispatch(loginAsync({ username: 'bob', password: 'pwd' }))
+     .then(() => console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

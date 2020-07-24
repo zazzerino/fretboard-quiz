@@ -1,5 +1,6 @@
 import { randomNoteOnStrings } from './theory';
 import { FretboardCoord, NoteOpts } from './types';
+import * as http from './http';
 
 export enum ActionType {
   FRETBOARD_CLICK = 'FRETBOARD_CLICK',
@@ -20,6 +21,8 @@ export enum ActionType {
   SHOW_SETTINGS = 'SHOW_SETTINGS',
 
   ROUND_OVER = 'ROUND_OVER',
+
+  LOGIN = 'LOGIN',
 }
 
 export interface NewNoteToGuessAction {
@@ -71,6 +74,11 @@ export interface ShowSettingsAction {
 
 export interface RoundOverAction {
   type: ActionType.ROUND_OVER,
+}
+
+export interface LoginAction {
+  type: ActionType.LOGIN,
+  token: string | null,
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
@@ -133,10 +141,27 @@ export function roundOver(): RoundOverAction {
   return { type: ActionType.ROUND_OVER };
 }
 
+export function login(token: string): LoginAction {
+  return {
+    type: ActionType.LOGIN,
+    token,
+  };
+}
+
+export function loginAsync({ username, password }) {
+  return function (dispatch) {
+    return http.getToken({ username, password })
+      .then(data => {
+        const { token } = data;
+        dispatch(login(token));
+      });
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetAction
   | ToggleSharpsAction | ToggleFlatsAction
   | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
   | ToggleStringAction | TickAction
   | ShowScoresAction | ShowSettingsAction
-  | RoundOverAction;
+  | RoundOverAction | LoginAction;
