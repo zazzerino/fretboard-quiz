@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AppState } from '../types';
 
 export function Navbar(props: any) {
+  const token = useSelector((state: AppState) => state.token);
+
   return (
     <div className="Navbar">
       <nav>
@@ -9,9 +13,11 @@ export function Navbar(props: any) {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          {token == null &&
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          }
           <li>
             <Link to="/play">Play</Link>
           </li>

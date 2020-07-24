@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { loginAsync } from '../actions';
 
 export function LoginForm(props: any) {
+  const dispatch = useDispatch();
   const { register, handleSubmit, watch, errors } = useForm();
   const onSubmit = (data: any) => {
-    console.log(data);
+    /* console.log(data); */
+    const { username, password } = data;
+    dispatch(loginAsync({ username, password }));
   };
 
   return (
