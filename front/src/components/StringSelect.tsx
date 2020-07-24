@@ -12,7 +12,7 @@ function StringCheckbox(props: StringCheckboxProps) {
   const stringNum = Number(props.stringNum);
   const name = `string-${stringNum}`;
   const useString = useSelector((state: AppState) => {
-    return state.noteOpts.stringsToUse.includes(stringNum)
+    return state.noteOpts.strings.includes(stringNum);
   });
 
   return (

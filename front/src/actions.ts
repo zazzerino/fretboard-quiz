@@ -6,19 +6,16 @@ export enum ActionType {
   FRETBOARD_CLICK = 'FRETBOARD_CLICK',
 
   NEW_NOTE_TO_GUESS = 'NEW_NOTE_TO_GUESS',
-  RESET = 'RESET',
+  RESET_QUIZ = 'RESET_QUIZ',
 
-  TOGGLE_SHARPS = 'TOGGLE_SHARPS',
-  TOGGLE_FLATS = 'TOGGLE_FLATS',
-  TOGGLE_DOUBLE_SHARPS = 'TOGGLE_DOUBLE_SHARPS',
-  TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS',
-
+  // TOGGLE_SHARPS = 'TOGGLE_SHARPS',
+  // TOGGLE_FLATS = 'TOGGLE_FLATS',
+  // TOGGLE_DOUBLE_SHARPS = 'TOGGLE_DOUBLE_SHARPS',
+  // TOGGLE_DOUBLE_FLATS = 'TOGGLE_DOUBLE_FLATS',
+  TOGGLE_ACCIDENTAL = 'TOGGLE_ACCIDENTAL',
   TOGGLE_STRING = 'TOGGLE_STRING',
 
   TICK = 'TICK',
-
-  SHOW_SCORES = 'SHOW_SCORES',
-  SHOW_SETTINGS = 'SHOW_SETTINGS',
 
   ROUND_OVER = 'ROUND_OVER',
 
@@ -28,82 +25,93 @@ export enum ActionType {
 
 export interface ToggleStringAction {
   type: ActionType.TOGGLE_STRING,
-  payload: number
+  string: number
 }
 
 export function toggleString(stringNum: number): ToggleStringAction {
   return {
     type: ActionType.TOGGLE_STRING,
-    payload: stringNum
+    string: stringNum
   }
 }
 
 export interface NewNoteToGuessAction {
   type: ActionType.NEW_NOTE_TO_GUESS,
-  payload: string
+  note: string
 }
 
 export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
-  // const note = randomNote(opts);
-  // const note = randomNoteOnStrings(opts);
+  const note = randomNoteOnStrings(opts);
 
   return {
     type: ActionType.NEW_NOTE_TO_GUESS,
-    payload: 'C4'
+    note,
   }
 }
 
 export interface FretboardClickAction {
   type: ActionType.FRETBOARD_CLICK,
-  payload: FretboardCoord
+  coord: FretboardCoord
 }
 
 export function fretboardClick(coord: FretboardCoord): FretboardClickAction {
   return {
     type: ActionType.FRETBOARD_CLICK,
-    payload: coord
+    coord,
   }
 }
 
-export interface ResetAction {
-  type: ActionType.RESET
+export interface ResetQuizAction {
+  type: ActionType.RESET_QUIZ
 }
 
-export function reset(): ResetAction {
-  return { type: ActionType.RESET };
+export function reset(): ResetQuizAction {
+  return { type: ActionType.RESET_QUIZ };
 }
 
-export interface ToggleSharpsAction {
-  type: ActionType.TOGGLE_SHARPS
+export interface ToggleAccidentalAction {
+  type: ActionType.TOGGLE_ACCIDENTAL,
+  accidental: string,
 }
 
-export function toggleSharps(): ToggleSharpsAction {
-  return { type: ActionType.TOGGLE_SHARPS };
+export function toggleAccidental(accidental: string) {
+  return {
+    type: ActionType.TOGGLE_ACCIDENTAL,
+    accidental,
+  }
 }
 
-export interface ToggleFlatsAction {
-  type: ActionType.TOGGLE_FLATS
-}
+// export interface ToggleSharpsAction {
+//   type: ActionType.TOGGLE_SHARPS
+// }
 
-export function toggleFlats(): ToggleFlatsAction {
-  return { type: ActionType.TOGGLE_FLATS };
-}
+// export function toggleSharps(): ToggleSharpsAction {
+//   return { type: ActionType.TOGGLE_SHARPS };
+// }
 
-export interface ToggleDoubleSharpsAction {
-  type: ActionType.TOGGLE_DOUBLE_SHARPS
-}
+// export interface ToggleFlatsAction {
+//   type: ActionType.TOGGLE_FLATS
+// }
 
-export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
-  return { type: ActionType.TOGGLE_DOUBLE_SHARPS };
-}
+// export function toggleFlats(): ToggleFlatsAction {
+//   return { type: ActionType.TOGGLE_FLATS };
+// }
 
-export interface ToggleDoubleFlatsAction {
-  type: ActionType.TOGGLE_DOUBLE_FLATS
-}
+// export interface ToggleDoubleSharpsAction {
+//   type: ActionType.TOGGLE_DOUBLE_SHARPS
+// }
 
-export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
-  return { type: ActionType.TOGGLE_DOUBLE_FLATS };
-}
+// export function toggleDoubleSharps(): ToggleDoubleSharpsAction {
+//   return { type: ActionType.TOGGLE_DOUBLE_SHARPS };
+// }
+
+// export interface ToggleDoubleFlatsAction {
+//   type: ActionType.TOGGLE_DOUBLE_FLATS
+// }
+
+// export function toggleDoubleFlats(): ToggleDoubleFlatsAction {
+//   return { type: ActionType.TOGGLE_DOUBLE_FLATS };
+// }
 
 export interface TickAction {
   type: ActionType.TICK,
@@ -111,22 +119,6 @@ export interface TickAction {
 
 export function tick(): TickAction {
   return { type: ActionType.TICK };
-}
-
-export interface ShowScoresAction {
-  type: ActionType.SHOW_SCORES,
-}
-
-export function showScores(): ShowScoresAction {
-  return { type: ActionType.SHOW_SCORES };
-}
-
-export interface ShowSettingsAction {
-  type: ActionType.SHOW_SETTINGS,
-}
-
-export function showSettings(): ShowSettingsAction {
-  return { type: ActionType.SHOW_SETTINGS };
 }
 
 export interface RoundOverAction {
@@ -172,9 +164,9 @@ export function logout(): LogoutAction {
 }
 
 export type Action = NewNoteToGuessAction
-  | FretboardClickAction | ResetAction
-  | ToggleSharpsAction | ToggleFlatsAction
-  | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
-  | ToggleStringAction | TickAction
-  | ShowScoresAction | ShowSettingsAction
+  | FretboardClickAction | ResetQuizAction
+// | ToggleSharpsAction | ToggleFlatsAction
+// | ToggleDoubleSharpsAction | ToggleDoubleFlatsAction
+  | ToggleAccidentalAction | ToggleStringAction
+  | TickAction
   | RoundOverAction | LoginAction | LogoutAction;

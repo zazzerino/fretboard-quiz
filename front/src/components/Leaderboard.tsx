@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { showScores } from '../actions';
+/* import { showScores } from '../actions'; */
 import { Score } from '../types';
 import * as http from '../http';
 
@@ -34,7 +34,7 @@ export function ShowLeaderboard(props: any) {
   return (
     <button
       className="ShowLeaderboard"
-      onClick={() => { dispatch(showScores()) }}
+      onClick={() => {  }}
     >
       High Scores
     </button>

@@ -6,7 +6,7 @@ import { NewNoteButton } from './NewNoteButton';
 import { SettingsModal } from './SettingsModal';
 import { RoundOverModal } from './RoundOverModal';
 import { useSelector } from 'react-redux';
-import { AppState, Status } from '../types';
+import { AppState } from '../types';
 
 export function PlayingContainer(props: any) {
   /* const status = useSelector((app: AppState) => {

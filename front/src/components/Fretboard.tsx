@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FretboardDiagram } from 'fretboard-diagram';
 import { useDispatch, useSelector } from 'react-redux';
 import { fretboardClick } from '../actions';
-import { AppState, Status, FretboardCoord, GuessStatus } from '../types';
+import { AppState, FretboardCoord, GuessStatus } from '../types';
 import { findFret } from '../theory';
 
 const correctColor = 'lime';

@@ -4,7 +4,7 @@ import { UserScore } from './UserScore';
 import * as http from '../http';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState, Guess } from '../types';
-import { showScores, reset } from '../actions';
+import { reset } from '../actions';
 
 export function SubmitScoreBtn(props: any) {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export function SubmitScoreBtn(props: any) {
           // http.createScore({ name, score });
 
           history.push('/scores');
-          dispatch(showScores());
+          {/* dispatch(showScores()); */}
         }}
       >
         Submit score

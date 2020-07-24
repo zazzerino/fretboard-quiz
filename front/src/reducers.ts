@@ -1,90 +1,34 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, ShowScoresAction, LoginAction, LogoutAction } from './actions';
-import { AppState, Status, GuessStatus } from './types';
-import { randomNote, isCorrectGuess, defaultNoteOpts } from './theory';
+import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType, ToggleStringAction, TickAction, LoginAction, LogoutAction } from './actions';
+import { AppState, User, Quiz, Score, GuessStatus, NoteOpts } from './types';
+import { randomNote, isCorrectGuess, defaultNoteOpts, randomNoteOnStrings } from './theory';
 import { coinSound, bowserFallsSound } from './audio';
 import { toggleElement } from './util';
+import { combineReducers } from 'redux';
 
 const defaultRoundLength = 20;
 
-// function makeInitialState(): AppState {
-//   const note = randomNote(defaultNoteOpts);
+function makeInitialState(): AppState {
+  const note = randomNoteOnStrings();
 
-//   return {
-//     noteToGuess: note,
-//     clickedFret: null,
-//     status: Status.PLAYING,
-//     guessStatus: null,
-//     guesses: [],
-//     noteOpts: defaultNoteOpts,
-//     roundLength: defaultRoundLength,
-//     secondsLeft: defaultRoundLength,
-//     token: null,
-//     username: null,
-//   }
-// }
+  return {
+    noteOpts: defaultNoteOpts,
+    quiz: {
+      roundLength: defaultRoundLength,
+      secondsLeft: defaultRoundLength,
+      noteToGuess: note,
+      clickedFret: null,
+      guessStatus: null,
+      history: [],
+    },
+    user: {
+      username: null,
+      token: null,
+    },
+    scores: [],
+  }
+}
 
-// function handleNewNoteToGuess(state: AppState,
-//                               action: NewNoteToGuessAction): AppState {
-//   return {
-//     ...state,
-//     noteToGuess: action.payload,
-//     clickedFret: null,
-//     guessStatus: null,
-//     status: Status.PLAYING,
-//   };
-// }
-
-// function handleFretboardClick(state: AppState,
-//                               action: FretboardClickAction): AppState {
-//   const isCorrect = isCorrectGuess(state.noteToGuess, action.payload);
-//   const guessStatus = isCorrect ? GuessStatus.CORRECT : GuessStatus.INCORRECT;
-
-//   isCorrect ? coinSound.play() : bowserFallsSound.play();
-
-//   const guesses = state.guesses.concat([{
-//     noteToGuess: state.noteToGuess,
-//     clickedFret: action.payload,
-//     isCorrect
-//   }]);
-
-//   return {
-//     ...state,
-//     clickedFret: action.payload,
-//     guessStatus,
-//     guesses
-//   };
-// }
-
-// function updateNoteOpts(state: AppState, action: Action): AppState {
-//   switch (action.type) {
-//     case ActionType.TOGGLE_SHARPS:
-//       const sharpOpts = { ...state.noteOpts,
-//                           useSharps: !state.noteOpts.useSharps };
-//       return { ...state, noteOpts: sharpOpts };
-
-//     case ActionType.TOGGLE_FLATS:
-//       const flatOpts = { ...state.noteOpts, useFlats: !state.noteOpts.useFlats };
-//       return { ...state, noteOpts: flatOpts };
-
-//     case ActionType.TOGGLE_DOUBLE_SHARPS:
-//       const doubleSharpOpts = { ...state.noteOpts,
-//                                 useDoubleSharps:
-//                                 !state.noteOpts.useDoubleSharps };
-//       return { ...state, noteOpts: doubleSharpOpts };
-
-//     case ActionType.TOGGLE_DOUBLE_FLATS:
-//       const doubleFlatOpts = { ...state.noteOpts,
-//                                useDoubleFlats: !state.noteOpts.useDoubleFlats };
-//       return { ...state, noteOpts: doubleFlatOpts };
-//   }
-// }
-
-// function handleToggleString(state: AppState, action: ToggleStringAction) {
-//   const stringsToUse = toggleElement(state.noteOpts.stringsToUse, action.payload)
-//   const noteOpts = { ...state.noteOpts, stringsToUse };
-
-//   return { ...state, noteOpts };
-// }
+const initialState = makeInitialState();
 
 // function handleTick(state: AppState, action: TickAction) {
 //   let status = state.status;
@@ -106,71 +50,82 @@ const defaultRoundLength = 20;
 //   }
 // }
 
-// function handleShowScores(state: AppState, action: ShowScoresAction): AppState {
-//   return { ...state, status: Status.SHOW_SCORES };
-// }
-
-// function handleShowSettings(state: AppState, action) {
-//   return { ...state, status: Status.SHOW_SETTINGS };
-// }
-
-// function handleRoundOver(state: AppState) {
-//   return { ...state, status: Status.ROUND_OVER };
-// }
-
-// function handleLogin(state: AppState, action: LoginAction) {
-//   return {...state, token: action.token, username: action.username };
-// }
-
-// function handleLogout(state: AppState, action: LogoutAction) {
-//   return {...state, token: null, username: null }
-// }
-
-// export function rootReducer(state = makeInitialState(),
-//                             action: Action): AppState {
-//   switch (action.type) {
-//     case ActionType.NEW_NOTE_TO_GUESS:
-//       return handleNewNoteToGuess(state, action);
-
-//     case ActionType.FRETBOARD_CLICK:
-//       return handleFretboardClick(state, action);
-
-//     case ActionType.RESET:
-//       return makeInitialState();
-
-//     case ActionType.TOGGLE_SHARPS:
-//     case ActionType.TOGGLE_FLATS:
-//     case ActionType.TOGGLE_DOUBLE_SHARPS:
-//     case ActionType.TOGGLE_DOUBLE_FLATS:
-//       return updateNoteOpts(state, action);
-
-//     case ActionType.TOGGLE_STRING:
-//       return handleToggleString(state, action);
-
-//     case ActionType.TICK:
-//       return handleTick(state, action);
-
-//     case ActionType.SHOW_SCORES:
-//       return handleShowScores(state, action);
-
-//     case ActionType.SHOW_SETTINGS:
-//       return handleShowSettings(state, action);
-
-//     case ActionType.ROUND_OVER:
-//       return handleRoundOver(state);
-
-//     case ActionType.LOGIN:
-//       return handleLogin(state, action);
-
-//     case ActionType.LOGOUT:
-//       return handleLogout(state, action);
-
-//     default:
-//       return state;
-//   }
-// }
-
-export function rootReducer(state = {},
-                            action: Action) {
+export function scores(state = initialState.scores, action: Action): Score[] {
   return state;
 }
+
+export function quiz(state = initialState.quiz, action: Action): Quiz {
+  switch (action.type) {
+    case ActionType.NEW_NOTE_TO_GUESS:
+      return {
+        ...state,
+        noteToGuess: action.note,
+        clickedFret: null,
+        guessStatus: null,
+      };
+
+    case ActionType.FRETBOARD_CLICK:
+      const isCorrect = isCorrectGuess(state.noteToGuess, action.coord);
+      const guessStatus =
+        isCorrect ? GuessStatus.CORRECT : GuessStatus.INCORRECT;
+      const history = state.history.concat([{
+        noteToGuess: state.noteToGuess,
+        clickedFret: action.coord,
+        isCorrect
+      }]);
+
+      return {
+        ...state,
+        clickedFret: action.coord,
+        guessStatus,
+        history
+      };
+
+    case ActionType.RESET_QUIZ:
+      return initialState.quiz;
+
+    default:
+      return state;
+  }
+}
+
+export function noteOpts(state = initialState.noteOpts,
+                         action: Action): NoteOpts {
+  let accidentals: string[];
+
+  switch (action.type) {
+    case ActionType.TOGGLE_ACCIDENTAL:
+      const accidentals = toggleElement(state.accidentals, action.accidental);
+      return { ...state, accidentals };
+
+    case ActionType.TOGGLE_STRING:
+      const strings = toggleElement(state.strings, action.string);
+      return { ...state, strings }
+
+    default:
+      return state;
+  }
+}
+
+export function user(state = initialState.user, action: Action): User {
+  switch (action.type) {
+    case ActionType.LOGIN:
+      return {
+        ...state,
+        token: action.token,
+        username: action.username
+      }
+
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        token: null,
+        username: null
+      }
+
+    default:
+      return state;
+  }
+}
+
+export const rootReducer = combineReducers({ quiz, scores, noteOpts, user });

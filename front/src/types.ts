@@ -11,13 +11,13 @@ export interface FretboardNote extends FretboardCoord {
   note: string
 }
 
-export enum Status {
-  INIT = 'INIT',
-  PLAYING = 'PLAYING',
-  ROUND_OVER = 'ROUND_OVER',
-  SHOW_SETTINGS = 'SHOW_SETTINGS',
-  SHOW_SCORES = 'SHOW_SCORES',
-}
+// export enum Status {
+//   INIT = 'INIT',
+//   PLAYING = 'PLAYING',
+//   ROUND_OVER = 'ROUND_OVER',
+//   SHOW_SETTINGS = 'SHOW_SETTINGS',
+//   SHOW_SCORES = 'SHOW_SCORES',
+// }
 
 export enum GuessStatus {
   CORRECT = 'CORRECT',
@@ -31,8 +31,14 @@ export interface Guess {
 }
 
 export interface NoteOpts {
-  accidentalsToUse: string[],
-  stringsToUse: number[],
+  octaves?: number[],
+  whiteKeys?: string[],
+  lowestNote?: string,
+  highestNote?: string,
+  accidentals?: string[],
+  strings?: number[],
+  fretCount?: number,
+  startFret?: number,
 }
 
 export interface Score {
@@ -46,32 +52,18 @@ export interface User {
   token: string,
 }
 
-export interface QuizState {
+export interface Quiz {
+  roundLength: number,
+  secondsLeft: number,
   noteToGuess: string,
   clickedFret: FretboardCoord | null,
   guessStatus: GuessStatus,
-}
-
-export interface History {
-  guesses: Guess[]
+  history: Guess[]
 }
 
 export interface AppState {
   noteOpts: NoteOpts,
-  quiz: QuizState,
+  quiz: Quiz,
   user: User,
+  scores: Score[],
 }
-
-// export interface AppState {
-//   noteToGuess: string,
-//   clickedFret?: FretboardCoord,
-//   status: Status,
-//   guesses: Guess[],
-//   guessStatus: GuessStatus,
-//   noteOpts: NoteOpts,
-//   roundLength: number, // in seconds
-//   secondsLeft: number,
-//   scores?: Score[],
-//   token: string | null,
-//   username: string | null,
-// }

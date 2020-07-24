@@ -8,15 +8,10 @@ import { rootReducer } from './reducers';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
-import * as theory from './theory';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 store.subscribe(() => console.log(store.getState()));
 console.log(store.getState());
-
-/* for (let i = 0; i < 10; i++) {
- *   console.log(theory.randomNoteOnStrings({ strings: [5] }));
- * } */
 
 ReactDOM.render(
   <Provider store={store}>

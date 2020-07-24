@@ -40,7 +40,7 @@ export function midiNum(notename: string) {
   return whiteKeyOffsets[whiteKey] + accidentalOffsets[accidental] + (12 * (parseInt(octave) + 1));
 }
 
-export const defaultNoteOpts = {
+export const defaultNoteOpts: NoteOpts = {
   octaves: [3, 4, 5, 6],
   whiteKeys: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
   lowestNote: 'E3',
@@ -51,7 +51,7 @@ export const defaultNoteOpts = {
   startFret: 0,
 }
 
-export function randomNote(userOpts = {}): string {
+export function randomNote(userOpts: NoteOpts = {}): string {
   const opts = { ...defaultNoteOpts, ...userOpts };
 
   const whiteKeys = opts.whiteKeys;
@@ -80,7 +80,7 @@ export function randomNote(userOpts = {}): string {
   return note;
 }
 
-export function randomNoteOnStrings(userOpts = {}) {
+export function randomNoteOnStrings(userOpts: NoteOpts = {}): string {
   const opts = { ...defaultNoteOpts, ...userOpts };
   let midiNums: number[] = [];
 
@@ -98,24 +98,6 @@ export function randomNoteOnStrings(userOpts = {}) {
 
   return randNote;
 }
-
-// export function randomNoteOnStrings(noteOpts = defaultNoteOpts, fretCount = 4) {
-  // let midiNums = [] as number[];
-
-  // for (let string of noteOpts.stringsToUse) {
-  //   for (let fret = 0; fret < fretCount; fret++) {
-  //     const note = findNoteAt({ string, fret });
-  //     midiNums.push(midiNum(note));
-  //   }
-  // }
-
-  // let randNote = randomNote(noteOpts);
-  // while (!midiNums.includes(midiNum(randNote))) {
-  //   randNote = randomNote(noteOpts);
-  // }
-
-  // return randNote;
-// }
 
 export function transposeNote(notename: string, halfSteps: number) {
   const chromaticSharps = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];

@@ -3,22 +3,23 @@ import './App.css';
 import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useInterval } from './util';
-import { tick, showSettings } from './actions';
+import { tick } from './actions';
 import { Home } from './components/Home';
-/* import { PlayingContainer } from './components/PlayingContainer'; */
+import { PlayingContainer } from './components/PlayingContainer';
+import { SettingsMenu } from './components/SettingsMenu';
 /* import { RoundOverModal } from './components/RoundOverModal'; */
 /* import { Leaderboard } from './components/Leaderboard'; */
 import { Navbar } from './components/Navbar';
 /* import { LoginForm } from './components/LoginForm'; */
 /* import { Logout } from './components/Logout'; */
 
-function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
-  switch (pathname) {
-    case '/play':
-      dispatch(showSettings());
-      break;
-  }
-}
+/* function onRouteChange(pathname: string, dispatch: Dispatch<any>) {
+ *   switch (pathname) {
+ *     case '/play':
+ *       dispatch(showSettings());
+ *       break;
+ *   }
+ * } */
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,17 +27,17 @@ export default function App() {
   // const guessStatus = useSelector((state: AppState) => state.guessStatus);
   // const noteOpts = useSelector((state: AppState) => state.noteOpts);
 
-  const history = useHistory();
+  /* const history = useHistory(); */
 
   useInterval(() => {
     // dispatch(tick());
   }, 1000);
 
   useEffect(() => {
-    history.listen((location) => {
-      onRouteChange(location.pathname, dispatch)
-    });
-
+    /* history.listen((location) => {
+     *   onRouteChange(location.pathname, dispatch)
+     * });
+     */
     // function handleKeyPress(event: KeyboardEvent) {
     //   if (guessStatus != null) {
     //     dispatch(newNoteToGuess(noteOpts));
@@ -72,6 +73,12 @@ export default function App() {
             <Route path="/logout">
             <Logout />
             </Route> */}
+        <Route path="/play">
+          <PlayingContainer />
+        </Route>
+        <Route path="/settings">
+          <SettingsMenu />
+        </Route>
         <Route path="/">
           <Home />
         </Route>
