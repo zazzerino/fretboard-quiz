@@ -1,37 +1,27 @@
-import { Action, FretboardClickAction, NewNoteToGuessAction, ActionType,
-         ToggleStringAction, TickAction, LoginAction,
-         LogoutAction } from './actions';
-import { AppState, User, Quiz, Score, GuessStatus, NoteOpts } from './types';
-import { randomNote, isCorrectGuess, defaultNoteOpts,
-         randomNoteOnStrings } from './theory';
-import { correctSound, incorrectSound } from './audio';
+import { Action, ActionType } from './actions';
+import { User, Quiz, Score, NoteOpts } from './types';
+import { defaultNoteOpts } from './theory';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';
 
 const defaultRoundLength = 20;
 
-function makeInitialState(): AppState {
-  const note = randomNoteOnStrings();
-
-  return {
-    noteOpts: defaultNoteOpts,
-    quiz: {
-      roundLength: defaultRoundLength,
-      secondsLeft: defaultRoundLength,
-      noteToGuess: null,
-      clickedFret: null,
-      guessStatus: null,
-      history: [],
-    },
-    user: {
-      username: null,
-      token: null,
-    },
-    scores: [],
-  }
+const initialState = {
+  noteOpts: defaultNoteOpts,
+  quiz: {
+    roundLength: defaultRoundLength,
+    secondsLeft: defaultRoundLength,
+    noteToGuess: null,
+    clickedFret: null,
+    guessStatus: null,
+    history: [],
+  },
+  user: {
+    username: null,
+    token: null,
+  },
+  scores: [],
 }
-
-const initialState = makeInitialState();
 
 // function handleTick(state: AppState, action: TickAction) {
 //   let status = state.status;
@@ -68,13 +58,11 @@ export function quiz(state = initialState.quiz, action: Action): Quiz {
       };
 
     case ActionType.FRETBOARD_CLICK:
-      const isCorrect = isCorrectGuess(state.noteToGuess, action.coord);
-      const guessStatus =
-        isCorrect ? GuessStatus.CORRECT : GuessStatus.INCORRECT;
+      const guessStatus = action.guessStatus;
       const history = state.history.concat([{
         noteToGuess: state.noteToGuess,
         clickedFret: action.coord,
-        isCorrect
+        guessStatus,
       }]);
 
       return {

@@ -1,5 +1,5 @@
-import { randomNoteOnStrings } from './theory';
-import { FretboardCoord, NoteOpts } from './types';
+import { randomNoteOnStrings, isCorrectGuess } from './theory';
+import { FretboardCoord, NoteOpts, GuessStatus } from './types';
 import * as http from './http';
 
 export enum ActionType {
@@ -43,12 +43,19 @@ export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
 export interface FretboardClickAction {
   type: ActionType.FRETBOARD_CLICK,
   coord: FretboardCoord
+  noteToGuess: string,
+  guessStatus: GuessStatus,
 }
 
-export function fretboardClick(coord: FretboardCoord): FretboardClickAction {
+export function fretboardClick({ noteToGuess, coord }): FretboardClickAction {
+  const guessStatus = isCorrectGuess(noteToGuess, coord) ?
+    'correct' : 'incorrect';
+
   return {
     type: ActionType.FRETBOARD_CLICK,
     coord,
+    noteToGuess,
+    guessStatus,
   }
 }
 

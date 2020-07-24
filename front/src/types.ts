@@ -3,31 +3,16 @@ export interface FretboardCoord {
   fret: number,
 }
 
-export interface FretboardDot extends FretboardCoord {
-  color: string
-}
-
 export interface FretboardNote extends FretboardCoord {
   note: string
 }
 
-// export enum Status {
-//   INIT = 'INIT',
-//   PLAYING = 'PLAYING',
-//   ROUND_OVER = 'ROUND_OVER',
-//   SHOW_SETTINGS = 'SHOW_SETTINGS',
-//   SHOW_SCORES = 'SHOW_SCORES',
-// }
-
-export enum GuessStatus {
-  CORRECT = 'CORRECT',
-  INCORRECT = 'INCORRECT',
-}
+export type GuessStatus = 'correct' | 'incorrect';
 
 export interface Guess {
   clickedFret: FretboardCoord,
   noteToGuess: string,
-  isCorrect: boolean,
+  guessStatus: GuessStatus,
 }
 
 export interface NoteOpts {
