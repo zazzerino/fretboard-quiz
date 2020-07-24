@@ -9,23 +9,12 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../types';
 
 export function PlayingContainer(props: any) {
-  /* const status = useSelector((app: AppState) => {
-   *   return app.status;
-   * }); */
-
-  /* if (status === Status.ROUND_OVER) {
-   *   return (
-   *     <RoundOverModal />
-   *   );
-   * } else { */
-    return (
-      <div className="PlayingContainer">
-        <SettingsModal />
-        <SecondsLeft />
-        <Stave />
-        <Fretboard />
-        <NewNoteButton />
-      </div>
-    );
-  /* } */
+  return (
+    <div className="PlayingContainer">
+      <SecondsLeft />
+      <Stave />
+      <Fretboard />
+      <NewNoteButton />
+    </div>
+  );
 }

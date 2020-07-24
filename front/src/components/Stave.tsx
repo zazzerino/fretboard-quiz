@@ -63,15 +63,15 @@ function drawNote(vexObjs: VexObjs, notename: string) {
 export function Stave(props: any) {
   const [width, height] = [200, 130];
   const staveElem = React.useRef(null);
-  /* const note = useSelector((state: AppState) => state.noteToGuess); */
+  const note = useSelector((state: AppState) => state.quiz.noteToGuess);
 
   React.useEffect(() => {
-    /* const objs = makeVexObjs(staveElem.current, width, height);
-     * objs.stave.draw();
+    const objs = makeVexObjs(staveElem.current, width, height);
+    objs.stave.draw();
 
-     * if (note != null) {
-     *   drawNote(objs, note);
-     * } */
+    if (note != null) {
+      drawNote(objs, note);
+    }
   });
 
   return (
