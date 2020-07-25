@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserScore } from './UserScore';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset, submitScoreAsync } from '../actions';
+import { reset, submitScoreAsync, loadScoresAsync } from '../actions';
 import { AppState, Guess } from '../types';
 
 export function RoundOverModal() {
@@ -23,7 +23,12 @@ export function RoundOverModal() {
 
   const onClick = () => {
     dispatch(submitScoreAsync({ token, name, score }));
-    history.push('/scores');
+    new Promise(resolve => setTimeout(resolve, 500))
+      .then(() => {
+        dispatch(loadScoresAsync());
+        return new Promise(resolve => setTimeout(resolve, 500))
+          .then(() => history.push('/scores'))
+      });
   }
 
   return (

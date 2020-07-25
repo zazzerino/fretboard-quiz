@@ -5,6 +5,7 @@ import { AppState } from '../types';
 import { newNoteToGuess, reset } from '../actions';
 import { StringSelect } from './StringSelect';
 import { AccidentalSelect } from './AccidentalCheckbox';
+import { Username } from './Username';
 
 export function SettingsMenu(props: any) {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export function SettingsMenu(props: any) {
       }}>
         Start
       </button>
+      <Username />
     </div>
   );
 }
