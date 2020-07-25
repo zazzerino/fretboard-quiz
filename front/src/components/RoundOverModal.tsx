@@ -6,6 +6,7 @@ import { reset, submitScoreAsync, loadScoresAsync } from '../actions';
 import { AppState, Guess } from '../types';
 
 export function RoundOverModal() {
+  const [submitting, setSubmitting] = React.useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const scoreHistory = useSelector((state: AppState) => state.quiz.history);
@@ -22,27 +23,41 @@ export function RoundOverModal() {
   const score = correct - incorrect;
 
   const onClick = () => {
+    setSubmitting(true);
     dispatch(submitScoreAsync({ token, name, score }));
     new Promise(resolve => setTimeout(resolve, 500))
       .then(() => {
         dispatch(loadScoresAsync());
         return new Promise(resolve => setTimeout(resolve, 500))
-          .then(() => history.push('/scores'))
+          .then(() => {
+            history.push('/scores')
+            setSubmitting(false);
+          })
       });
   }
 
   return (
     <div className="RoundOverModal">
-      <UserScore />
-      <button onClick={onClick}>
-        Submit score
-      </button>
-      <button onClick={() => {
-        dispatch(reset());
-        history.push('/play');
-      }}>
-        Play again
-      </button>
+      {
+        submitting &&
+        (
+          <p>Submitting score...</p>
+        ) ||
+        (
+          <div>
+            <UserScore />
+            <button onClick={onClick}>
+              Submit score
+            </button>
+            <button onClick={() => {
+              dispatch(reset());
+              history.push('/play');
+            }}>
+              Play again
+            </button>
+          </div>
+        )
+      }
     </div>
   )
 }
