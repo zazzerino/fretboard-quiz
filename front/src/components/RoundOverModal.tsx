@@ -4,14 +4,14 @@ import { UserScore } from './UserScore';
 import { useDispatch } from 'react-redux';
 import { reset } from '../actions';
 
-export function RoundOverModal(props: any) {
+export function RoundOverModal() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   return (
     <div className="RoundOverModal">
       <UserScore />
-      <button onClick={ () => {
+      <button onClick={() => {
         dispatch(reset());
         history.push('/play')
       }}>

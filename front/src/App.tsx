@@ -9,6 +9,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
 import { RoundOverModal } from './components/RoundOverModal';
 import { LoginForm } from './components/LoginForm';
+import { Username } from './components/Username';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ export default function App() {
           <Home />
         </Route>
       </Switch>
+      <Username />
     </div>
   );
 }

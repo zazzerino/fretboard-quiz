@@ -1,4 +1,4 @@
-from flask import request, make_response, redirect, url_for, jsonify
+from flask import request, make_response, jsonify
 from app import db
 from app.score import bp
 from app.models import User, Score

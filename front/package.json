@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
     "base-64": "^0.1.0",
     "fretboard-diagram": "0.1.1",
     "react": "^16.12.0",

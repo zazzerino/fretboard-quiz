@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   font-family: monospace;
-  /* height: 100%; */
 }
 
 .string-checkboxes {
@@ -113,4 +112,11 @@
 
 .LoginForm input {
     margin: auto;
+}
+
+.Username {
+    position: fixed;
+    /* bottom: 0; */
+    top: 0;
+    right: 1em;
 }

@@ -7,6 +7,7 @@ import { logout } from '../actions';
 export function Navbar(props: any) {
   const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.user.token);
+  const username = useSelector((state: AppState) => state.user.username);
 
   return (
     <div className="Navbar">
@@ -15,20 +16,17 @@ export function Navbar(props: any) {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {(
-            token == null
-            &&
+          {(token == null
+          &&
             <li>
               <Link to="/login">Login</Link>
-            </li>
-          )
+            </li>)
           ||
            <li>
              <Link to="/logout" onClick={() => dispatch(logout())}>
                Logout
              </Link>
-           </li>
-          }
+           </li>}
           <li>
             <Link to="/settings">Play</Link>
           </li>
