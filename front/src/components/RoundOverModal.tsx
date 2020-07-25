@@ -26,21 +26,19 @@ export function RoundOverModal() {
     setSubmitting(true);
     dispatch(submitScoreAsync({ token, name, score }));
     new Promise(resolve => setTimeout(resolve, 500))
-      .then(() => {
+      .then(async () => {
         dispatch(loadScoresAsync());
-        return new Promise(resolve => setTimeout(resolve, 500))
-          .then(() => {
-            history.push('/scores')
-            setSubmitting(false);
-          })
+        await new Promise(resolve => setTimeout(resolve, 500));
+          history.push('/scores');
+          setSubmitting(false);
       });
   }
 
   return (
     <div className="RoundOverModal">
       {
-        submitting &&
         (
+        submitting &&
           <p>Submitting score...</p>
         ) ||
         (
