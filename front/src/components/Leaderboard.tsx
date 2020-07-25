@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Score, AppState } from '../types';
-import * as http from '../http';
 import { loadScoresAsync } from '../actions';
 
 interface ScoreDisplayOpts {
@@ -20,19 +19,6 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
     </tr>
   );
 }
-
-/* export function ShowLeaderboardButton(props: any) {
- *   const dispatch = useDispatch();
- *
- *   return (
- *     <button
- *       className="ShowLeaderboard"
- *       onClick={() => {  }}
- *     >
- *       High Scores
- *     </button>
- *   )
- * } */
 
 export function Leaderboard(props: any) {
   const scores = useSelector((state: AppState) => state.scores)

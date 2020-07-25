@@ -118,7 +118,7 @@ export function login({ token, username }): LoginAction {
 }
 
 export function loginAsync({ username, password }) {
-  return async function(dispatch: (action: LoginAction) => void) {
+  return async function(dispatch) {
     return http.getToken({ username, password })
       .then(data => {
         const { token, username } = data;
@@ -150,11 +150,9 @@ export function loadScores(scores: Score[]) {
 }
 
 export function loadScoresAsync() {
-  return function(dispatch) {
-    return http.getScores()
-      .then(scores => {
-        dispatch(loadScores(scores));
-      });
+  return async function(dispatch) {
+    http.getScores()
+      .then(scores => dispatch(loadScores(scores)));
   }
 }
 

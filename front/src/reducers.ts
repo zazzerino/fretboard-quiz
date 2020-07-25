@@ -71,7 +71,6 @@ export function quiz(state = initialState.quiz, action: Action): Quiz {
         clickedFret: action.coord,
         guessStatus,
       }]);
-
       return {
         ...state,
         clickedFret: action.coord,
@@ -81,6 +80,12 @@ export function quiz(state = initialState.quiz, action: Action): Quiz {
 
     case ActionType.RESET_QUIZ:
       return initialState.quiz;
+
+    case ActionType.TICK:
+      const secondsLeft = state.secondsLeft - 1;
+      return secondsLeft < 0 ?
+        { ...state }
+        : { ...state, secondsLeft };
 
     default:
       return state;
