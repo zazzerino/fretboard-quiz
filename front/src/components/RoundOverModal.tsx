@@ -25,13 +25,15 @@ export function RoundOverModal() {
   const onClick = () => {
     setSubmitting(true);
     dispatch(submitScoreAsync({ token, name, score }));
-    new Promise(resolve => setTimeout(resolve, 500))
-      .then(async () => {
-        dispatch(loadScoresAsync());
-        await new Promise(resolve => setTimeout(resolve, 500));
-          history.push('/scores');
-          setSubmitting(false);
-      });
+
+    setTimeout(() => {
+      dispatch(loadScoresAsync());
+    }, 500);
+
+    setTimeout(() => {
+      setSubmitting(false);
+      history.push('/scores');
+    }, 500)
   }
 
   return (
