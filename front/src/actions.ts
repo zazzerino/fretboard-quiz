@@ -14,6 +14,7 @@ export enum ActionType {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   LOAD_SCORES = 'LOAD_SCORES',
+  SUBMIT_SCORE = 'SUBMIT_SCORE',
 }
 
 export interface ToggleStringAction {
@@ -156,9 +157,29 @@ export function loadScoresAsync() {
   }
 }
 
+export interface SubmitScoreAction {
+  type: ActionType.SUBMIT_SCORE,
+  score: number,
+  token: string,
+}
+
+export function submitScore({ score, token }) {
+  return {
+    type: ActionType.SUBMIT_SCORE,
+    score,
+    token,
+  }
+}
+
+export function submitScoreAsync({ score, token }) {
+  return async function(dispatch) {
+    // http.
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetQuizAction
   | ToggleAccidentalAction | ToggleStringAction
   | TickAction | RoundOverAction
-  | LoadScoresAction
+  | LoadScoresAction | SubmitScoreAction
   | LoginAction | LogoutAction;

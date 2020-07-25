@@ -29,6 +29,9 @@ export function scores(state = initialState.scores, action: Action): Score[] {
     case ActionType.LOAD_SCORES:
       return action.scores;
 
+    case ActionType.SUBMIT_SCORE:
+      return state;
+
     default:
       return state;
   }

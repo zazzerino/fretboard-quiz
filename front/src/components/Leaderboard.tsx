@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Score, AppState } from '../types';
-import { loadScoresAsync } from '../actions';
 
 interface ScoreDisplayOpts {
   score: Score,
@@ -22,11 +21,6 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
 
 export function Leaderboard(props: any) {
   const scores = useSelector((state: AppState) => state.scores)
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(loadScoresAsync());
-  });
 
   return (
     <div className="Leaderboard">

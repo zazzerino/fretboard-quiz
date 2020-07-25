@@ -13,6 +13,7 @@ export function SettingsMenu(props: any) {
 
   return (
     <div className="SettingsMenu">
+      <h1>Settings</h1>
       <StringSelect />
       <AccidentalSelect />
       <button onClick={() => {

@@ -7,8 +7,9 @@ export function Username() {
 
   return (
     <div className="Username">
-      {username &&
-       <div>user: {username}</div>
+      {
+        username &&
+        <div>user: {username}</div>
       }
     </div>
   );

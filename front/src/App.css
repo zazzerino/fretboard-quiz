@@ -3,6 +3,14 @@
   font-family: monospace;
 }
 
+.Home {
+    text-align: left;
+}
+
+.Home h1 {
+    text-align: center;
+}
+
 .string-checkboxes {
   display: flex;
   justify-content: center;
@@ -116,7 +124,7 @@
 
 .Username {
     position: fixed;
-    /* bottom: 0; */
-    top: 0;
-    right: 1em;
+    bottom: 0;
+    /* top: 0; */
+    /* right: 1em; */
 }

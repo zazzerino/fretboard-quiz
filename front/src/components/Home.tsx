@@ -3,6 +3,7 @@ import * as React from 'react';
 export function Home(props: any) {
   return (
     <div className="Home">
+      <h1>Fretboard Quiz</h1>
       <ol>
         <li>Click the 'Play' button.</li>
         <li>Enter the settings you'd like to use and click 'Start'.</li>

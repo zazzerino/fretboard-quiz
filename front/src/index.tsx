@@ -11,7 +11,7 @@ import thunkMiddleware from 'redux-thunk';
 import { loadScoresAsync } from './actions';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-/* store.subscribe(() => console.log(store.getState())); */
+store.subscribe(() => console.log(store.getState()));
 /* console.log(store.getState()); */
 // @ts-ignore
 store.dispatch(loadScoresAsync());

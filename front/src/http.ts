@@ -10,21 +10,18 @@ export async function getScores() {
     .catch(error => console.log(error));
 }
 
-export async function createScore({ score, token }) {
+export async function createScore({ score, name, token }) {
+  return fetch('/api/score/create', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
+    },
+    body: JSON.stringify({ score, name }),
+  }).then(response => response.status === 201)
+    .catch(error => console.log(error));
 }
-
-// export async function createScore({ name, score }) {
-//   const response = fetch('/api/score/create', {
-//     method: 'POST',
-//     mode: 'cors',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ name, score }),
-//   });
-
-//   return response;
-// }
 
 export async function getToken({ username, password }) {
   return fetch('/api/token/get', {
