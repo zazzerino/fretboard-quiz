@@ -1,12 +1,12 @@
 import { Action, ActionType } from './actions';
-import { User, Quiz, Score, NoteOpts } from './types';
+import { AppState, User, Quiz, Score, NoteOpts } from './types';
 import { defaultNoteOpts } from './theory';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';
 
 const defaultRoundLength = 20;
 
-const initialState = {
+const initialState: AppState = {
   noteOpts: defaultNoteOpts,
   quiz: {
     roundLength: defaultRoundLength,
@@ -15,6 +15,7 @@ const initialState = {
     clickedFret: null,
     guessStatus: null,
     history: [],
+    status: 'playing',
   },
   user: {
     username: null,

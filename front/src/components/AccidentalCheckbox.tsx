@@ -11,12 +11,12 @@ function AccidentalCheckbox({ name, accidental }) {
 
   return (
     <div className="AccidentalCheckbox">
-      <label htmlFor={name}>{name}</label>
       <input type="checkbox"
              name={name}
              checked={shouldUse}
              onChange={() => dispatch(toggleAccidental(accidental))}
       />
+      <label htmlFor={name}>{name}</label>
     </div>
   );
 }

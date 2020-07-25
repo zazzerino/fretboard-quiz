@@ -3,44 +3,44 @@ import { useHistory } from 'react-router-dom';
 import { UserScore } from './UserScore';
 import * as http from '../http';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppState, Guess } from '../types';
+import { AppState, Guess, GuessStatus } from '../types';
 import { reset } from '../actions';
 
 export function SubmitScoreBtn(props: any) {
   const dispatch = useDispatch();
   /* const guesses = useSelector((state: AppState) => state.guesses); */
-  const history = useHistory();
+  /* const history = useHistory(); */
 
-  /* const correctGuesses = guesses.filter((guess: Guess) => {
-   *   return guess.isCorrect;
+  /* const correctGuesses = history.filter((guess: Guess) => {
+   *   return guess.guessStatus === 'correct';
    * }).length;
 
-   * const incorrectGuesses = guesses.filter((guess: Guess) => {
-   *   return !guess.isCorrect;
+   * const incorrectGuesses = history.filter((guess: Guess) => {
+   *   return guess.guessStatus === 'incorrect';
    * }).length;
 
    * const score = correctGuesses - incorrectGuesses; */
 
   return (
     <div className="SubmitScoreBtn">
-      <button
-        className="OpenSubmitModal"
-        onClick={() => {
-          // http.createScore({ name, score });
+      {/* <button
+          className="OpenSubmitModal"
+          onClick={() => {
+          http.createScore({ name, score });
 
           history.push('/scores');
-          {/* dispatch(showScores()); */}
-        }}
-      >
-        Submit score
-    </button>
+          dispatch(showScores());
+          }}
+          >
+          Submit score
+          </button>
 
-      <br></br>
-      <button onClick={() => {
-        dispatch(reset());
-      }}>
-        Play again
-      </button>
+          <br></br>
+          <button onClick={() => {
+          dispatch(reset());
+          }}>
+          Play again
+          </button> */}
     </div>
   )
 }

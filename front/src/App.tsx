@@ -11,6 +11,7 @@ import { SettingsMenu } from './components/SettingsMenu';
 import { Leaderboard } from './components/Leaderboard';
 import { Navbar } from './components/Navbar';
 import { AppState } from './types';
+import { RoundOverModal } from './components/RoundOverModal';
 /* import { LoginForm } from './components/LoginForm'; */
 /* import { Logout } from './components/Logout'; */
 
@@ -70,6 +71,9 @@ export default function App() {
         </Route>
         <Route path="/scores">
           <Leaderboard />
+        </Route>
+        <Route path="/roundover">
+          <RoundOverModal />
         </Route>
         <Route path="/">
           <Home />

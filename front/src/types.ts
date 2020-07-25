@@ -37,13 +37,16 @@ export interface User {
   token: string,
 }
 
+export type QuizStatus = 'playing' | 'roundover';
+
 export interface Quiz {
   roundLength: number,
   secondsLeft: number,
   noteToGuess: string,
   clickedFret: FretboardCoord | null,
   guessStatus: GuessStatus,
-  history: Guess[]
+  history: Guess[],
+  status: QuizStatus,
 }
 
 export interface AppState {

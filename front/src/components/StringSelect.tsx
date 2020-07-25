@@ -17,12 +17,12 @@ function StringCheckbox(props: StringCheckboxProps) {
 
   return (
     <div>
-      <label htmlFor={name}>{`${stringNum}`}</label>
       <input type="checkbox"
         name={name}
         checked={useString}
         onChange={() => dispatch(toggleString(stringNum))}
       />
+      <label htmlFor={name}>{`${stringNum}`}</label>
     </div>
   )
 }

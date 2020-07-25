@@ -3,23 +3,23 @@ import { useSelector } from 'react-redux';
 import { AppState, Guess } from '../types';
 
 export function UserScore() {
-  /* const guesses = useSelector((state: AppState) => state.guesses); */
+  const history = useSelector((state: AppState) => state.quiz.history);
 
-  /* const correctGuesses = guesses.filter((guess: Guess) => {
-   *   return guess.isCorrect;
-   * }).length;
+  const correctGuesses = history.filter((guess: Guess) => {
+    return guess.guessStatus === 'correct';
+  }).length;
 
-   * const incorrectGuesses = guesses.filter((guess: Guess) => {
-   *   return !guess.isCorrect;
-   * }).length;
+  const incorrectGuesses = history.filter((guess: Guess) => {
+    return guess.guessStatus === 'incorrect';
+  }).length;
 
-   * const totalScore = correctGuesses - incorrectGuesses; */
+  const totalScore = correctGuesses - incorrectGuesses;
 
   return (
     <div className="UserScore">
-      {/* <p>Correct: {correctGuesses}</p>
-          <p>Incorrect: {incorrectGuesses}</p>
-          <p className="total-score">Total score: {totalScore}</p> */}
+      <p>Correct: {correctGuesses}</p>
+      <p>Incorrect: {incorrectGuesses}</p>
+      <p className="total-score">Total score: {totalScore}</p>
     </div>
   );
 }
