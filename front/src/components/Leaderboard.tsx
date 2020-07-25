@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { Score } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Score, AppState } from '../types';
 import * as http from '../http';
+import { loadScoresAsync } from '../actions';
 
 interface ScoreDisplayOpts {
   score: Score,
@@ -34,12 +35,11 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
  * } */
 
 export function Leaderboard(props: any) {
-  const [scores, setScores] = React.useState([])
+  const scores = useSelector((state: AppState) => state.scores)
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    http.getScores().then(data => {
-      setScores(data);
-    });
+    dispatch(loadScoresAsync());
   }, []);
 
   return (

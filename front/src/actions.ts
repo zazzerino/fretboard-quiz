@@ -1,5 +1,5 @@
 import { randomNoteOnStrings, isCorrectGuess } from './theory';
-import { FretboardCoord, NoteOpts, GuessStatus } from './types';
+import { FretboardCoord, NoteOpts, GuessStatus, Score } from './types';
 import * as http from './http';
 import { correctSound, incorrectSound } from './audio';
 
@@ -13,6 +13,7 @@ export enum ActionType {
   ROUND_OVER = 'ROUND_OVER',
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
+  LOAD_SCORES = 'LOAD_SCORES',
 }
 
 export interface ToggleStringAction {
@@ -136,8 +137,30 @@ export function logout(): LogoutAction {
   }
 }
 
+export interface LoadScoresAction {
+  type: ActionType.LOAD_SCORES,
+  scores: Score[],
+}
+
+export function loadScores(scores: Score[]) {
+  return {
+    type: ActionType.LOAD_SCORES,
+    scores,
+  }
+}
+
+export function loadScoresAsync() {
+  return function(dispatch) {
+    return http.getScores()
+      .then(scores => {
+        dispatch(loadScores(scores));
+      });
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetQuizAction
   | ToggleAccidentalAction | ToggleStringAction
   | TickAction | RoundOverAction
+  | LoadScoresAction
   | LoginAction | LogoutAction;

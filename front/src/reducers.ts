@@ -44,7 +44,13 @@ const initialState = {
 // }
 
 export function scores(state = initialState.scores, action: Action): Score[] {
-  return state;
+  switch (action.type) {
+    case ActionType.LOAD_SCORES:
+      return action.scores;
+
+    default:
+      return state;
+  }
 }
 
 export function quiz(state = initialState.quiz, action: Action): Quiz {
