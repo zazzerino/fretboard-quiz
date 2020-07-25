@@ -3,11 +3,11 @@ import { SecondsLeft } from './SecondsLeft';
 import { Stave } from './Stave';
 import { Fretboard } from './Fretboard';
 import { NewNoteButton } from './NewNoteButton';
-import { RoundOverModal } from './RoundOverModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../types';
-import { newNoteToGuess } from '../actions';
+import { newNoteToGuess, tick } from '../actions';
 import { Redirect } from 'react-router-dom';
+import { useInterval } from '../util';
 
 export function PlayingContainer(props: any) {
   const dispatch = useDispatch();
@@ -21,11 +21,11 @@ export function PlayingContainer(props: any) {
     if (noteToGuess == null) {
       dispatch(newNoteToGuess(noteOpts));
     }
-
-    /* if (isRoundOver === true) {
-     *   <Redirect to="/roundover" />
-     * } */
   });
+
+  useInterval(() => {
+    dispatch(tick());
+  }, 1000);
 
   return (
     <div className="PlayingContainer">

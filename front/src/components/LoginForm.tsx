@@ -7,7 +7,7 @@ import { loginAsync } from '../actions';
 export function LoginForm(props: any) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) => {
     const { username, password } = data;
@@ -20,7 +20,7 @@ export function LoginForm(props: any) {
       <h1>Log In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          username:
+          Username:
           <input name="username"
                  type="text"
                  ref={register({ required: true })}
@@ -28,7 +28,7 @@ export function LoginForm(props: any) {
         </label>
         {errors.username && <span>↑ Username required.</span>}
         <label>
-          password:
+          Password:
           <input name="password"
                  type="password"
                  ref={register({ required: true })}

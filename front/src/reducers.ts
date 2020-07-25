@@ -24,26 +24,6 @@ const initialState: AppState = {
   scores: [],
 }
 
-// function handleTick(state: AppState, action: TickAction) {
-//   let status = state.status;
-
-//   switch (status) {
-//     case Status.PLAYING:
-//       let secondsLeft = state.secondsLeft;
-
-//       if (secondsLeft <= 0) {
-//         status = Status.ROUND_OVER;
-//       } else {
-//         secondsLeft = secondsLeft - 1;
-//       }
-
-//       return { ...state, secondsLeft, status };
-
-//     default:
-//       return state;
-//   }
-// }
-
 export function scores(state = initialState.scores, action: Action): Score[] {
   switch (action.type) {
     case ActionType.LOAD_SCORES:

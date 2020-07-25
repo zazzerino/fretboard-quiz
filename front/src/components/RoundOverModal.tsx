@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserScore } from './UserScore';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppState, Guess, GuessStatus } from '../types';
+import { useDispatch } from 'react-redux';
 import { reset } from '../actions';
 
 export function RoundOverModal(props: any) {

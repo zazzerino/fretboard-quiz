@@ -26,7 +26,7 @@ export function Leaderboard(props: any) {
 
   React.useEffect(() => {
     dispatch(loadScoresAsync());
-  }, []);
+  });
 
   return (
     <div className="Leaderboard">
