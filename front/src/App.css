@@ -124,7 +124,6 @@
 
 .Username {
     position: fixed;
-    bottom: 0;
-    /* top: 0; */
-    /* right: 1em; */
+    bottom: 1em;
+    width: 100%;
 }

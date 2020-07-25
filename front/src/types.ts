@@ -33,7 +33,7 @@ export interface Score {
 }
 
 export interface User {
-  username: string,
+  name: string,
   token: string,
 }
 

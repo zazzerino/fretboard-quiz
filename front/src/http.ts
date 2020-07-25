@@ -10,7 +10,7 @@ export async function getScores() {
     .catch(error => console.log(error));
 }
 
-export async function createScore({ score, name, token }) {
+export async function submitScore({ score, name, token }) {
   return fetch('/api/score/create', {
     method: 'POST',
     mode: 'cors',

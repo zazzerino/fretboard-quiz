@@ -2,27 +2,28 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserScore } from './UserScore';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset, submitScore } from '../actions';
+import { reset, submitScoreAsync } from '../actions';
 import { AppState, Guess } from '../types';
 
 export function RoundOverModal() {
   const history = useHistory();
   const dispatch = useDispatch();
   const scoreHistory = useSelector((state: AppState) => state.quiz.history);
-  const token = useSelector((state: AppState) => state.user.token);
+  const { token, name } = useSelector((state: AppState) => state.user);
 
-  const correctGuesses = scoreHistory.filter((guess: Guess) => {
+  const correct = scoreHistory.filter((guess: Guess) => {
     return guess.guessStatus === 'correct';
   }).length;
 
-  const incorrectGuesses = scoreHistory.filter((guess: Guess) => {
+  const incorrect = scoreHistory.filter((guess: Guess) => {
     return guess.guessStatus === 'incorrect';
   }).length;
 
-  const score = correctGuesses - incorrectGuesses;
+  const score = correct - incorrect;
 
   const onClick = () => {
-    dispatch(submitScore({ token, score }))
+    dispatch(submitScoreAsync({ token, name, score }));
+    history.push('/scores');
   }
 
   return (
@@ -33,7 +34,7 @@ export function RoundOverModal() {
       </button>
       <button onClick={() => {
         dispatch(reset());
-        history.push('/play')
+        history.push('/play');
       }}>
         Play again
       </button>

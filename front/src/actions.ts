@@ -143,7 +143,7 @@ export interface LoadScoresAction {
   scores: Score[],
 }
 
-export function loadScores(scores: Score[]) {
+export function loadScores(scores: Score[]): LoadScoresAction {
   return {
     type: ActionType.LOAD_SCORES,
     scores,
@@ -161,19 +161,22 @@ export interface SubmitScoreAction {
   type: ActionType.SUBMIT_SCORE,
   score: number,
   token: string,
+  name: string,
 }
 
-export function submitScore({ score, token }) {
+export function submitScore({ score, name, token }): SubmitScoreAction {
   return {
     type: ActionType.SUBMIT_SCORE,
     score,
     token,
+    name,
   }
 }
 
-export function submitScoreAsync({ score, token }) {
+export function submitScoreAsync({ score, name, token }) {
   return async function(dispatch) {
-    // http.
+    http.submitScore({ score, name, token })
+      .then(() => dispatch(submitScore({ score, name, token })))
   }
 }
 

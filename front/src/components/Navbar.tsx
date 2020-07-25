@@ -15,6 +15,12 @@ export function Navbar(props: any) {
           <li>
             <Link to="/">Home</Link>
           </li>
+          <li>
+            <Link to="/settings">Play</Link>
+          </li>
+          <li>
+            <Link to="/scores">Scores</Link>
+          </li>
           {
             (token == null
             &&
@@ -28,12 +34,6 @@ export function Navbar(props: any) {
               </Link>
             </li>
           }
-          <li>
-            <Link to="/settings">Play</Link>
-          </li>
-          <li>
-            <Link to="/scores">Scores</Link>
-          </li>
         </ul>
       </nav>
     </div>

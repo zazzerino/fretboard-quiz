@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../types';
 
 export function Username() {
-  const username = useSelector((state: AppState) => state.user.username);
+  const name = useSelector((state: AppState) => state.user.name);
 
   return (
     <div className="Username">
       {
-        username &&
-        <div>user: {username}</div>
+        name &&
+        <div>logged in as: {name}</div>
       }
     </div>
   );

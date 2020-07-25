@@ -18,7 +18,7 @@ const initialState: AppState = {
     status: 'playing',
   },
   user: {
-    username: null,
+    name: null,
     token: null,
   },
   scores: [],
@@ -97,14 +97,14 @@ export function user(state = initialState.user, action: Action): User {
       return {
         ...state,
         token: action.token,
-        username: action.username
+        name: action.username
       }
 
     case ActionType.LOGOUT:
       return {
         ...state,
         token: null,
-        username: null
+        name: null
       }
 
     default:
