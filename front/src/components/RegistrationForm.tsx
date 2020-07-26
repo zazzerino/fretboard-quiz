@@ -32,7 +32,6 @@ export function RegistrationForm(props: any) {
         {errors.password && <span>↑ Password required.</span>}
         <input type="submit" className="submit-button" value="Submit" />
       </form>
-
     </div>
   )
 }

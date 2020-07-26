@@ -22,7 +22,6 @@ const initialState: AppState = {
     token: null,
   },
   scores: [],
-  // flashMessage: 'flash message',
   flashMessage: null,
 }
 
@@ -119,6 +118,9 @@ export function flashMessage(state = initialState.flashMessage,
   switch (action.type) {
     case ActionType.FLASH_MESSAGE:
       return action.message;
+
+    case ActionType.HIDE_FLASH:
+      return null;
 
     default:
       return state;

@@ -16,6 +16,7 @@ export enum ActionType {
   LOAD_SCORES = 'LOAD_SCORES',
   SUBMIT_SCORE = 'SUBMIT_SCORE',
   FLASH_MESSAGE = 'FLASH_MESSAGE',
+  HIDE_FLASH = 'HIDE_FLASH',
 }
 
 export interface ToggleStringAction {
@@ -124,8 +125,10 @@ export function loginAsync({ username, password }) {
     return http.getToken({ username, password })
       .then(data => {
         const { token, username } = data;
+        dispatch(flashMessage(`logged in as ${username}`))
         dispatch(login({ token, username }));
-      });
+      })
+      .catch(error => dispatch(flashMessage(`error: ${error}`)));
   }
 }
 
@@ -186,10 +189,20 @@ export interface FlashMessageAction {
   message: string
 }
 
-export function flashMessage(message) {
+export function flashMessage(message): FlashMessageAction {
   return {
     type: ActionType.FLASH_MESSAGE,
     message
+  }
+}
+
+export interface HideFlashAction {
+    type: ActionType.HIDE_FLASH,
+}
+
+export function hideFlash(): HideFlashAction {
+  return {
+    type: ActionType.HIDE_FLASH
   }
 }
 
@@ -198,5 +211,5 @@ export type Action = NewNoteToGuessAction
   | ToggleAccidentalAction | ToggleStringAction
   | TickAction | RoundOverAction
   | LoadScoresAction | SubmitScoreAction
-  | FlashMessageAction
+  | FlashMessageAction | HideFlashAction
   | LoginAction | LogoutAction;

@@ -75,19 +75,25 @@
   text-decoration: none;
 }
 
+/* .SettingsMenu { */
+/*   border: 1px solid #ccc; */
+/*   position: fixed; */
+/*   z-index: 1; */
+/*   width: 100%; */
+/*   height: 100%; */
+/*   overflow: auto; */
+/*   background-color: white; */
+/* } */
+
+/* .SettingsMenu button { */
+/*   margin: 2em; */
+/* } */
+
 .SettingsMenu {
-  border: 1px solid #ccc;
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: white;
 }
 
 .SettingsMenu button {
-  margin: 2em;
-  /* background-color: lime; */
+    margin-top: 1em;
 }
 
 .RoundOverModal button {
