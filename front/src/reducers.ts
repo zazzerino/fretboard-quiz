@@ -98,7 +98,7 @@ export function user(state = initialState.user, action: Action): User {
       return {
         ...state,
         token: action.token,
-        name: action.username
+        name: action.name
       }
 
     case ActionType.LOGOUT:

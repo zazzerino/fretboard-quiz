@@ -1,6 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
 from app import db
-from app.auth import token_auth
 from app.models import User, Score
 
 
@@ -18,10 +17,9 @@ def all():
 
 
 @score_bp.route('/create', methods=['POST'])
-@token_auth.login_required
 def create_score():
     content = request.json
-    name = content['name']
+    name = content['name'] or 'anon'
     value = int(content['score'])
 
     user = User.query.filter_by(name=name).first()

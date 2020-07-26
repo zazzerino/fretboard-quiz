@@ -12,7 +12,7 @@ function ScoreDisplay(props: ScoreDisplayOpts) {
   return (
     <tr>
       <td>{props.index}</td>
-      <td>{props.score.username}</td>
+      <td>{props.score.name}</td>
       <td>{props.score.value}</td>
       <td>{props.score.timestamp}</td>
     </tr>

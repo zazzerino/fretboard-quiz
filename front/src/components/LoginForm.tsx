@@ -10,8 +10,8 @@ export function LoginForm(props: any) {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) => {
-    const { username, password } = data;
-    dispatch(loginAsync({ username, password }));
+    const { name, password } = data;
+    dispatch(loginAsync({ name, password }));
     history.push('/');
   };
 
@@ -21,7 +21,7 @@ export function LoginForm(props: any) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Username:
-          <input name="username"
+          <input name="name"
                  type="text"
                  ref={register({ required: true })}
           />

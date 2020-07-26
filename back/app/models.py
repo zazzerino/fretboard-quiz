@@ -12,7 +12,14 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     scores = db.relationship('Score', backref='user', lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
-    token_expiration = db.Column(db.DateTime(timezone=True))
+    token_expiration = db.Column(db.DateTime())
+
+    @staticmethod
+    def check_token(token):
+        user = User.query.filter_by(token=token).first()
+        if user is None or user.token_expiration < datetime.utcnow():
+            return None
+        return user
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -21,9 +28,8 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
     def get_token(self, expires_in=3600):
-        now = datetime.now(timezone.utc)
-        expiration = self.token_expiration.replace(tzinfo=timezone.utc)
-        if self.token and expiration > now:
+        now = datetime.utcnow()
+        if self.token and self.token_expiration > now:
             return self.token
         self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
         self.token_expiration = now + timedelta(seconds=expires_in)
@@ -31,14 +37,7 @@ class User(db.Model):
         return self.token
 
     def revoke_token(self):
-        self.token_expiration = datetime.now(timezone.utc) - timedelta(seconds=1)
-
-    @staticmethod
-    def check_token(token):
-        user = User.query.filter_by(token=token).first()
-        if user is None or user.token_expiration < datetime.utcnow():
-            return None
-        return user
+        self.token_expiration = datetime.now(timezone.utc)
 
     def to_dict(self):
         scores = [s.to_dict() for s in self.scores]

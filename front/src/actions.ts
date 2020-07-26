@@ -109,25 +109,25 @@ export function roundOver(): RoundOverAction {
 export interface LoginAction {
   type: ActionType.LOGIN,
   token: string | null,
-  username: string | null,
+  name: string | null,
 }
 
-export function login({ token, username }): LoginAction {
+export function login({ token, name }): LoginAction {
   return {
     type: ActionType.LOGIN,
     token,
-    username,
+    name,
   };
 }
 
-export function loginAsync({ username, password }) {
+export function loginAsync({ name, password }) {
   return async function(dispatch) {
-    return http.getToken({ username, password })
+    return http.getToken({ name, password })
       .then(data => {
-        const { token, username } = data;
-        if (token != null && username != null) {
-          dispatch(flashMessage(`logged in as ${username}`))
-          dispatch(login({ token, username }));
+        const { token, name } = data;
+        if (token != null && name != null) {
+          dispatch(flashMessage(`logged in as ${name}`))
+          dispatch(login({ token, name }));
         } else {
           dispatch(flashMessage('incorrect username or password'));
         }

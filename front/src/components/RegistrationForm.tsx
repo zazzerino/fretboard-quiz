@@ -9,14 +9,14 @@ export function RegistrationForm(props: any) {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) => {
-    const { username, password, email } = data;
+    const { name, password, email } = data;
     http.createUser({
-      username,
+      name,
       password,
       email,
     }).then(response => {
       if (response.status === 201) {
-        dispatch(flashMessage(`${username} registered`));
+        dispatch(flashMessage(`${name} registered`));
       } else {
         dispatch(flashMessage(`error: ${response.status}` +
                               'username already taken'))
@@ -30,7 +30,7 @@ export function RegistrationForm(props: any) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Username:
-          <input name="username"
+          <input name="name"
                  type="text"
                  ref={register({ required: true })}
           />

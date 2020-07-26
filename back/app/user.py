@@ -22,7 +22,7 @@ def create():
     return make_response({'user': user.name}, 201)
 
 
-@user_bp.route('/<username>')
+@user_bp.route('/<name>')
 def user(name):
     user = User.query.filter_by(name=name).first()
     return jsonify(user=user.to_dict())

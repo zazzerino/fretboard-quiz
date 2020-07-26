@@ -23,19 +23,20 @@ export async function submitScore({ score, name, token }) {
     .catch(error => console.log(error));
 }
 
-export async function getToken({ username, password }) {
+export async function getToken({ name, password }) {
+  // name = name == null ? 'anon' : name;
   return fetch('/api/token/get', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + encode(username + ':' + password),
+      'Authorization': 'Basic ' + encode(name + ':' + password),
     },
   }).then(response => {
     if (response.status === 200) {
       return response.json();
     } else {
-      return { token: null, username: null }
+      return { token: null, name: null }
     }
   }).catch(error => console.log(error));
 }
@@ -51,13 +52,13 @@ export async function validateToken({ token }) {
   }).then(response => response.json());
 }
 
-export async function createUser({ username, password, email }) {
+export async function createUser({ name, password, email }) {
   return fetch('/api/user/create', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password, email })
+    body: JSON.stringify({ name, password, email })
   })
 }
