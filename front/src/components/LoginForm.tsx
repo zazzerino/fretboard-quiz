@@ -35,7 +35,7 @@ export function LoginForm(props: any) {
           />
         </label>
         {errors.password && <span>↑ Password required.</span>}
-        <input type="submit" value="Submit" />
+        <input type="submit" className="submit-button" value="Submit" />
       </form>
     </div>
   );

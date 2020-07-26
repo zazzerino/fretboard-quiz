@@ -10,6 +10,7 @@ import { Navbar } from './components/Navbar';
 import { RoundOverModal } from './components/RoundOverModal';
 import { LoginForm } from './components/LoginForm';
 import { Username } from './components/Username';
+import { FlashMessage } from './components/FlashMessage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ export default function App() {
           <Home />
         </Route>
       </Switch>
+      <FlashMessage />
       <Username />
     </div>
   );

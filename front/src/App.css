@@ -11,6 +11,12 @@
     text-align: center;
 }
 
+.Home button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .string-checkboxes {
   display: flex;
   justify-content: center;
@@ -35,15 +41,8 @@
 
 .ResetButton {
   margin: 1em;
-  color: white;
-  background-color: deeppink;
-}
-
-.RoundOverModal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* color: white; */
+  /* background-color: deeppink; */
 }
 
 .total-score {
@@ -88,7 +87,7 @@
 
 .SettingsMenu button {
   margin: 2em;
-  background-color: lime;
+  /* background-color: lime; */
 }
 
 .RoundOverModal button {
@@ -119,11 +118,21 @@
 }
 
 .LoginForm input {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.LoginForm .submit-button {
+    margin-top: 1em;
 }
 
 .Username {
     position: fixed;
     bottom: 1em;
     width: 100%;
+}
+
+.FlashMessage {
+    font-size-adjust: 1.4;
+    color: deeppink;
 }

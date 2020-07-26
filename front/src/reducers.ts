@@ -22,6 +22,8 @@ const initialState: AppState = {
     token: null,
   },
   scores: [],
+  // flashMessage: 'flash message',
+  flashMessage: null,
 }
 
 export function scores(state = initialState.scores, action: Action): Score[] {
@@ -112,4 +114,17 @@ export function user(state = initialState.user, action: Action): User {
   }
 }
 
-export const rootReducer = combineReducers({ quiz, scores, noteOpts, user });
+export function flashMessage(state = initialState.flashMessage,
+                             action: Action): string {
+  switch (action.type) {
+    case ActionType.FLASH_MESSAGE:
+      return action.message;
+
+    default:
+      return state;
+  }
+}
+
+export const rootReducer = combineReducers({
+  quiz, scores, noteOpts, user, flashMessage
+});

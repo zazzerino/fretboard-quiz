@@ -54,4 +54,5 @@ export interface AppState {
   quiz: Quiz,
   user: User,
   scores: Score[],
+  flashMessage: string,
 }

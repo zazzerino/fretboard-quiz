@@ -23,7 +23,7 @@ export function Home(props: any) {
         dispatch(newNoteToGuess(noteOpts));
         history.push('/settings');
       }}>
-        Start
+        Play
       </button>
     </div>
   );

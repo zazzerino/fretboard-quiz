@@ -28,35 +28,35 @@ export function RoundOverModal() {
 
     setTimeout(() => {
       dispatch(loadScoresAsync());
-    }, 500);
+    }, 750);
 
     setTimeout(() => {
       setSubmitting(false);
       history.push('/scores');
-    }, 500)
+    }, 750)
   }
 
   return (
     <div className="RoundOverModal">
       {
-        (
-        submitting &&
-          <p>Submitting score...</p>
-        ) ||
-        (
-          <div>
-            <UserScore />
-            <button onClick={onClick}>
-              Submit score
-            </button>
-            <button onClick={() => {
-              dispatch(reset());
-              history.push('/play');
-            }}>
-              Play again
-            </button>
-          </div>
-        )
+      (
+      submitting &&
+      <p>Submitting score...</p>
+      ) ||
+    (
+      <div>
+        <UserScore />
+        <button onClick={onClick}>
+          Submit score
+        </button><br />
+        <button onClick={() => {
+          dispatch(reset());
+          history.push('/play');
+        }}>
+          Play again
+        </button>
+      </div>
+    )
       }
     </div>
   )

@@ -15,6 +15,7 @@ export enum ActionType {
   LOGOUT = 'LOGOUT',
   LOAD_SCORES = 'LOAD_SCORES',
   SUBMIT_SCORE = 'SUBMIT_SCORE',
+  FLASH_MESSAGE = 'FLASH_MESSAGE',
 }
 
 export interface ToggleStringAction {
@@ -180,9 +181,22 @@ export function submitScoreAsync({ score, name, token }) {
   }
 }
 
+export interface FlashMessageAction {
+  type: ActionType.FLASH_MESSAGE,
+  message: string
+}
+
+export function flashMessage(message) {
+  return {
+    type: ActionType.FLASH_MESSAGE,
+    message
+  }
+}
+
 export type Action = NewNoteToGuessAction
   | FretboardClickAction | ResetQuizAction
   | ToggleAccidentalAction | ToggleStringAction
   | TickAction | RoundOverAction
   | LoadScoresAction | SubmitScoreAction
+  | FlashMessageAction
   | LoginAction | LogoutAction;
