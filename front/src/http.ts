@@ -50,3 +50,14 @@ export async function validateToken({ token }) {
     body: JSON.stringify({ token })
   }).then(response => response.json());
 }
+
+export async function createUser({ username, password, email }) {
+  return fetch('/api/user/create', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password, email })
+  })
+}

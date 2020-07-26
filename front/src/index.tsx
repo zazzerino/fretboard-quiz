@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
 import { loadScoresAsync } from './actions';
+import * as http from './http';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 store.subscribe(() => console.log(store.getState()));
@@ -17,6 +18,11 @@ store.subscribe(() => console.log(store.getState()));
 store.dispatch(loadScoresAsync());
 // @ts-ignore
 /* store.dispatch(loginAsync({ username: 'bob', password: 'pwd' })); */
+/* http.createUser({
+ *   username: 'otto',
+ *   password: 'pwd',
+ *   email: 'otto@aol.com',
+ * }).then(response => console.log(response)) */
 
 ReactDOM.render(
   <Provider store={store}>

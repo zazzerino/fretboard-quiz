@@ -1,13 +1,27 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
+import * as http from '../http';
+import { useDispatch } from 'react-redux';
+import { flashMessage } from '../actions';
 
 export function RegistrationForm(props: any) {
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) => {
-    /* const { username, password } = data;
-     * dispatch(loginAsync({ username, password }));
-     * history.push('/'); */
+    const { username, password, email } = data;
+    http.createUser({
+      username,
+      password,
+      email,
+    }).then(response => {
+      if (response.status === 201) {
+        dispatch(flashMessage(`${username} registered`));
+      } else {
+        dispatch(flashMessage(`error: ${response.status}` +
+                              'username already taken'))
+      }
+    });
   }
 
   return (
@@ -30,6 +44,13 @@ export function RegistrationForm(props: any) {
           />
         </label>
         {errors.password && <span>↑ Password required.</span>}
+        <label>
+          Email:
+          <input name="email"
+                 type="email"
+                 ref={register()}
+          />
+        </label>
         <input type="submit" className="submit-button" value="Submit" />
       </form>
     </div>
