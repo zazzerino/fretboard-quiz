@@ -28,16 +28,20 @@ def setup_backend():
 
     venv_pip = os.path.join(backend_dir, 'env', 'bin', 'pip')
     venv_flask = os.path.join(backend_dir, 'env', 'bin', 'flask')
-    venv_python = os.path.join(backend_dir, 'env', 'bin', 'python3')
+    # venv_python = os.path.join(backend_dir, 'env', 'bin', 'python3')
 
     print('installing requirements')
     subprocess.run([venv_pip, 'install', '-r', 'requirements.txt'])
-    subprocess.run([venv_python, '-m', 'spacy', 'download', 'en_core_web_sm'])
 
     db_path = os.path.join(backend_dir, 'instance', db_name)
     if not os.path.exists(db_path):
         print('creating db')
-        subprocess.run([venv_flask, 'init-db'])
+        subprocess.run([venv_flask, 'db', 'init'])
+        subprocess.run([venv_flask, 'db', 'migrate'])
+        subprocess.run([venv_flask, 'db', 'upgrade'])
+
+    # subprocess.run(['chown', '-R', owner_and_group, site_path])
+    # subprocess.run(['chmod', '-R', '755', site_path])
 
     print('backend complete')
 
@@ -112,11 +116,10 @@ def setup_nginx():
     sites_enabled_path = os.path.join(nginx_dir, 'sites-enabled')
 
     print(f'linking {url} at {sites_available_path}')
-    os.chdir(sites_available_path)
     subprocess.run(['rm', url])
     subprocess.run(['ln', '-s', os.path.join(root_dir, url)])
 
-    print(f'linking {url} at {sites_enabled_path}')
+    print(f'linking {sites_available_path} at {sites_enabled_path}')
     os.chdir(sites_enabled_path)
     subprocess.run(['rm', url])
     subprocess.run(['ln', '-s', os.path.join(sites_available_path, url)])
