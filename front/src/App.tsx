@@ -11,6 +11,7 @@ import { RoundOverModal } from './components/RoundOverModal';
 import { LoginForm } from './components/LoginForm';
 import { Username } from './components/Username';
 import { FlashMessage } from './components/FlashMessage';
+import { RegistrationForm } from './components/RegistrationForm';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,9 @@ export default function App() {
         </Route>
         <Route path="/login">
           <LoginForm />
+        </Route>
+        <Route path="/register">
+          <RegistrationForm />
         </Route>
         <Route path="/scores">
           <Leaderboard />
