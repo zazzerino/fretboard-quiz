@@ -40,8 +40,8 @@ def setup_backend():
         subprocess.run([venv_flask, 'db', 'migrate'])
         subprocess.run([venv_flask, 'db', 'upgrade'])
 
-    # subprocess.run(['chown', '-R', owner_and_group, site_path])
-    # subprocess.run(['chmod', '-R', '755', site_path])
+    subprocess.run(['chown', '-R', owner_and_group, backend_dir])
+    subprocess.run(['chmod', '-R', '755', backend_dir])
 
     print('backend complete')
 
@@ -135,10 +135,10 @@ def setup_nginx():
 
 def main():
     setup_backend()
-    # setup_frontend()
-    # move_files()
-    # setup_systemd_service()
-    # setup_nginx()
+    setup_frontend()
+    move_files()
+    setup_systemd_service()
+    setup_nginx()
 
 
 if __name__ == '__main__':
