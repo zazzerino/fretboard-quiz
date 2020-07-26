@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { loginAsync } from '../actions';
 
 export function LoginForm(props: any) {
@@ -37,6 +37,9 @@ export function LoginForm(props: any) {
         {errors.password && <span>↑ Password required.</span>}
         <input type="submit" className="submit-button" value="Submit" />
       </form>
+      <Link to="/register" className="link">
+        No account? Click here to register.
+      </Link>
     </div>
   );
 }

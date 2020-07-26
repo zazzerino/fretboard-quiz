@@ -125,8 +125,12 @@ export function loginAsync({ username, password }) {
     return http.getToken({ username, password })
       .then(data => {
         const { token, username } = data;
-        dispatch(flashMessage(`logged in as ${username}`))
-        dispatch(login({ token, username }));
+        if (token != null && username != null) {
+          dispatch(flashMessage(`logged in as ${username}`))
+          dispatch(login({ token, username }));
+        } else {
+          dispatch(flashMessage('incorrect username or password'));
+        }
       })
       .catch(error => dispatch(flashMessage(`error: ${error}`)));
   }

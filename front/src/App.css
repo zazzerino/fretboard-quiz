@@ -146,6 +146,11 @@
     margin-top: 1em;
 }
 
+.LoginForm .link {
+    display: block;
+    margin-top: 2em;
+}
+
 .Username {
     position: fixed;
     bottom: 1em;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../types';
-import { logout } from '../actions';
+import { logout, flashMessage } from '../actions';
 
 export function Navbar(props: any) {
   const dispatch = useDispatch();
@@ -22,17 +22,20 @@ export function Navbar(props: any) {
             <Link to="/scores">Scores</Link>
           </li>
           {
-            (token == null
-            &&
-             <li>
-               <Link to="/login">Login</Link>
-             </li>)
-            ||
-            <li>
-              <Link to="/logout" onClick={() => dispatch(logout())}>
-                Logout
-              </Link>
-            </li>
+          (token == null
+          &&
+          <li>
+            <Link to="/login">Login</Link>
+          </li>)
+          ||
+          <li>
+            <Link to="/logout" onClick={() => {
+              dispatch(logout());
+              dispatch(flashMessage('logged out'))
+            }}>
+            Logout
+            </Link>
+          </li>
           }
         </ul>
       </nav>
