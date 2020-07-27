@@ -46,11 +46,11 @@ def get_token():
 def validate_token():
     token = request.json['token']
     user = User.check_token(token)
-    valid = "true" if user else "false"
+    is_valid = "true" if user else "false"
     status = 200 if user else 403
     name = user.name if user else None
     response = {
-        'valid': valid,
+        'is_valid': is_valid,
         'token': token,
         'name': name
     }
@@ -63,4 +63,13 @@ def validate_token():
 def revoke_token():
     token_auth.current_user().revoke_token()
     db.session.commit()
-    return make_response('', 204)
+    return '', 204
+
+
+@auth_bp.route('/test', methods=['GET'])
+@token_auth.login_required
+def test():
+    if (json := request.json):
+        token = json['token']
+        return {'token': token}, 200
+    return {'token': None}, 400
