@@ -146,6 +146,16 @@ export function logout(): LogoutAction {
   }
 }
 
+export function logoutAsync({ token }) {
+  return async function(dispatch) {
+    http.revokeToken({ token })
+      .then(response => {
+        console.log(response);
+        dispatch(logout());
+      })
+  }
+}
+
 export interface LoadScoresAction {
   type: ActionType.LOAD_SCORES,
   scores: Score[],

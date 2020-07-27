@@ -10,26 +10,22 @@ export async function getScores() {
     .catch(error => console.log(error));
 }
 
-export async function submitScore({ score, name, token }) {
-  return fetch('/api/score/create', {
+export async function createUser({ name, password, email }) {
+  return fetch('/api/user/create', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ score, name }),
-  }).then(response => response.status === 201)
-    .catch(error => console.log(error));
+    body: JSON.stringify({ name, password, email })
+  })
 }
 
 export async function getToken({ name, password }) {
-  // name = name == null ? 'anon' : name;
   return fetch('/api/token/get', {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
       'Authorization': 'Basic ' + encode(name + ':' + password),
     },
   }).then(response => {
@@ -41,24 +37,36 @@ export async function getToken({ name, password }) {
   }).catch(error => console.log(error));
 }
 
-export async function validateToken({ token }) {
-  return fetch('/api/token/validate', {
-    method: 'POST',
+export async function revokeToken({ token }) {
+  return fetch('/api/token/revoke', {
+    method: 'DELETE',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token })
-  }).then(response => response.json());
+      'Authorization': 'Bearer ' + token,
+    }
+  })
 }
 
-export async function createUser({ name, password, email }) {
-  return fetch('/api/user/create', {
+// export async function validateToken({ token }) {
+//   return fetch('/api/token/validate', {
+//     method: 'POST',
+//     mode: 'cors',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ token })
+//   }).then(response => response.json());
+// }
+
+export async function submitScore({ score, name, token }) {
+  return fetch('/api/score/create', {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token,
     },
-    body: JSON.stringify({ name, password, email })
-  })
+    body: JSON.stringify({ score, name }),
+  }).then(response => response.status === 201)
+    .catch(error => console.log(error));
 }
