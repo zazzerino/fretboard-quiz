@@ -31,3 +31,5 @@ back/dist/
 back/fretboard_quiz.egg-info/
 
 .log
+
+*sqlite
