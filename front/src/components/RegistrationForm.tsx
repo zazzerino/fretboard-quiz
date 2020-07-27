@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import * as http from '../http';
 import { useDispatch } from 'react-redux';
 import { flashMessage } from '../actions';
+import { useHistory } from 'react-router-dom';
 
 export function RegistrationForm(props: any) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data: any) => {
@@ -16,6 +18,7 @@ export function RegistrationForm(props: any) {
       email,
     }).then(response => {
       if (response.status === 201) {
+        history.push('/login');
         dispatch(flashMessage(`${name} registered`));
       } else {
         dispatch(flashMessage(`error: ${response.status}` +

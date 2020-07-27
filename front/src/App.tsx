@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import { useDispatch  } from 'react-redux';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { SettingsMenu } from './components/SettingsMenu';
@@ -12,17 +11,9 @@ import { LoginForm } from './components/LoginForm';
 import { Username } from './components/Username';
 import { FlashMessage } from './components/FlashMessage';
 import { RegistrationForm } from './components/RegistrationForm';
-import { hideFlash } from './actions';
 
 export default function App() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  useEffect(() => {
-    history.listen((location) => {
-      dispatch(hideFlash());
-    });
-
+  /* useEffect(() => { */
     // function handleKeyPress(event: KeyboardEvent) {
     //   if (guessStatus != null) {
     //     dispatch(newNoteToGuess(noteOpts));
@@ -37,7 +28,7 @@ export default function App() {
     //   window.removeEventListener('keypress', handleKeyPress);
     //   unlisten();
     // }
-  });
+    /* }); */
 
   return (
     <div className="App">
