@@ -8,7 +8,7 @@ import { findFret } from '../theory';
 const correctColor = 'lime';
 const incorrectColor = 'deeppink';
 
-export function Fretboard(props: any) {
+export function Fretboard() {
   const fretboardElem = React.useRef(null);
   const dispatch = useDispatch();
   const noteToGuess = useSelector((state: AppState) => state.quiz.noteToGuess);
@@ -44,7 +44,7 @@ export function Fretboard(props: any) {
         }
       }
     });
-  });
+  }, [clickedFret, guessStatus]);
 
   return (
     <div className="Fretboard">
