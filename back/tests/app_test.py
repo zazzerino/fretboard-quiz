@@ -7,6 +7,10 @@ from fretboard_quiz import app
 from app import db
 
 
+name = 'bob'
+password = 'hunter2'
+
+
 @pytest.fixture
 def client():
     temp_db, test_db_pathname = tempfile.mkstemp()
@@ -23,6 +27,16 @@ def client():
     os.unlink(test_db_pathname)
 
 
+def create_user(client, name=name, password=password):
+    response = client.post('/api/user/create',
+                           content_type='application/json',
+                           data=json.dumps(dict(
+                               name=name,
+                               password=password
+                           )))
+    return response
+
+
 def test_index(client):
     response = client.get('/')
     assert response.status_code == 404
@@ -33,23 +47,13 @@ def test_user(client):
     assert response.status_code == 400
     assert response.data == b'must provide valid json'
 
-    response = client.post('/api/user/create',
-                           content_type='application/json',
-                           data=json.dumps(dict(
-                               name='bob',
-                               password='hunter2'
-                           )))
+    response = create_user(client)
     data = response.get_json()
     assert response.status_code == 201
     assert data['user']['name'] == 'bob'
     assert data['user']['email'] is None
 
-    response = client.post('/api/user/create',
-                           content_type='application/json',
-                           data=json.dumps(dict(
-                               name='bob',
-                               password='hunter2'
-                           )))
+    response = create_user(client)
     assert response.status_code == 400
     assert response.data == b'username already taken'
 
@@ -68,12 +72,7 @@ def test_auth(client):
     name = 'bob'
     password = 'hunter2'
 
-    response = client.post('/api/user/create',
-                           content_type='application/json',
-                           data=json.dumps({
-                               'name': name,
-                               'password': password
-                           }))
+    response = create_user(client)
     data = response.get_json()
     assert response.status_code == 201
 
@@ -107,11 +106,7 @@ def test_auth(client):
                            data=json.dumps({
                                'token': 'wrong' + token
                            }))
-    assert response.status_code == 403
-
-    response = client.get('/api/token/test',
-                          headers={'Authorization': f'Bearer {token}'})
-    assert response.status_code == 400
+    assert response.status_code == 401
 
     response = client.delete('/api/token/revoke',
                              headers={'Authorization': f'Bearer {token}'},
@@ -121,6 +116,14 @@ def test_auth(client):
                              }))
     assert response.status_code == 204
 
+    response = client.post('/api/token/validate',
+                           content_type='application/json',
+                           data=json.dumps({
+                               'token': token
+                           }))
+    print(response)
+    assert response.status_code == 401
+
     response = client.delete('/api/token/revoke',
                              headers={'Authorization': 'Bearer wrongtoken'},
                              content_type='application/json',
@@ -128,3 +131,35 @@ def test_auth(client):
                                  'token': token
                              }))
     assert response.status_code == 401
+
+
+def test_score(client):
+    create_user(client)
+
+    response = client.post('/api/score/create',
+                           content_type='application/json',
+                           data=json.dumps({
+                               'name': name,
+                               'score': '4'
+                           }))
+    assert response.status_code == 201
+
+    response = client.post('/api/score/create',
+                           content_type='application/json',
+                           data=json.dumps({
+                               'score': '9000'
+                           }))
+    assert response.data == b'user not found'
+
+    create_user(client, 'anon', 'anonpwd')
+    response = client.post('/api/score/create',
+                           content_type='application/json',
+                           data=json.dumps({
+                               'score': '9000'
+                           }))
+    assert response.status_code == 201
+
+    response = client.get('/api/score/all')
+    data = response.get_json()
+    assert response.status_code == 200
+    assert len(data['scores']) == 2

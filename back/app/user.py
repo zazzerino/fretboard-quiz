@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from app import db
 from app.models import User
 
@@ -32,4 +32,4 @@ def create():
 @user_bp.route('/<name>')
 def user(name):
     user = User.query.filter_by(name=name).first()
-    return jsonify(user=user.to_dict())
+    return {'user': user.to_dict()}, 200

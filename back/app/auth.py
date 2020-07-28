@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, jsonify, request
+from flask import Blueprint, request
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from app import db
 from app.models import User
@@ -19,7 +19,7 @@ def verify_password(name, password):
 
 @basic_auth.error_handler
 def error_handler(status):
-    return make_response('basic auth error', 401)
+    return 'basic auth error', 401
 
 
 @token_auth.verify_token
@@ -29,7 +29,7 @@ def verify_token(token):
 
 @token_auth.error_handler
 def token_auth_error(status):
-    return make_response({'error': 'token auth error'}, 401)
+    return {'error': 'token auth error'}, 401
 
 
 @auth_bp.route('/get', methods=['POST'])
@@ -38,8 +38,8 @@ def get_token():
     user = basic_auth.current_user()
     token = user.get_token()
     db.session.commit()
-    return jsonify({'token': token,
-                    'name': user.name})
+    return {'token': token,
+            'name': user.name}
 
 
 @auth_bp.route('/validate', methods=['POST'])
@@ -47,7 +47,7 @@ def validate_token():
     token = request.json['token']
     user = User.check_token(token)
     is_valid = "true" if user else "false"
-    status = 200 if user else 403
+    status = 200 if user else 401
     name = user.name if user else None
     response = {
         'is_valid': is_valid,
@@ -55,7 +55,7 @@ def validate_token():
         'name': name
     }
 
-    return jsonify(response), status
+    return response, status
 
 
 @auth_bp.route('/revoke', methods=['DELETE'])
@@ -64,12 +64,3 @@ def revoke_token():
     token_auth.current_user().revoke_token()
     db.session.commit()
     return '', 204
-
-
-@auth_bp.route('/test', methods=['GET'])
-@token_auth.login_required
-def test():
-    if (json := request.json):
-        token = json['token']
-        return {'token': token}, 200
-    return {'token': None}, 400

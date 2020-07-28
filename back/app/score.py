@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request
 from app import db
 from app.models import User, Score
 
@@ -13,20 +13,17 @@ def all():
     scores = []
     for q in query:
         scores.append(q.to_dict())
-    return jsonify(scores=scores)
+    return {'scores': scores}, 200
 
 
 @score_bp.route('/create', methods=['POST'])
 def create_score():
     content = request.json
-    name = content['name'] or 'anon'
+    name = content.get('name', 'anon')
     value = int(content['score'])
-
-    user = User.query.filter_by(name=name).first()
-    if user is not None:
+    if (user := User.query.filter_by(name=name).first()):
         score = Score(value=value, user=user)
         db.session.add(score)
         db.session.commit()
-        return make_response('created', 201)
-    else:
-        return make_response('user not found', 401)
+        return {'score': score.to_dict()}, 201
+    return 'user not found', 400

@@ -37,11 +37,13 @@ class User(db.Model):
         return self.token
 
     def revoke_token(self):
-        self.token_expiration = datetime.now(timezone.utc)
+        now = datetime.now(timezone.utc)
+        self.token_expiration = now - timedelta(seconds=1)
 
     def to_dict(self):
         scores = [s.to_dict() for s in self.scores]
-        return {'name': self.name,
+        return {'id': self.id,
+                'name': self.name,
                 'email': self.email,
                 'scores': scores}
 
@@ -56,7 +58,8 @@ class Score(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def to_dict(self):
-        return {'name': self.user.name,
+        return {'id': self.id,
+                'name': self.user.name,
                 'value': self.value,
                 'timestamp': self.timestamp.strftime('%b %d %Y %H:%M')}
 
