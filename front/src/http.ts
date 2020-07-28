@@ -59,8 +59,8 @@ export async function revokeToken({ token }) {
 // }
 
 export async function submitScore({ score, name }) {
-  const body = name != null ? JSON.stringify({ score, name })
-    : JSON.stringify({ score });
+  const body = name != null ?
+    JSON.stringify({ score, name }) : JSON.stringify({ score });
 
   return fetch('/api/score/create', {
     method: 'POST',
@@ -69,6 +69,6 @@ export async function submitScore({ score, name }) {
       'Content-Type': 'application/json',
     },
     body,
-  }).then(response => response.status === 201)
+  }).then(response => response.json())
     .catch(error => console.log(error));
 }

@@ -5,12 +5,22 @@ import { Score, AppState } from '../types';
 interface ScoreDisplayOpts {
   score: Score,
   key: number,
-  index: number
+  index: number,
+  id: number,
 }
 
 function ScoreDisplay(props: ScoreDisplayOpts) {
+  const submittedId = useSelector((state: AppState) => {
+    return state.scores.submittedId;
+  });
+
+  let className = 'ScoreDisplay';
+  if (submittedId === props.score.id) {
+    className += ' active';
+  }
+
   return (
-    <tr id={props.score.id.toString()}>
+    <tr id={props.score.id.toString()} className={className}>
       <td>{props.index}</td>
       <td>{props.score.name}</td>
       <td>{props.score.value}</td>
@@ -36,11 +46,12 @@ export function Leaderboard(props: any) {
         </thead>
         <tbody>
           {
-            scores.map((score: Score, index: number) => {
+            scores.history.map((score: Score, index: number) => {
               return <ScoreDisplay
                        key={index}
                        index={index + 1}
                        score={score}
+                       id={score.id}
               />;
             })
           }

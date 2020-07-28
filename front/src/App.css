@@ -147,3 +147,7 @@
     font-size-adjust: 1.2;
     color: deeppink;
 }
+
+.ScoreDisplay.active {
+    background-color: yellow;
+}

@@ -1,5 +1,5 @@
 import { Action, ActionType } from './actions';
-import { AppState, User, Quiz, Score, NoteOpts } from './types';
+import { AppState, User, Quiz, Score, NoteOpts, Scores } from './types';
 import { defaultNoteOpts } from './theory';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';
@@ -21,18 +21,21 @@ const initialState: AppState = {
     name: null,
     token: null,
   },
-  scores: [],
-  flashMessage: 'a flash message',
-  // flashMessage: null,
+  scores: {
+    history: [],
+    submittedId: null,
+  },
+  flashMessage: null,
 }
 
-export function scores(state = initialState.scores, action: Action): Score[] {
+export function scores(state = initialState.scores,
+                       action: Action): Scores {
   switch (action.type) {
     case ActionType.LOAD_SCORES:
-      return action.scores;
+      return { ...state, history: action.scores };
 
     case ActionType.SUBMIT_SCORE:
-      return state;
+      return { ...state, submittedId: action.id };
 
     default:
       return state;

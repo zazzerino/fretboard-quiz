@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
 import { loadScoresAsync } from './actions';
+/* import * as http from './http'; */
+
+/* http.submitScore({ name: 'bob', score: 4 })
+ *     .then(data => console.log(data)); */
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
                       || compose;

@@ -33,6 +33,11 @@ export interface Score {
   timestamp: string,
 }
 
+export interface Scores {
+  history: Score[],
+  submittedId: number,
+}
+
 export interface User {
   name: string,
   token: string,
@@ -54,6 +59,6 @@ export interface AppState {
   noteOpts: NoteOpts,
   quiz: Quiz,
   user: User,
-  scores: Score[],
+  scores: Scores,
   flashMessage: string,
 }

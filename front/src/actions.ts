@@ -179,20 +179,24 @@ export interface SubmitScoreAction {
   type: ActionType.SUBMIT_SCORE,
   score: number,
   name: string,
+  id: number
 }
 
-export function submitScore({ score, name }): SubmitScoreAction {
+export function submitScore({ score, name, id }): SubmitScoreAction {
   return {
     type: ActionType.SUBMIT_SCORE,
     score,
     name,
+    id,
   }
 }
 
 export function submitScoreAsync({ score, name }) {
   return async function(dispatch) {
     http.submitScore({ score, name })
-      .then(() => dispatch(submitScore({ score, name })))
+      .then(data => {
+        dispatch(submitScore({ score, name, id: data.score.id }));
+      });
   }
 }
 
