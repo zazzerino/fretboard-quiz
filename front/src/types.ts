@@ -27,6 +27,7 @@ export interface NoteOpts {
 }
 
 export interface Score {
+  id: number,
   name: string,
   value: number,
   timestamp: string,

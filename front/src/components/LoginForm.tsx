@@ -38,7 +38,7 @@ export function LoginForm(props: any) {
         <input type="submit" className="submit-button" value="Submit" />
       </form>
       <Link to="/register" className="link">
-        No account? Click here to register.
+        No account? Click here to register
       </Link>
     </div>
   );

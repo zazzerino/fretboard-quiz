@@ -40,6 +40,13 @@ export function RegistrationForm(props: any) {
         </label>
         {errors.username && <span>↑ Username required.</span>}
         <label>
+          Email (not required):
+          <input name="email"
+                 type="email"
+                 ref={register()}
+          />
+        </label>
+        <label>
           Password:
           <input name="password"
                  type="password"
@@ -47,13 +54,6 @@ export function RegistrationForm(props: any) {
           />
         </label>
         {errors.password && <span>↑ Password required.</span>}
-        <label>
-          Email:
-          <input name="email"
-                 type="email"
-                 ref={register()}
-          />
-        </label>
         <input type="submit" className="submit-button" value="Submit" />
       </form>
     </div>

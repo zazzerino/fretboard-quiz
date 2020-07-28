@@ -5,7 +5,7 @@ export async function getScores() {
     .then(res => res.json())
     .then(data => data.scores)
     .then(scores => scores.sort((a, b) => {
-      return parseInt(a.value) < parseInt(b.value) ? 1: -1;
+      return parseInt(a.value) < parseInt(b.value) ? 1 : -1;
     }))
     .catch(error => console.log(error));
 }
@@ -58,14 +58,10 @@ export async function revokeToken({ token }) {
 //   }).then(response => response.json());
 // }
 
-export async function submitScore({ score, name, token }) {
+export async function submitScore({ score, name }) {
   return fetch('/api/score/create', {
     method: 'POST',
     mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-    },
     body: JSON.stringify({ score, name }),
   }).then(response => response.status === 201)
     .catch(error => console.log(error));

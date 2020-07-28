@@ -44,7 +44,7 @@ export function Fretboard() {
         }
       }
     });
-  }, [clickedFret, guessStatus]);
+  }, [dispatch, clickedFret, guessStatus, noteToGuess]);
 
   return (
     <div className="Fretboard">

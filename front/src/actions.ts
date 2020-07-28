@@ -178,23 +178,21 @@ export function loadScoresAsync() {
 export interface SubmitScoreAction {
   type: ActionType.SUBMIT_SCORE,
   score: number,
-  token: string,
   name: string,
 }
 
-export function submitScore({ score, name, token }): SubmitScoreAction {
+export function submitScore({ score, name }): SubmitScoreAction {
   return {
     type: ActionType.SUBMIT_SCORE,
     score,
-    token,
     name,
   }
 }
 
-export function submitScoreAsync({ score, name, token }) {
+export function submitScoreAsync({ score, name }) {
   return async function(dispatch) {
-    http.submitScore({ score, name, token })
-      .then(() => dispatch(submitScore({ score, name, token })))
+    http.submitScore({ score, name })
+      .then(() => dispatch(submitScore({ score, name })))
   }
 }
 

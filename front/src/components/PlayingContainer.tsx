@@ -21,7 +21,7 @@ export function PlayingContainer(props: any) {
     if (noteToGuess == null) {
       dispatch(newNoteToGuess(noteOpts));
     }
-  }, [noteToGuess]);
+  }, [dispatch, noteToGuess, noteOpts]);
 
   useInterval(() => {
     dispatch(tick());

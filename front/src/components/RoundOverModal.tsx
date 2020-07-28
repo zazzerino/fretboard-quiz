@@ -10,7 +10,7 @@ export function RoundOverModal() {
   const history = useHistory();
   const dispatch = useDispatch();
   const scoreHistory = useSelector((state: AppState) => state.quiz.history);
-  const { token, name } = useSelector((state: AppState) => state.user);
+  const { name } = useSelector((state: AppState) => state.user);
 
   const correct = scoreHistory.filter((guess: Guess) => {
     return guess.guessStatus === 'correct';
@@ -24,7 +24,7 @@ export function RoundOverModal() {
 
   const onClick = () => {
     setSubmitting(true);
-    dispatch(submitScoreAsync({ token, name, score }));
+    dispatch(submitScoreAsync({ name, score }));
 
     setTimeout(() => {
       dispatch(loadScoresAsync());

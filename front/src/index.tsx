@@ -9,7 +9,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
 import { loadScoresAsync } from './actions';
-import * as http from './http';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 store.subscribe(() => console.log(store.getState()));

@@ -14,8 +14,8 @@ export function FlashMessage() {
   React.useEffect(() => {
     setTimeout(() => {
       dispatch(hideFlash());
-    }, 4000);
-  }, [message]);
+    }, 2000);
+  }, [dispatch, message]);
 
   return (
     <div className="FlashMessage" onClick={onClick}>

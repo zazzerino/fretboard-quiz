@@ -121,7 +121,6 @@ def test_auth(client):
                            data=json.dumps({
                                'token': token
                            }))
-    print(response)
     assert response.status_code == 401
 
     response = client.delete('/api/token/revoke',
@@ -147,9 +146,10 @@ def test_score(client):
     response = client.post('/api/score/create',
                            content_type='application/json',
                            data=json.dumps({
-                               'score': '9000'
+                               'score': '4'
                            }))
-    assert response.data == b'user not found'
+    print(response)
+    assert response.status_code == 400
 
     create_user(client, 'anon', 'anonpwd')
     response = client.post('/api/score/create',

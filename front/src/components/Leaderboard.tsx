@@ -10,7 +10,7 @@ interface ScoreDisplayOpts {
 
 function ScoreDisplay(props: ScoreDisplayOpts) {
   return (
-    <tr>
+    <tr id={props.score.id.toString()}>
       <td>{props.index}</td>
       <td>{props.score.name}</td>
       <td>{props.score.value}</td>
