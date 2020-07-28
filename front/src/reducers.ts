@@ -22,7 +22,8 @@ const initialState: AppState = {
     token: null,
   },
   scores: [],
-  flashMessage: null,
+  flashMessage: 'a flash message',
+  // flashMessage: null,
 }
 
 export function scores(state = initialState.scores, action: Action): Score[] {

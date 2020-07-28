@@ -157,6 +157,7 @@ def test_score(client):
                                'score': '9000'
                            }))
     assert response.status_code == 201
+    print(response.json)
 
     response = client.get('/api/score/all')
     data = response.get_json()

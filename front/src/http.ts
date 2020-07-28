@@ -59,10 +59,16 @@ export async function revokeToken({ token }) {
 // }
 
 export async function submitScore({ score, name }) {
+  const body = name != null ? JSON.stringify({ score, name })
+    : JSON.stringify({ score });
+
   return fetch('/api/score/create', {
     method: 'POST',
     mode: 'cors',
-    body: JSON.stringify({ score, name }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body,
   }).then(response => response.status === 201)
     .catch(error => console.log(error));
 }
