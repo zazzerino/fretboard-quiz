@@ -77,9 +77,9 @@ def move_files():
     subprocess.run(['cp', '-r', build_dir,
                     os.path.join(site_path, 'fretboard-quiz')])
 
-    print('setting owner and permissions')
-    subprocess.run(['chown', '-R', owner_and_group, site_path])
-    subprocess.run(['chmod', '-R', '755', site_path])
+    # print('setting owner and permissions')
+    # subprocess.run(['chown', '-R', owner_and_group, site_path])
+    # subprocess.run(['chmod', '-R', '755', site_path])
 
     print('files moved')
 

@@ -148,7 +148,6 @@ def test_score(client):
                            data=json.dumps({
                                'score': '4'
                            }))
-    print(response)
     assert response.status_code == 400
 
     create_user(client, 'anon', 'anonpwd')
