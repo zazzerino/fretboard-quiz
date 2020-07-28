@@ -12,10 +12,14 @@ export function FlashMessage() {
   }
 
   React.useEffect(() => {
-    setTimeout(() => {
-      dispatch(hideFlash());
-    }, 2000);
-  }, [dispatch, message]);
+    if (message != null) {
+      const timeout = setTimeout(() => {
+        dispatch(hideFlash());
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  });
 
   return (
     <div className="FlashMessage" onClick={onClick}>

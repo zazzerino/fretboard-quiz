@@ -3,25 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { rootReducer } from './reducers';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import thunkMiddleware from 'redux-thunk';
 import { loadScoresAsync } from './actions';
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-store.subscribe(() => console.log(store.getState()));
-/* console.log(store.getState()); */
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+                      || compose;
+
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunkMiddleware)
+));
+
+/* const store = createStore(
+ *   rootReducer,
+ *   applyMiddleware(thunkMiddleware)
+ * ); */
+
 // @ts-ignore
 store.dispatch(loadScoresAsync());
-// @ts-ignore
-/* store.dispatch(loginAsync({ username: 'bob', password: 'pwd' })); */
-/* http.createUser({
- *   username: 'otto',
- *   password: 'pwd',
- *   email: 'otto@aol.com',
- * }).then(response => console.log(response)) */
 
 ReactDOM.render(
   <Provider store={store}>
