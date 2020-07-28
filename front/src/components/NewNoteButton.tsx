@@ -9,6 +9,9 @@ export const NewNoteButton = props => {
   const clickable = useSelector((state: AppState) => {
     return state.quiz.guessStatus != null;
   });
+  const previousNote = useSelector((state: AppState) => {
+    return state.quiz.noteToGuess;
+  })
 
   let className = "NewNoteButton";
   if (clickable) {
@@ -19,7 +22,7 @@ export const NewNoteButton = props => {
     <button className={className}
             onClick={() => {
               if (clickable) {
-                dispatch(newNoteToGuess(noteOpts));
+                dispatch(newNoteToGuess(noteOpts, previousNote));
               }
             }}
     >

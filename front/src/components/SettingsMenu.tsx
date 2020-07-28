@@ -9,8 +9,11 @@ import { Username } from './Username';
 
 export function SettingsMenu(props: any) {
   const dispatch = useDispatch();
-  const noteOpts = useSelector((app: AppState) => app.noteOpts)
+  const noteOpts = useSelector((state: AppState) => state.noteOpts)
   const history = useHistory();
+  const previousNote = useSelector((state: AppState) => {
+    return state.quiz.noteToGuess;
+  });
 
   return (
     <div className="SettingsMenu">
@@ -19,7 +22,7 @@ export function SettingsMenu(props: any) {
       <AccidentalSelect />
       <button onClick={() => {
         dispatch(reset());
-        dispatch(newNoteToGuess(noteOpts));
+        dispatch(newNoteToGuess(noteOpts, previousNote));
         history.push('/play');
       }}>
         Start

@@ -1,5 +1,5 @@
 import { Action, ActionType } from './actions';
-import { AppState, User, Quiz, Score, NoteOpts, Scores } from './types';
+import { AppState, User, Quiz, NoteOpts, Scores } from './types';
 import { defaultNoteOpts } from './theory';
 import { toggleElement } from './util';
 import { combineReducers } from 'redux';

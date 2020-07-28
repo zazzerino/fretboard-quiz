@@ -19,7 +19,7 @@ export function PlayingContainer(props: any) {
 
   React.useEffect(() => {
     if (noteToGuess == null) {
-      dispatch(newNoteToGuess(noteOpts));
+      dispatch(newNoteToGuess(noteOpts, noteToGuess));
     }
   }, [dispatch, noteToGuess, noteOpts]);
 

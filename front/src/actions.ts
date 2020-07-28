@@ -36,8 +36,12 @@ export interface NewNoteToGuessAction {
   note: string
 }
 
-export function newNoteToGuess(opts: NoteOpts): NewNoteToGuessAction {
-  const note = randomNoteOnStrings(opts);
+export function newNoteToGuess(opts: NoteOpts,
+                               previousNote: string): NewNoteToGuessAction {
+  let note: string;
+  do {
+    note = randomNoteOnStrings(opts);
+  } while (note === previousNote);
 
   return {
     type: ActionType.NEW_NOTE_TO_GUESS,
@@ -150,7 +154,6 @@ export function logoutAsync({ token }) {
   return async function(dispatch) {
     http.revokeToken({ token })
       .then(response => {
-        console.log(response);
         dispatch(logout());
       })
   }

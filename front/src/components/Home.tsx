@@ -6,8 +6,11 @@ import { useHistory } from 'react-router-dom';
 
 export function Home(props: any) {
   const dispatch = useDispatch();
-  const noteOpts = useSelector((app: AppState) => app.noteOpts);
+  const noteOpts = useSelector((state: AppState) => state.noteOpts);
   const history = useHistory();
+  const previousNote = useSelector((state: AppState) => {
+    return state.quiz.noteToGuess;
+  });
 
   return (
     <div className="Home">
@@ -20,7 +23,7 @@ export function Home(props: any) {
       </ol>
       <button onClick={() => {
         dispatch(reset());
-        dispatch(newNoteToGuess(noteOpts));
+        dispatch(newNoteToGuess(noteOpts, previousNote));
         history.push('/settings');
       }}>
         Play

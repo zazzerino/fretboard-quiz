@@ -50,31 +50,33 @@ export const defaultNoteOpts: NoteOpts = {
   startFret: 0,
 }
 
-export function randomNote(userOpts: NoteOpts = {}): string {
+function generateNote(userOpts: NoteOpts = {}): string {
   const opts = { ...defaultNoteOpts, ...userOpts };
 
   const whiteKeys = opts.whiteKeys;
   const accidentals = opts.accidentals;
   const octaves = opts.octaves;
 
+  const whiteKey = randomElement(whiteKeys);
+  const accidental = randomElement(accidentals);
+  const octave = randomElement(octaves);
+
+  return whiteKey + accidental + octave;
+}
+
+export function randomNote(userOpts: NoteOpts = {}): string {
+  const opts = { ...defaultNoteOpts, ...userOpts };
+
   const lowestMidi = midiNum(opts.lowestNote);
   const highestMidi = midiNum(opts.highestNote);
 
-  function generateNote() {
-    const whiteKey = randomElement(whiteKeys);
-    const accidental = randomElement(accidentals);
-    const octave = randomElement(octaves);
+  let note: string;
+  let midi: number;
 
-    return whiteKey + accidental + octave;
-  }
-
-  let note = generateNote();
-  let midi = midiNum(note);
-
-  while (midi < lowestMidi || midi > highestMidi) {
+  do {
     note = generateNote();
     midi = midiNum(note);
-  }
+  } while (midi < lowestMidi || midi > highestMidi);
 
   return note;
 }
@@ -90,10 +92,10 @@ export function randomNoteOnStrings(userOpts: NoteOpts = {}): string {
     }
   }
 
-  let randNote = randomNote(opts);
-  while (!midiNums.includes(midiNum(randNote))) {
+  let randNote: string;
+  do {
     randNote = randomNote(opts);
-  }
+  } while (!midiNums.includes(midiNum(randNote)));
 
   return randNote;
 }
