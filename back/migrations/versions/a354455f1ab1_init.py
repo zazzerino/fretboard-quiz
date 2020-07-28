@@ -1,8 +1,8 @@
-"""empty message
+"""init
 
-Revision ID: 174a0cb00d1c
+Revision ID: a354455f1ab1
 Revises: 
-Create Date: 2020-07-26 17:39:39.084804
+Create Date: 2020-07-28 17:26:17.565813
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '174a0cb00d1c'
+revision = 'a354455f1ab1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,7 +27,7 @@ def upgrade():
     sa.Column('token_expiration', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
+    op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=False)
     op.create_index(op.f('ix_user_name'), 'user', ['name'], unique=True)
     op.create_index(op.f('ix_user_token'), 'user', ['token'], unique=True)
     op.create_table('score',
