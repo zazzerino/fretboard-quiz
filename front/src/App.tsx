@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Home } from './components/Home';
 import { PlayingContainer } from './components/PlayingContainer';
 import { SettingsMenu } from './components/SettingsMenu';
-import { Leaderboard } from './components/Leaderboard';
+import { ScoreBoard } from './components/ScoreBoard';
 import { Navbar } from './components/Navbar';
 import { RoundOverModal } from './components/RoundOverModal';
 import { LoginForm } from './components/LoginForm';
@@ -47,7 +47,7 @@ export default function App() {
           <RegistrationForm />
         </Route>
         <Route path="/scores">
-          <Leaderboard />
+          <ScoreBoard />
         </Route>
         <Route path="/roundover">
           <RoundOverModal />

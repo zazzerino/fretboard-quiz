@@ -1,35 +1,9 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Score, AppState } from '../types';
+import { ScoreDisplay } from './ScoreDisplay';
 
-interface ScoreDisplayOpts {
-  score: Score,
-  key: number,
-  index: number,
-  id: number,
-}
-
-function ScoreDisplay(props: ScoreDisplayOpts) {
-  const submittedId = useSelector((state: AppState) => {
-    return state.scores.submittedId;
-  });
-
-  let className = 'ScoreDisplay';
-  if (submittedId === props.score.id) {
-    className += ' active';
-  }
-
-  return (
-    <tr id={props.score.id.toString()} className={className}>
-      <td>{props.index}</td>
-      <td>{props.score.name}</td>
-      <td>{props.score.value}</td>
-      <td>{props.score.timestamp}</td>
-    </tr>
-  );
-}
-
-export function Leaderboard(props: any) {
+export function ScoreBoard(props: any) {
   const scores = useSelector((state: AppState) => state.scores)
 
   return (
@@ -51,7 +25,6 @@ export function Leaderboard(props: any) {
                        key={index}
                        index={index + 1}
                        score={score}
-                       id={score.id}
               />;
             })
           }
