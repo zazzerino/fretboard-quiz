@@ -1,13 +1,12 @@
 .App {
   text-align: center;
-  font-family: monospace;
 }
 
 .Home {
     text-align: left;
 }
 
-.Home h1 {
+.Home h1, .Home h2 {
     text-align: center;
 }
 

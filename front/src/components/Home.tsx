@@ -15,11 +15,21 @@ export function Home(props: any) {
   return (
     <div className="Home">
       <h1>Fretboard Quiz</h1>
+      <h2>Instructions</h2>
       <ol>
-        <li>Click the 'Play' button.</li>
+        <li>Click the 'Play' button to start.</li>
         <li>Enter the settings you'd like to use and click 'Start'.</li>
-        <li>Click where the note is played on the fretboard.</li>
-        <li>Try to get the highest score.</li>
+        <li>
+          It will show you a note on a staff.
+          Click the fretboard where the note is played.
+        </li>
+        <li>
+          The green dot shows you the correct answer.
+        </li>
+        <li>
+          At the end of the round, you can submit your score
+          (either anonymously or after logging in).
+        </li>
       </ol>
       <button onClick={() => {
         dispatch(reset());
