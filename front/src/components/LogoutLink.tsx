@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { logoutAsync, flashMessage } from '../actions';
 import { AppState } from '../types';
 
-export function LogoutButton() {
+export function LogoutLink() {
   const dispatch = useDispatch();
   const token = useSelector((state: AppState) => state.user.token);
 

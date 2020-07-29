@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppState } from '../types';
-import { LogoutButton } from './LogoutButton';
+import { LogoutLink } from './LogoutLink';
 
 export function Navbar() {
   const token = useSelector((state: AppState) => state.user.token);
@@ -12,7 +12,7 @@ export function Navbar() {
                           <Link to="/login">Login</Link>
                         </li>) :
                         (<li>
-                          <LogoutButton />
+                          <LogoutLink />
                         </li>)
 
   return (
