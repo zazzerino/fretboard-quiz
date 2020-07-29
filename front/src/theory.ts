@@ -74,7 +74,7 @@ export function randomNote(userOpts: NoteOpts = {}): string {
   let midi: number;
 
   do {
-    note = generateNote();
+    note = generateNote(userOpts);
     midi = midiNum(note);
   } while (midi < lowestMidi || midi > highestMidi);
 
