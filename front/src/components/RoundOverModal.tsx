@@ -13,11 +13,11 @@ export function RoundOverModal() {
   const { name } = useSelector((state: AppState) => state.user);
 
   const correct = scoreHistory.filter((guess: Guess) => {
-    return guess.guessStatus === 'correct';
+    return guess.guessStatus === 'CORRECT';
   }).length;
 
   const incorrect = scoreHistory.filter((guess: Guess) => {
-    return guess.guessStatus === 'incorrect';
+    return guess.guessStatus === 'INCORRECT';
   }).length;
 
   const score = correct - incorrect;

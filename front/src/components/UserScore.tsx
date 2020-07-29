@@ -6,11 +6,11 @@ export function UserScore() {
   const history = useSelector((state: AppState) => state.quiz.history);
 
   const correctGuesses = history.filter((guess: Guess) => {
-    return guess.guessStatus === 'correct';
+    return guess.guessStatus === 'CORRECT';
   }).length;
 
   const incorrectGuesses = history.filter((guess: Guess) => {
-    return guess.guessStatus === 'incorrect';
+    return guess.guessStatus === 'INCORRECT';
   }).length;
 
   const totalScore = correctGuesses - incorrectGuesses;

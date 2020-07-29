@@ -58,9 +58,9 @@ export interface FretboardClickAction {
 
 export function fretboardClick({ noteToGuess, coord }): FretboardClickAction {
   const guessStatus = isCorrectGuess(noteToGuess, coord) ?
-    'correct' : 'incorrect';
+    'CORRECT' : 'INCORRECT';
 
-  if (guessStatus === 'correct') {
+  if (guessStatus === 'CORRECT') {
     correctSound.play();
   } else {
     incorrectSound.play();

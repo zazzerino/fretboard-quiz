@@ -15,7 +15,7 @@ const initialState: AppState = {
     clickedFret: null,
     guessStatus: null,
     history: [],
-    status: 'playing',
+    status: 'PLAYING',
   },
   user: {
     name: null,

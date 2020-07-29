@@ -16,7 +16,7 @@ export function Fretboard() {
   const guessStatus = useSelector((state: AppState) => state.quiz.guessStatus);
 
   React.useEffect(() => {
-    const correctGuess = guessStatus === 'correct';
+    const correctGuess = guessStatus === 'CORRECT';
     const isPlaying = guessStatus == null;
     const drawDotOnHover = isPlaying && guessStatus == null;
     const dots = [];

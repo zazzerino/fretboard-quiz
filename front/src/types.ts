@@ -7,7 +7,7 @@ export interface FretboardNote extends FretboardCoord {
   note: string
 }
 
-export type GuessStatus = 'correct' | 'incorrect';
+export type GuessStatus = 'CORRECT' | 'INCORRECT';
 
 export interface Guess {
   clickedFret: FretboardCoord,
@@ -43,7 +43,7 @@ export interface User {
   token: string,
 }
 
-export type QuizStatus = 'playing' | 'roundover';
+export type QuizStatus = 'PLAYING' | 'ROUNDOVER';
 
 export interface Quiz {
   roundLength: number,
