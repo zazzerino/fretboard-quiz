@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppState } from '../types';
 import { LogoutLink } from './LogoutLink';
+import { ScoreLink } from './ScoreLink';
 
 export function Navbar() {
   const token = useSelector((state: AppState) => state.user.token);
@@ -26,7 +27,7 @@ export function Navbar() {
             <Link to="/settings">Play</Link>
           </li>
           <li>
-            <Link to="/scores">Scores</Link>
+            <ScoreLink />
           </li>
           {loginOrLogout}
         </ul>
