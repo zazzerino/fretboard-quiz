@@ -4,8 +4,18 @@ import { UserScore } from './UserScore';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset, submitScoreAsync, loadScoresAsync } from '../actions';
 import { AppState, Guess } from '../types';
+import { exportComponentAsPNG } from 'react-component-export-image';
+
+function currentTime() {
+  const date = new Date().toString();
+  const formatDate = date.split(' ').slice(0, 5).join(' ');
+
+  return formatDate;
+}
 
 export function RoundOverModal() {
+  const roundOverRef = React.useRef();
+  const [time, setTime] = React.useState(currentTime());
   const [submitting, setSubmitting] = React.useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,6 +46,10 @@ export function RoundOverModal() {
     }, 750)
   }
 
+  React.useEffect(() => {
+    setTime(currentTime());
+  }, []);
+
   return (
     <div className="RoundOverModal">
       {
@@ -44,16 +58,24 @@ export function RoundOverModal() {
       <p>Submitting score...</p>
       ) ||
     (
-      <div>
+      <div ref={ roundOverRef }>
         <UserScore />
+        <p> { time } </p>
         <button onClick={onClick}>
           Submit score
-        </button><br />
+        </button>
+        <br />
         <button onClick={() => {
           dispatch(reset());
           history.push('/play');
         }}>
           Play again
+        </button>
+        <br />
+        <button onClick={() => {
+          exportComponentAsPNG(roundOverRef, 'score.png', 'white')
+        }}>
+        Export
         </button>
       </div>
     )

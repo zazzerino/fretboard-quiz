@@ -1,5 +1,6 @@
 import React from 'react';
-import * as Vex from 'vexflow';
+// import * as vex from 'vexflow';
+import Vex from 'vexflow';
 import * as theory from '../theory';
 import { useSelector } from 'react-redux';
 import { AppState } from '../types';
